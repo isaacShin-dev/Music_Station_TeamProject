@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<!-- 문서 유형 : 현재 웹 문서가 어떤 HTML 버전에 맞게 작성되었는지를 알려준다. -->
+
+<!--<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+     DTD 선언문이 HTML 페이지의 가장 첫 라인에 명시되어야 웹 브라우저가 HTML 버전을 인식.
+     HTML태그나 CSS를 해당 버전에 맞도록 처리하므로 웹 표준 준수를 위하여 반드시 명시되어야 한다.-->
+<html lang="ko">
+<head>
+<!-- html5 : 파일의 인코딩 방식 지정 - 한국어 처리를 위한 euc-kr과 다국어 처리를 위한 utf-8로 설정.-->
+<meta charset="utf-8" />
+<!-- html4 : 파일의 인코딩 방식 지정 -->
+<!--<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />-->
+
+<meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1" />
+<!-- 브라우저의 호환성 보기 모드를 막고, 해당 브라우저에서 지원하는 가장 최신 버전의 방식으로 HTML 보여주도록 설정.-->
+
+<meta name="viewport"
+	content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no" />
+<!--viewport : 화면에 보이는 영역을 제어하는 기술. width는 device-width로 설정(브라우저 너비를 장치 너비에 맞추어 표시). initial-scale는 초기비율(보이는 영역과 웹 페이지를 맞춤). user-scalable는 사용자가 화면축소를 하지 못하도록 설정.-->
+
+<!-- 모바일 웹 페이지 설정 -->
+<link rel="shortcut icon" href="../image/icon.png" />
+<link rel="apple-touch-icon" href="../image/icon.png" />
+<!-- 모바일 웹 페이지 설정 끝 -->
+
+<!--[if lt IE 9]>
+		<script src="../js/html5shiv.js"></script>
+		<![endif]-->
+<script type="text/javascript" src="../js/jquery-1.12.4.min.js"></script>
+<script type="text/javascript">
+	$(function() {
+		$("img").each(
+				function() {
+					var nowImg = $(this).find('img'); // hover한 부분의 img 파일 찾기 .
+					var srcName = $(this).attr('src') //hover한 부분의 src 가지고 오기.
+					var src = "url('" + srcName + "')";
+
+					$(this).hover(
+							function() {
+								$("#music_rank").css("background",
+										"url(" + srcName + ")");/* .css("opacity",0.5); */
+							},function(){
+									$("#music_rank").css("background"," #f3f4ed");
+							});
+
+				});
+	});
+</script>
+
+<style type="text/css">
+#body {
+	margin-top: 0px;
+	margin-left: 0;
+	width: 100%;
+	text-align: center;
+	background: #f3f4ff;
+
+	/* background-image: url("../image/wb-back.jpg") ; */
+}
+
+#header { /* 로고가 들어갈 자링 대한 크기설정  */
+	background-color: black;
+	color: white;
+	height: 150px;
+	text-align: center;
+}
+
+#navi { /*카테고리  영역 _ 현재 숨겨놓음. */
+	/* display :  none; */
+	float : left; 
+	padding-top : 200px;
+}
+
+
+p#title_rank {
+	font-weight: bold;
+}
+
+#music_rank { /* 상단 랭킹 div 블럭  */
+	height: 300px;
+	width: 1350px;
+	margin: 0 auto;
+	border: 1px solid black;
+	
+	/* background: #b4a5a5; */
+}
+
+.rank_track {
+	height: 120px;
+	width: 200px;
+	display: inline-block;
+	margin: 0px;
+	margin-right: 20px;
+	margin-top: 15px;
+	box-shadow: 5px 2px 12px;
+	margin-bottom: 140px;
+	
+	
+}
+
+.rank_track .rank_img { /* 앨범 커버 이미지 크기 및 정 */
+	height: 200px;
+	width: 200px;
+	float: left;
+}
+
+.rank_track p {
+	margin: 0;
+	background-color: #f3f4ed;
+	}
+
+.track_nm {
+	font-weight: bold;
+	border-left: 1px solid #bdc7c9;
+	border-right: 1px solid #bdc7c9;
+}
+
+.artist_nm {
+	font-size: 80%;
+	border-bottom: 1px double #bdc7c9;
+
+	border-left: 1px solid #bdc7c9;
+	border-right: 1px solid #bdc7c9;	
+}
+.body_main{
+	display: inline-block;
+	border : 1px solid black ;
+	margin-top : 40px;
+	width : 100%;
+	height: auto;
+	margin-top:30px;
+	
+}
+.body_main figure{
+	width : 200px;
+	height: 200px;
+	float : left; 
+	margin : 0px;
+	margin-left : 30px;
+	margin-right: 30px;
+	margin-top : 50px;
+	border: 1px solid black; 
+
+}
+.track a img{
+	height: 100px;
+	width : 100px;
+	float: left;
+	margin :30px 3px 30px 15px;	
+}
+</style>
+</head>
+<body id="body">
+	<header id="header">main Logo </header>
+
+	<nav id="navi">
+		<ul id="menu">
+			<li><a href="login.html"></a>Login</li>
+			<li><a href="news.html	"></a>News</li>
+			<li><a href="music.html" class="current">Music</a>
+				<ul>
+					<li>Hip-Hop</li>
+					<li>RnB</li>
+					<li>rock</li>
+					<li>ballad</li>
+					<li>electronic</li>
+				</ul></li>
+			<li><a href="board.html"></a>User Board</li>
+		</ul>
+	</nav>
+	<main id="music_rank">
+		<!-- main으로 묶어야 하는가.-->
+		<div id="title_rank">Ranking</div>
+		<!--article?  -->
+		<article class="inner">
+			
+			<figure class="rank_track">
+				<!-- click function() -->							
+				<a href ="music_page01.html" target="blank">
+				<img  alt="" src="../covers/45198cd7d98820ea4dd5bc45169e0fd7.jpg" class ="rank_img">
+				</a>
+				<figcaption>
+					<p class="track_nm">Track_nm</p>
+					<p class="artist_nm">Artist_nm</p>
+				</figcaption>
+			</figure>
+			
+			<figure class="rank_track">
+				<img alt=""
+					src="../covers/5ae27f65511b22280120d4b8ed16974d.960x960x1.jpg" class = "rank_img">
+				<figcaption>
+					<p class="track_nm">Track_nm</p>
+					<p class="artist_nm">Artist_nm</p>
+				</figcaption>
+			</figure>
+			<figure class="rank_track">
+				<img alt="" src="../covers/DaBaby-Blame-It-On-Baby.jpg" class ="rank_img">
+				<figcaption>
+
+					<p class="track_nm">Track_nm</p>
+					<p class="artist_nm">Artist_nm</p>
+				</figcaption>
+			</figure>
+			<figure class="rank_track">
+				<img alt="" src="../covers/JustinBieber_Changes.jpg" class ="rank_img">
+				<figcaption>
+					<p class="track_nm">Track_nm</p>
+					<p class="artist_nm">Artist_nm</p>
+				</figcaption>
+			</figure>
+			<figure class="rank_track">
+				<img alt="" src="../covers/travis-scott-astroworld-cover-art.png" class ="rank_img">
+				<figcaption>
+					<p class="track_nm">Track_nm</p>
+					<p class="artist_nm">Artist_nm</p>
+				</figcaption>
+			</figure>
+		</article>
+		<article class="body_main">
+			<div class ="track">
+				<a href ="music_page01.html" target="blank">
+				<img  alt="" src="../covers/45198cd7d98820ea4dd5bc45169e0fd7.jpg" class ="rank_img">
+				</a>
+				
+			</div>
+		</article>
+	</main>
+</body>
+</html>
+
+
+
+
+
+
+
+

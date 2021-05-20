@@ -1,0 +1,11 @@
+0:0:0:0:0:0:0:1 - - [18/May/2021:15:55:26 +0900] "GET / HTTP/1.1" 200 5334
+0:0:0:0:0:0:0:1 - - [18/May/2021:15:55:26 +0900] "GET /assets/js/ie-emulation-modes-warning.js HTTP/1.1" 404 721
+0:0:0:0:0:0:0:1 - - [18/May/2021:15:55:26 +0900] "GET /assets/js/ie10-viewport-bug-workaround.js HTTP/1.1" 404 721
+0:0:0:0:0:0:0:1 - - [18/May/2021:15:55:26 +0900] "GET /resources/include/dist/css/sticky-footer-navbar.css HTTP/1.1" 304 -
+0:0:0:0:0:0:0:1 - - [18/May/2021:15:55:26 +0900] "GET /resources/include/dist/css/bootstrap-theme.css HTTP/1.1" 304 -
+0:0:0:0:0:0:0:1 - - [18/May/2021:15:55:26 +0900] "GET /resources/include/dist/js/bootstrap.min.js HTTP/1.1" 304 -
+0:0:0:0:0:0:0:1 - - [18/May/2021:15:55:26 +0900] "GET /resources/include/js/jquery-1.12.4.min.js HTTP/1.1" 304 -
+0:0:0:0:0:0:0:1 - - [18/May/2021:15:55:26 +0900] "GET /resources/include/js/common.js HTTP/1.1" 304 -
+0:0:0:0:0:0:0:1 - - [18/May/2021:15:55:26 +0900] "GET /resources/include/dist/css/bootstrap.min.css HTTP/1.1" 304 -
+0:0:0:0:0:0:0:1 - - [18/May/2021:15:55:26 +0900] "GET /assets/js/ie-emulation-modes-warning.js HTTP/1.1" 404 721
+0:0:0:0:0:0:0:1 - - [18/May/2021:15:55:26 +0900] "GET /assets/js/ie10-viewport-bug-workaround.js HTTP/1.1" 404 721

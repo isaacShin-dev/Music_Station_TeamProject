@@ -1,0 +1,13 @@
+package com.mta.spring;
+
+@Controller
+public class MainController {
+	private static final Logger logger = LoggerFactory.getLogger(MainController.class);
+	
+	@RequestMapping(value ="/", method = RequestMethod.GET)
+	public String index() {
+		return "index";
+		
+	}
+	
+}

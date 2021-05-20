@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<!-- 문서 유형 : 현재 웹 문서가 어떤 HTML 버전에 맞게 작성되었는지를 알려준다. -->
+
+<!--<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+     DTD 선언문이 HTML 페이지의 가장 첫 라인에 명시되어야 웹 브라우저가 HTML 버전을 인식.
+     HTML태그나 CSS를 해당 버전에 맞도록 처리하므로 웹 표준 준수를 위하여 반드시 명시되어야 한다.-->
+<html lang="ko">
+	<head>
+		<!-- html5 : 파일의 인코딩 방식 지정 - 한국어 처리를 위한 euc-kr과 다국어 처리를 위한 utf-8로 설정.-->
+		<meta charset="utf-8" />
+		<!-- html4 : 파일의 인코딩 방식 지정 -->
+		<!--<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />-->
+
+		<meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1" />
+		<!-- 브라우저의 호환성 보기 모드를 막고, 해당 브라우저에서 지원하는 가장 최신 버전의 방식으로 HTML 보여주도록 설정.-->
+		
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no" />
+		<!--viewport : 화면에 보이는 영역을 제어하는 기술. width는 device-width로 설정(브라우저 너비를 장치 너비에 맞추어 표시). initial-scale는 초기비율(보이는 영역과 웹 페이지를 맞춤). user-scalable는 사용자가 화면축소를 하지 못하도록 설정.-->
+      	
+		<!-- 모바일 웹 페이지 설정 -->
+		<link rel="shortcut icon" href="../image/icon.png" />
+		<link rel="apple-touch-icon" href="../image/icon.png" />
+		<!-- 모바일 웹 페이지 설정 끝 -->
+		
+		<!--[if lt IE 9]>
+		<script src="../js/html5shiv.js"></script>
+		<![endif]-->
+		<script type="text/javascript" src="../js/jquery-1.12.4.min.js"></script>
+		<script type="text/javascript">
+			
+		</script>
+		<link rel="preconnect" href="https://fonts.gstatic.com"> 
+		<link href="https://fonts.googleapis.com/css2?family=Antonio:wght@100&display=swap" rel="stylesheet">
+		<style type="text/css">
+			
+
+			
+			#header { /* 로고가 들어갈 자링 대한 크기설정  */
+				background-color: black;
+				color: white;
+				height: 150px;
+				text-align: center;
+			}
+			body{
+				background: #dddddd  ;
+				height: 1260px;
+			}
+			
+			#navi { /*카테고리  영역 _ 현재 숨겨놓음. */
+				/* display :  none; */
+				float : left; 
+				padding-top : 200px;
+				width : 160px;
+				left : -40%;
+			}
+			
+			#menu_btn >img{
+				width  : 10px;
+				height: 40px;
+				float: right;
+			}
+			#track{
+				margin-top : 50px;
+				width : 1100px;
+				height: 785px;
+				margin-left :20px;
+				margin-right: 20px;
+				border : 1px solid black; 
+				font-family: 'Antonio', sans-serif;
+				float: left;
+				background: #f9f3f3;
+			}
+			#audio-file{
+				padding : 0 20px ;
+			}
+			audio{
+				width: 100%;
+				margin-top : 5px;
+				
+			}
+			#basic_info{
+				display: block;
+				float : left;		
+				text-indent: 53px;
+			}
+			#basic_info >p:first-child{
+				font-size: 110%;
+				font-weight: bold;
+			}
+			#view_download{
+				display: block;
+				float: right;
+				margin-right: 20px;
+			}
+			#download_btn{
+				display: block;
+				float: right;
+				clear: right;
+				margin-right : 24px;
+				margin-top: 5px;
+			}
+			
+			#inner{
+			width: 1000px;
+			margin : 15px auto;
+			height: 550px;
+			clear: both;
+			border: 1px solid black;
+			}
+			
+			#img_wrapper > img{
+				height: 400px;
+				width: 400px;
+				margin : 69px 20px;
+				
+				float : left ;
+				box-shadow: 4px 5px 15px;
+				border-bottom-right-radius: 40px; 
+				border-top-left-radius: 40px;
+				
+			}
+			#track_description{
+				border : 1px solid black;
+				margin : 0px;
+				margin-left : 440px;
+				width : 540px;
+				height: 330px;
+			}
+			#profile{
+				border : 1px solid black;
+				margin-top : 5px;
+				width: 540px;
+				height: 120px;
+				
+				margin-left : 440px;
+			}
+			#profile_img > img{
+				display: inherit;
+				float : left; 
+				margin : 10px;
+				margin-right : 15px;
+
+			}
+			#artist_info >p:first-child {
+				float: left;
+				margin :0px;
+				margin-right : 10px;			
+			}
+			#ranking_side{
+				border: 1px solid black;
+				float: right;
+				margin-top:50px;
+				width: 140px;
+				height: 647px;
+				padding : 70px;
+			}
+		</style>
+		
+	</head>
+	<body>
+		<header id ="header">main Logo</header>
+		<nav id="navi">
+		<ul id="menu">
+			<li><a href="login.html"></a>Login</li>
+			<li><a href="news.html	"></a>News</li>
+			<li><a href="music.html" class="current">Music</a>
+				<ul>
+					<li>Hip-Hop</li>
+					<li>RnB</li>
+					<li>rock</li>
+					<li>ballad</li>
+					<li>electronic</li>
+				</ul></li>
+			<li><a href="board.html"></a>User Board</li>
+		</ul>
+	</nav>
+		<section id = "track">
+			<article>
+				<div>
+					<div id ="audio_file">
+					<audio controls="controls">
+						
+					</audio>
+					
+					</div>
+					<div id= "basic_info"><p>track_nm</p><p>Artist_nm</p></div>
+					<div id = "view_download">view : 00 / downloads : 00</div>
+					<div id ="download_btn"><button>Downlaod</button></div>
+					
+					<div id ="inner">
+						<div id ="img_wrapper">
+							<img alt="albume-cover" src="../covers/45198cd7d98820ea4dd5bc45169e0fd7.jpg">
+						</div>
+						<div id ="detail_info">
+							<p>BPM : 140</p>
+							<p>Key : C#min</p>							
+						</div>
+						<div id ="track_description">
+							트랙에 관한 세부 정보를 나타낼 곳 Description about the track will be placed in this area.
+							트랙에 관한 세부 정보를 나타낼 곳 Description about the track will be placed in this area.
+							
+						</div>
+						<div id ="profile">
+							<div id ="profile_img">
+								<img alt="profile_pic" src="../image/blank-profile-picture-973460_640.png" style="width: 100px"style="height:100px">
+							</div>
+							<div id ="artist_info">
+								<p>Artist_nm / </p> 
+								<p>Follower_nb : 000</p>
+								<button>Follow +</button>
+							
+							</div>
+						</div>
+					</div>					
+				</div>											
+			</article>
+		</section>		
+		<aside id ="ranking_side">
+			<div id ="aside_title">Top-Rank</div>
+			<ul id="ranking">
+				<li>1</li>
+				<li>2</li>
+				<li>3</li>
+				<li>4</li>
+				<li>5</li>
+				<li>6</li>
+				<li>7</li>
+				<li>8</li>
+				<li>9</li>
+				<li>10</li>
+			</ul>
+		</aside>
+	
+	</body>
+</html>

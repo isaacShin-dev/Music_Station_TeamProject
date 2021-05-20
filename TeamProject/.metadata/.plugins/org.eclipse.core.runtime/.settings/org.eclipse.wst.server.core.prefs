@@ -1,0 +1,3 @@
+eclipse.preferences.version=1
+module-start-timeout=300000
+runtimes=<?xml version\="1.0" encoding\="UTF-8" standalone\="no"?>\n<runtimes>\n  <runtime id\="Apache Tomcat v9.0" location\="/Volumes/Macintosh HD - Data - \u1103\u1166\u110B\u1175\u1110\u1165/Library/tomcat" name\="Apache Tomcat v9.0" runtime-type-id\="org.eclipse.jst.server.tomcat.runtime.90" timestamp\="0"/>\n  <runtime id\="HTTP Preview" name\="HTTP Preview" runtime-type-id\="org.eclipse.wst.server.preview.runtime" timestamp\="0"/>\n</runtimes>\n

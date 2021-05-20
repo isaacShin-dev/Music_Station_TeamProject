@@ -1,0 +1,121 @@
+package com.spring.client.board.dao;
+
+import java.util.List;
+
+import org.apache.ibatis.session.SqlSessionFactory;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+
+import com.spring.mta.board.vo.MusicBoardVO;
+
+import lombok.Setter;
+import lombok.extern.log4j.Log4j;
+import java.sql.Connection;
+import javax.sql.DataSource;
+
+
+@RunWith(SpringJUnit4ClassRunner.class)
+@ContextConfiguration("file:src/main/webapp/WEB-INF/spring/root-context.xml")
+@Log4j
+public class BoardMapperTests {
+
+	@Setter(onMethod_ =@Autowired )
+	private MusicBoardDao boardDao ;
+
+	/*
+	 * @Test public void testBoardList() { BoardVO bvo = new BoardVO();
+	 * List<BoardVO> list = boardDao.boardList(bvo); for(BoardVO vo : list) {
+	 * log.info(vo); } }
+	 */
+	@Test
+	public void testBoardList() {
+		MusicBoardVO mvo = new MusicBoardVO();
+		mvo.setM_no(1);
+		List<MusicBoardVO> list  = boardDao.musicBoardList(mvo);
+		
+		for(MusicBoardVO vo : list) {
+			log.info(vo);
+		}
+		
+	}
+	
+	
+//	@Setter(onMethod_ = @Autowired)
+//	private DataSource dataSource;
+//	
+//	
+//	@Setter(onMethod_ =@Autowired)
+//	private SqlSessionFactory sqlSessionFactory;
+//	
+//	@Test
+//	public void testConnection() {
+//		
+//		try(Connection con = dataSource.getConnection()){
+//			log.info(con);
+//			log.info("----------------------------");
+//			log.info("데이터베이스에 정상 연결 되었습니다.");
+//		}catch(Exception e) {
+//			e.printStackTrace();
+//		}
+//	}
+
+	
+	/*
+	 * @Test public void testBoardInsert() { BoardVO board = new BoardVO();
+	 * board.setB_name("�谩��"); board.setB_title("�����׽�Ʈ ");
+	 * board.setB_content("2021/05/17�Խ��� �� �����׽�Ʈ ."); board.setB_pwd("1234"); int
+	 * count = boardDao.boardInsert(board); log.info("insert Count : "+ count); }
+	 */
+	 	 
+	
+	
+	/*
+	 * @Test public void testBoardDetail() {
+	 * 
+	 * BoardVO bvo = new BoardVO(); bvo.setB_num(41); BoardVO board =
+	 * boardDao.boardDetail(bvo);
+	 * 
+	 * log.info(board.toString());
+	 * 
+	 * }
+	 */
+	 
+	/*
+	 * 
+	 * @Test public void testPwdConfirm() {
+	 * 
+	 * BoardVO bvo = new BoardVO();
+	 * 
+	 * bvo.setB_num(1); bvo.setB_pwd("1234");
+	 * 
+	 * int result = boardDao.pwdConfirm(bvo);
+	 * 
+	 * log.info(result);
+	 * 
+	 * }
+	 */
+	
+	/*
+	 * @Test public void testBoardUpdate() { BoardVO bvo = new BoardVO();
+	 * 
+	 * bvo.setB_title("����Ȯ��"); bvo.setB_content("������ �����ϴ� ������ �ùٸ��� �۵��ϴ��� �˾ƺ���.");
+	 * bvo.setB_pwd("0000"); bvo.setB_num(1);
+	 * 
+	 * int result = boardDao.boardUpdate(bvo);
+	 * 
+	 * log.info(result);
+	 * 
+	 * 
+	 * }
+	 */
+	
+	
+	/*
+	 * @Test public void testBoardDelete() { log.info(boardDao.boardDelete(62)); }
+	 */
+	 
+	 
+}

@@ -1,0 +1,160 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<%@taglib prefix="tiles" uri="http://tiles.apache.org/tags-tiles"%>  
+<%@ page trimDirectiveWhitespaces="true" %>
+    
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+   <link rel="shortcut icon" href="/resources/images/icon.png" />
+		<link rel="apple-touch-icon" href="/resources/images/icon.png" />
+
+    <title><tiles:getAsString name ="title"/></title>
+
+    <!-- Bootstrap core CSS -->
+    
+ 
+		<!-- 모바일 웹 페이지 설정 끝 -->
+		<link rel="stylesheet" href="/resources/include/dist/css/bootstrap.min.css">
+		<link rel="stylesheet" href="/resources/include/dist/css/bootstrap-theme.css">
+		<link rel="stylesheet" href="/resources/include/dist/css/mainCss.css">  
+		
+		
+		<script type="text/javascript" src ="/resources/include/js/jquery-1.12.4.min.js"></script>
+		
+		<script src="/resources/include/dist/js/bootstrap.min.js"></script>
+		<script type="text/javascript"src ="/resources/include/js/common.js"></script> 
+    <link href="/resources/include/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="/resources/include/dist/css/sticky-footer-navbar.css" rel="stylesheet">
+
+    <!-- Just for debugging purposes. Don't actually copy these 2 lines! -->
+    <!--[if lt IE 9]><script src="../../assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
+    <script src="../../assets/js/ie-emulation-modes-warning.js"></script>
+    <script type="text/javascript" src = "/resources/include/js/images.js"></script>
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    
+    <script type="text/javascript">
+    let xPos = 0;
+
+    gsap.timeline()
+        .set('.ring', { rotationY:180, cursor:'grab' }) //set initial rotationY so the parallax jump happens off screen
+        .set('.img',  { // apply transform rotations to each image
+          rotateY: (i)=> i*-36,
+          transformOrigin: '50% 50% 500px',
+          z: -500,
+          backgroundImage:(i)=>'url(https://picsum.photos/id/'+(i+32)+'/600/400/)',
+          backgroundPosition:(i)=>getBgPos(i),
+          backfaceVisibility:'hidden'
+        })    
+        .from('.img', {
+          duration:1.5,
+          y:200,
+          opacity:0,
+          stagger:0.1,
+          ease:'expo'
+        })
+        .add(()=>{
+          $('.img').on('mouseenter', (e)=>{
+            let current = e.currentTarget;
+            gsap.to('.img', {opacity:(i,t)=>(t==current)? 1:0.5, ease:'power3'})
+          })
+          $('.img').on('mouseleave', (e)=>{
+            gsap.to('.img', {opacity:1, ease:'power2.inOut'})
+          })
+        }, '-=0.5')
+
+    $(window).on('mousedown touchstart', dragStart);
+    $(window).on('mouseup touchend', dragEnd);
+          
+
+    function dragStart(e){ 
+      if (e.touches) e.clientX = e.touches[0].clientX;
+      xPos = Math.round(e.clientX);
+      gsap.set('.ring', {cursor:'grabbing'})
+      $(window).on('mousemove touchmove', drag);
+    }
+
+
+    function drag(e){
+      if (e.touches) e.clientX = e.touches[0].clientX;    
+
+      gsap.to('.ring', {
+        rotationY: '-=' +( (Math.round(e.clientX)-xPos)%360 ),
+        onUpdate:()=>{ gsap.set('.img', { backgroundPosition:(i)=>getBgPos(i) }) }
+      });
+      
+      xPos = Math.round(e.clientX);
+    }
+
+
+    function dragEnd(e){
+      $(window).off('mousemove touchmove', drag);
+      gsap.set('.ring', {cursor:'grab'});
+    }
+
+
+    function getBgPos(i){ //returns the background-position string to create parallax movement in each image
+      return ( 100-gsap.utils.wrap(0,360,gsap.getProperty('.ring', 'rotationY')-180-i*36)/360*500 )+'px 0px';
+    }
+
+
+
+
+    Resources
+    
+    </script>
+  </head>
+
+  <body>
+
+    <!-- Fixed navbar -->
+    <nav class="navbar navbar-default navbar-fixed-top">
+		<tiles:insertAttribute name="header"/>
+    </nav>
+
+    <!-- Begin page content -->
+	<div class="container">
+		<div class="stage">
+
+
+			<div class="container">
+				<div class="ring">
+					<div class="img">1</div>
+					<div class="img">1</div>
+					<div class="img">1</div>
+					<div class="img">1</div>
+					<div class="img">1</div>
+					
+	
+				</div>
+			</div>
+
+		</div>
+	</div>
+
+	<footer class="footer">
+		<tiles:insertAttribute name = "footer"/>
+    </footer>
+
+
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script> -->
+    <script src="/resources/include/dist/js/bootstrap.min.js"></script>
+    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+    <script src="../../assets/js/ie10-viewport-bug-workaround.js"></script>
+  </body>
+</html>

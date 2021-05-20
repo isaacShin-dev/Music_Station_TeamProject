@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:mybatis-spring="http://mybatis.org/schema/mybatis-spring"
+	xsi:schemaLocation="http://mybatis.org/schema/mybatis-spring http://mybatis.org/schema/mybatis-spring-1.2.xsd
+		http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd">
+	<!-- Root Context: defines shared resources visible to all other web components -->
+<!-- successfully connected db on MacBook with code underneath  -->
+	<!--<bean id = "hikariConfig" class ="com.zaxxer.hikari.HikariConfig">
+		<property name ="driverClassName" value ="oracle.jdbc.driver.OracleDriver"/>
+		<property name="jdbcUrl" value ="jdbc:oracle:thin:@localhost:1521/XEPDB1"/>
+		<property name ="username" value ="javauser"/>
+		<property name ="password" value ="java1234"/>
+	</bean>-->	
+
+<!-- log의 형태를 잡아줌 -->
+	<bean id = "hikariConfig" class ="com.zaxxer.hikari.HikariConfig">
+		<property name ="driverClassName" value ="net.sf.log4jdbc.sql.jdbcapi.DriverSpy"/>
+		<property name="jdbcUrl" value ="jdbc:oracle:thin:@localhost:1521/xepdb1"/>
+		<property name ="username" value ="javauser"/>
+		<property name ="password" value ="java1234"/>
+	</bean>
+	
+	<bean id = "dataSource" class ="com.zaxxer.hikari.HikariDataSource" destroy-method="close">
+		<constructor-arg ref="hikariConfig"/>
+	</bean>	
+	<!-- SqlSessionFactory는 데이터베이스 연결과 SQL 실행에 대한 모든 것을 가진 가장 중요한 객체
+		SqlSessionFactor를 생성해 주는 객체를 설정해 줘야하며, SqlSessionFactoryBean 이라는 클래스이다. -->
+		
+	<bean id = "sqlSessionFactory" class = "org.mybatis.spring.SqlSessionFactoryBean">
+		<property name ="dataSource" ref="dataSource"/>
+	</bean>
+	
+	<mybatis-spring:scan base-package="com.spring.mapper"/>
+	<!-- Root Context: defines shared resources visible to all other web components -->
+		
+</beans>

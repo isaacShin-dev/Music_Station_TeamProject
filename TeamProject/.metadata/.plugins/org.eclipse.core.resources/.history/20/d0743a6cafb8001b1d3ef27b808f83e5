@@ -1,0 +1,5 @@
+package com.mta.spring;
+
+public class MainController {
+
+}

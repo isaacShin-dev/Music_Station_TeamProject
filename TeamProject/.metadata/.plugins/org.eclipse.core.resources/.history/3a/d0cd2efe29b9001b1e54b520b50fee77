@@ -1,0 +1,21 @@
+package com.spring.client.board.vo;
+
+import com.spring.client.common.vo.CommonVO;
+
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+
+/*
+ *@EqualsAndHashCode(callSuper = false)
+ ******************************************************************************
+ * eqauls �� hashcode �޼ҵ� �ڵ� ���� ��, �θ� Ŭ������ �ʵ���� �������� ������ ���ؼ� ������
+ * CallSuper = true  -> �θ� Ŭ���� �ʵ� ���鵵 ���� ���� üũ,
+ * CallSuper = false -> (�⺻��) �ڽ��� �ʵ� ���鸸 ����Ѵ�.
+ ******************************************************************************* */
+
+
+@Data
+@EqualsAndHashCode(callSuper = false)
+public class MusicBoardVO extends CommonVO {
+	
+}
