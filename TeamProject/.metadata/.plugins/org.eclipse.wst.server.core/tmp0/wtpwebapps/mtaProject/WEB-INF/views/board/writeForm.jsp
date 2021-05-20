@@ -72,32 +72,77 @@
 	<body>
 		<div class ="container">
 			<!-- 	<h2 class ="text-center">글작성</h2> -->
-				
-					<form id ="f_writeForm" >
-						<table class= "table" >
-							<tr >
-								<td   class ="ac">작성자</td>
-								<td><input type = "text" id = "b_name" name ="b_name"class ="form-control"/></td>
-							</tr>
-							<tr>
-								<td class ="ac">글제목</td>
-								<td><input type = "text" id = "b_title" name = "b_title" class ="form-control"/></td>
-							</tr>
-							<tr>
-								<td class ="ac">글내용</td>
-								<td><textarea cols="80px"rows="15px" id ="b_content" name = "b_content" class ="form-control" style="resize: none;"></textarea></td>
-							</tr>
-							<tr >
-								<td class ="ac">비밀번호</td>
-								<td><input type = "password" id = "b_pwd" name = "b_pwd" class ="form-control"/></td>
-							</tr>
-						</table>
-						<div class ="text-center">
-							<input type ="button" value ="저장" id = "boardInsertBtn" class ="btn btn-success" />
-							<input type ="button" value = "취소" id = "boardCancelBtn" class = "btn btn-success"/>
-							<input type ="button" value = "목록" id = "boardListBtn" class = "btn btn-success"/>
-						</div>
-					</form>
+
+		<form id="f_writeForm">
+			<table class="table table-light">
+				<colgroup>
+					<col width="17%" />
+					<col width="33%" />
+					<col width="17%" />
+					<col width="33%" />
+				</colgroup>
+				<tbody>
+					<tr>
+						<th><label for="m_title" class="text-left">Title : </label></th>
+						<td><input type="text" name="m_title" id="m_title"
+							placeholder="게시글 제목을 입력하세요"></td>
+					</tr>
+					<tr>
+						<th><label for="m_name" class="text-left">Track Title
+								: </label></th>
+						<td><input type="text" name="m_name" id="m_name"
+							placeholder="곡 제목을 입력하세요"></td>
+					</tr>
+					<tr>
+						<th><label for="m_coverimage" class="text-left">Cover
+								Image Attachment : </label></th>
+						<td><input type="file" name="m_coverimage" id="m_coverimage"></td>
+						<!-- 업로드 할 파일 미리보기가 출력될 영역 설정 예정  -->
+					</tr>
+					<tr>
+						<th><label for="m_bpm">BPM : </label></th>
+						<td><input type="text" name="m_bpm" id="m_bpm"
+							placeholder="BPM 정보 입력"></td>
+					</tr>
+					<tr>
+						<th><label for="m_explain">Description : </label></th>
+						<td><textarea name="m_explain" id="m_explain" cols="30"
+								rows="10" style="resize: none;" placeholder="곡 설명"></textarea></td>
+					</tr>
+					<tr>
+						<th><label for="m_file">File(wav,mp3) : </label></th>
+						<td><input type="file" name="m_file" id="m_file"></td>
+					</tr>
+					<tr>
+						<th><label for="m_price">Price : </label></th>
+						<td><input type="text" name="m_price" id="m_price"
+							placeholder="판매 희망 금액"></td>
+					</tr>
+					<tr>
+						<th><label for="m_isfree">Distribute for Free : </label></th>
+						<td><div class="btn-group btn-group-toggle"
+								data-toggle="buttons">
+								<label class="btn btn-primary"> <input type="radio">
+									Y
+								</label>
+								<div class="btn-group btn-group-toggle" data-toggle="buttons">
+									<label class="btn btn-primary"> <input type="radio">
+										N
+									</label>
+								</div>
+							</div></td>
+					</tr>
+				</tbody>
+
+			</table>
+
+			<div class="text-center">
+				<input type="button" value="저장" id="boardInsertBtn"
+					class="btn btn-success" /> <input type="button" value="취소"
+					id="boardCancelBtn" class="btn btn-success" /> <input type="button"
+					value="목록" id="boardListBtn" class="btn btn-success" />
 			</div>
+		</form>
+	</div>
 	</body>
 </html>

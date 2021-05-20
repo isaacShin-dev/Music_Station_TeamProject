@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-
+import com.spring.client.board.vo.BoardVO;
 import com.spring.mta.board.service.MusicBoardService;
 import com.spring.mta.board.vo.MusicBoardVO;
 import com.spring.mta.main.controller.MainController;
@@ -41,4 +41,10 @@ public class MusicBoardController {
 	}	
 /**********8*	call out Music_board List*****
  ************************************************/	
+	
+	@RequestMapping(value ="/writeForm")
+	public String writeForm(@ModelAttribute("data") MusicBoardVO bvo) {
+		log.info("writeForm ȣ�� ����");
+		return "/board/writeForm";
+	}
 }

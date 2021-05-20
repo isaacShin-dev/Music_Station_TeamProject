@@ -25,4 +25,6 @@ public class MusicBoardServiceImpl implements MusicBoardService {
 		list = musicBoardDao.musicBoardList(mvo);
 		return list;
 	}
+	
+	
 }

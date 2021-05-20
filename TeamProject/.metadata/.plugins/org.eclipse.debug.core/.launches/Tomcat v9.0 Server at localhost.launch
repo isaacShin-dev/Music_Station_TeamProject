@@ -8,6 +8,6 @@
     <booleanAttribute key="org.eclipse.jdt.launching.DEFAULT_CLASSPATH" value="false"/>
     <stringAttribute key="org.eclipse.jdt.launching.JRE_CONTAINER" value="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.launching.macosx.MacOSXType/JRE [15.0.2]"/>
     <stringAttribute key="org.eclipse.jdt.launching.PROGRAM_ARGUMENTS" value="start"/>
-    <stringAttribute key="org.eclipse.jdt.launching.VM_ARGUMENTS" value="-Dcatalina.base=&quot;/Volumes/Macintosh HD - Data - 데이터/TeamProject/.metadata/.plugins/org.eclipse.wst.server.core/tmp0&quot; -Dcatalina.home=&quot;/Volumes/Macintosh HD - Data - 데이터/Library/tomcat&quot; -Dwtp.deploy=&quot;/Volumes/Macintosh HD - Data - 데이터/TeamProject/.metadata/.plugins/org.eclipse.wst.server.core/tmp0/wtpwebapps&quot;"/>
+    <stringAttribute key="org.eclipse.jdt.launching.VM_ARGUMENTS" value="-Dcatalina.base=&quot;/Users/isaac/Documents/isaacProject/TeamProject/.metadata/.plugins/org.eclipse.wst.server.core/tmp0&quot; -Dcatalina.home=&quot;/Volumes/Macintosh HD - Data - 데이터/Library/tomcat&quot; -Dwtp.deploy=&quot;/Users/isaac/Documents/isaacProject/TeamProject/.metadata/.plugins/org.eclipse.wst.server.core/tmp0/wtpwebapps&quot;"/>
     <stringAttribute key="server-id" value="Tomcat v9.0 Server at localhost"/>
 </launchConfiguration>
