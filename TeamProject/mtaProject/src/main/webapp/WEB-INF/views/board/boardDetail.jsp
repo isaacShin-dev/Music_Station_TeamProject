@@ -89,6 +89,36 @@
 		$("#boardListBtn").click(function() {
 			location.href = "/board/boardList";
 		});
+		
+		
+		/* 제목 클릭 시 상세 페이지 이동을 위한 이벤트  
+		$(".goDetail").click(function() {
+			var m_no = $(this).parents("tr").attr("data-num");
+			console.log(m_no);
+			$("#m_no").val(m_no);
+			$("#detailForm").attr({
+				"method" : "get",
+				"action" : "/board/boardDetail"
+			});
+			$("#detailForm").submit();
+		});*/
+		
+		//장바구니 버튼 이벤트 
+		$("#addCartBtn").click(function(){
+			var result = confirm('장바구니 담기 성공 ! 장바구니로 이동하시겠습니까?');
+			
+			if(result){
+				$("#f_data").attr({
+					"method":"post",
+					"action":"/board/addCart"
+				});
+				
+				$("#f_data").submit();
+
+			}else{
+				//리스트로 돌아갈까?
+			}
+		});
 
 	});
 
@@ -132,9 +162,12 @@
 </script>
 </head>
 <body>
+
+	
 	<div class="container">
-	<form name= "f_data" id = "f_data" method="post">
-				<input type ="hidden" name = "b_num" value ="${detail.m_no}"/>
+	<form name= "f_data" id = "f_data">
+				<input type ="hidden" name = "m_no" value ="${detail.m_no}"/>
+				<input type = "hidden" name = "user_id" id = "user_id" value = "test"/>
 				
 			</form>		
 		<div id="pwdChk" class="authArea  col-md-9 text-left">
@@ -187,8 +220,8 @@
 				</tbody>
 			</table>
 			<div>
-				<button type = "button" class = "btn btn-success">구매</button>
-				<button type = "button" class = "btn btn-success">장바구니 담기</button>
+				<button type = "button" class = "btn btn-success" id = "purchaseBtn">구매</button>
+				<button type = "button" class = "btn btn-success" id = "addCartBtn">장바구니 담기</button>
 			</div>
 		</div>
 	</div>

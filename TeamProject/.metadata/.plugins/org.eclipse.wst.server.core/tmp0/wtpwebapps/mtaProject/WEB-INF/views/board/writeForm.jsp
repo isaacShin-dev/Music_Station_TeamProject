@@ -55,7 +55,7 @@
 							"action":"/board/boardInsert"
 						});
 						$("#f_writeForm").submit();
-						console.log($(this).coverImg);
+					
 					}
 				});
 				
@@ -81,7 +81,7 @@
 			<!-- 	<h2 class ="text-center">글작성</h2> -->
 
 		<form id="f_writeForm">
-			<input type ="hidden" id ="user_id" name = "user_id" value ="test"/>
+			<input type ="hidden" id ="user_id" name = "user_id" value ="test"/> <!-- session 값으로 추후 로그인 정보 전달 요망 --> 
 			<table class="table table-light">
 				<colgroup>
 					<col width="17%" />

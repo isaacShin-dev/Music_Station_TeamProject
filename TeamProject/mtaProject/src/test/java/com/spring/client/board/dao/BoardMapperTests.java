@@ -85,17 +85,17 @@ public class BoardMapperTests {
 //	  }
 	
 	
-	@Test
-	public void testdetailBoard() {
-		MusicBoardVO mvo = new MusicBoardVO();
-		
-		mvo.setM_no(17);
-		
-		MusicBoardVO board = boardDao.boardDetail(mvo);
-		
-		log.info(board.toString());
-		
-	}
+//	@Test
+//	public void testdetailBoard() {
+//		MusicBoardVO mvo = new MusicBoardVO();
+//		
+//		mvo.setM_no(17);
+//		
+//		MusicBoardVO board = boardDao.boardDetail(mvo);
+//		
+//		log.info(board.toString());
+//		
+//	}
 	  
 	/*
 	 * @Test public void testBoardDetail() {

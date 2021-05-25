@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.spring.mta.cart.dao.CartDao">
+	
+	<insert id = "addCart" parameterType="cart">
+	
+		insert into m_cart (cart_id, user_id, m_no)
+		values(seq_cart.nextval, #{user_id}, #{m_no})
+		
+	</insert>
+
+
+
+
+</mapper>

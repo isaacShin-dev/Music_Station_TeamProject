@@ -206,9 +206,9 @@
 				</colgroup>
 				<thead>
 					<tr>
-						<th>번호</th>
+						<th>앨범커버</th>
 						<th>제목</th>						
-						<th>날짜</th>
+						<th>가격</th>
 						<th>작성자</th>
 					
 					</tr>
@@ -221,7 +221,7 @@
 								<tr class ="text-center" data-num ="${board.m_no}"> <!-- data-num 이 해당 글번호를 가지고있다. -->
 									<td rowspan="1"><img src="/uploadStorage/coverImg/${board.m_coverimage}"/></td>
 									<td class = "goDetail text-left">${board.m_title}</td>
-									<td class ="text-left"><fmt:formatNumber value=" ${board.m_price}" pattern="###,###,###"/></td>
+									<td class ="text-left">${board.m_price}</td>
 									<td class ="name">${board.m_name}</td>
 									<td><audio controls="controls" src="/uploadStorage/audioFile/${board.m_file}"></audio></td>									
 								</tr>
