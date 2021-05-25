@@ -8,6 +8,26 @@
 		values(seq_cart.nextval, #{user_id}, #{m_no})
 		
 	</insert>
+	
+	<select id="cartList" parameterType="cart" resultType="cart">
+		Select 
+			c.cart_id,
+			c.user_id,
+			m.m_title,
+			m.user_id,
+			m.m_price,
+			m.m_coverimage
+			
+		From
+			user_info u, music_board m, m_cart c
+		Where 
+			u.user_id = c.user_id
+			And m.m_no = c.m_no 
+			And c.user_id = #{user_id}
+			
+	
+	
+	</select>
 
 
 

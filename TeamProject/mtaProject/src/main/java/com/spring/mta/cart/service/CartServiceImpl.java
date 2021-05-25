@@ -1,5 +1,7 @@
 package com.spring.mta.cart.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -21,6 +23,13 @@ public class CartServiceImpl implements CartService {
 		
 		result = cartDao.addCart(cvo);
 		return result;
+	}
+
+	@Override
+	public List<CartVO> CartList(CartVO cvo) {
+		List<CartVO> list = null; 
+		list = cartDao.cartList(cvo);
+		return list;
 	}
 
 }

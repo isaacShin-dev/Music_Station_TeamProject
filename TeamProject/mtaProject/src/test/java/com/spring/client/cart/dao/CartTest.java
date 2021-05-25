@@ -1,5 +1,7 @@
 package com.spring.client.cart.dao;
 
+import java.util.List;
+
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,17 +23,29 @@ public class CartTest {
 	@Setter(onMethod_=@Autowired)
 	private CartDao cartDao ;
 	
+//	@Test
+//	public void cartInsertTest() {
+//		log.info("addCart 호출 성공 ");
+//		CartVO cvo = new CartVO();
+//		
+//		cvo.setUser_id("test");
+//		cvo.setM_no(56);
+//		
+//		int result = cartDao.addCart(cvo);
+//		
+//		log.info("resutl : "+result);
+//		
+//	}
 	@Test
-	public void cartInsertTest() {
-		log.info("addCart 호출 성공 ");
+	public void cartList() {
+		log.info("cartList !!!!!!!!!");
+		
 		CartVO cvo = new CartVO();
-		
 		cvo.setUser_id("test");
-		cvo.setM_no(56);
+		List<CartVO> list = cartDao.cartList(cvo);
 		
-		int result = cartDao.addCart(cvo);
-		
-		log.info("resutl : "+result);
-		
+		for(CartVO vo : list) {
+			log.info(vo);
+		}
 	}
 }

@@ -42,6 +42,48 @@
 <!-- 모바일 웹 페이지 설정 끝 -->
 </head>
 <body>
- cart
+		<div id="boardsList">
+			<table summary="장바구니 리스트" class="table">
+
+				<colgroup>
+					<col width="10%" />
+					<col width="50%" />
+					<col width="15%" />
+					<col width="13%" />
+					<col width="12%" />
+				</colgroup>
+				<thead>
+					<tr>
+						<th>카트 번호</th>
+						<th>앨범커버</th>						
+						<th>가격</th>
+						<th>작성자</th>
+					
+					</tr>
+				</thead>
+				<tbody id = "list" class ="table table-hover">
+					<!-- 데이터 출력 -->
+					<c:choose>
+						<c:when test ="${not empty cartList }"> <!-- if 문으로 not empty가 true 일때, list가 있을 때 실행되는 구문. -->
+							<c:forEach var ="cart" items="${cartList}" varStatus="status"> <!-- items 의 항목을 모두 반복 -->
+								<tr class ="text-center" data-num ="${cart.m_no}"> <!-- data-num 이 해당 글번호를 가지고있다. -->
+									<td rowspan="1"><img src="/uploadStorage/coverImg/${cart.m_coverimage}"/></td>
+									<td class = "goDetail text-left">${cart.m_title}</td>
+									<td class ="text-left">${cart.m_price}</td>
+									<td class ="name">${cart.m_name}</td>													
+								</tr>
+								
+								
+							</c:forEach>
+						</c:when>
+						<c:otherwise> <!-- if문의 else -->
+							<tr>
+								<td colspan="4" class ="tac text-center">장바구니에 담긴 상품이 없습니다.</td>
+							</tr>
+						</c:otherwise>
+					</c:choose>
+				</tbody>
+			</table>			
+		</div>
 </body>
 </html>

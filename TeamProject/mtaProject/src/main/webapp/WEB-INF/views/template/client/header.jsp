@@ -41,6 +41,7 @@
 				<a href="/template/client/mainLayout" id=mypagebutton>마이페이지</a>
 				<a href="#">고객센터</a>
 				<a href="#">공지사항</a>	
+				<a href ="/board/cartList">장바구니</a>
 			</div>
 		</div>
 				 <!-- 메인페이지 제목-->
@@ -75,6 +76,7 @@
   				<br>
   				<a href="#" class="new_login" id="new_login">회원가입</a>
   				<a href="#" class="id.pwd" id="id.pwd">아이디/비밀번호 찾기</a>
+  				
   				</div>
   			</div>
   			</label>

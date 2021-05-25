@@ -1,7 +1,10 @@
 package com.spring.mta.cart.controller;
 
+import java.util.List;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -18,6 +21,8 @@ import lombok.extern.log4j.Log4j;
 public class CartController {
 	private CartService cartService;
 	
+	
+	
 	@RequestMapping(value ="/addCart", method =RequestMethod.POST)
 	public String addCart(CartVO cvo, Model model) {
 		log.info("addcart 호출 성공 ");
@@ -27,7 +32,7 @@ public class CartController {
 		
 		result = cartService.addCart(cvo);
 		if(result ==1) {
-			url = "/board/cart";
+ 			url = "/board/cartList";
 		}else {
 			url ="/board/boardList";
 		}
@@ -35,5 +40,16 @@ public class CartController {
 		
 		return "redirect:"+url;
 		
+	}
+	
+	
+	@RequestMapping(value = "/cartList", method = RequestMethod.GET)
+	public String cartList(@ModelAttribute("cart") CartVO cvo, Model model) {
+		
+		List<CartVO> list = cartService.CartList(cvo);
+		model.addAttribute("cartList",list);
+		
+		
+		return "board/cartList";
 	}
 }
