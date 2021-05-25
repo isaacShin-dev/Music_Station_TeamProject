@@ -31,18 +31,18 @@ public class BoardMapperTests {
 	 * List<BoardVO> list = boardDao.boardList(bvo); for(BoardVO vo : list) {
 	 * log.info(vo); } }
 	 */
-	@Test
-	public void testBoardList() {
-		MusicBoardVO mvo = new MusicBoardVO();
-		mvo.setM_no(1);
-		List<MusicBoardVO> list  = boardDao.musicBoardList(mvo);
-		
-		for(MusicBoardVO vo : list) {
-			log.info(vo);
-		}
-		
-	}
-	
+//	@Test
+//	public void testBoardList() {
+//		MusicBoardVO mvo = new MusicBoardVO();
+//		mvo.setM_no(1);
+//		List<MusicBoardVO> list  = boardDao.musicBoardList(mvo);
+//		
+//		for(MusicBoardVO vo : list) {
+//			log.info(vo);
+//		}
+//		
+//	}
+//	
 	
 //	@Setter(onMethod_ = @Autowired)
 //	private DataSource dataSource;
@@ -64,15 +64,39 @@ public class BoardMapperTests {
 //	}
 
 	
-	/*
-	 * @Test public void testBoardInsert() { BoardVO board = new BoardVO();
-	 * board.setB_name("�谩��"); board.setB_title("�����׽�Ʈ ");
-	 * board.setB_content("2021/05/17�Խ��� �� �����׽�Ʈ ."); board.setB_pwd("1234"); int
-	 * count = boardDao.boardInsert(board); log.info("insert Count : "+ count); }
-	 */
-	 	 
+//
+//	  @Test 
+//	  public void testBoardInsert() { MusicBoardVO board = new MusicBoardVO();
+//	  log.info("insert 메서드 호출 ");
+//	  board.setM_name("daotest"); 
+//	  board.setM_title("daotest1");
+//	  board.setM_coverimage("/imgage/22.jpg"); 
+//	  board.setM_bpm(123);
+//	  board.setM_explain("tets sdfsdaf");
+//	  board.setM_file("file/ddddfsdd");
+//	  board.setUser_id("test");
+//	  board.setM_price("12,222");
+//	  board.setM_isfree(1);
+//	  board.setM_genre("ballad");
+//	  
+//	  int  count = boardDao.musicBoardInsert(board);
+//	  log.info("insert Count : "+ count); 
+//	  
+//	  }
 	
 	
+	@Test
+	public void testdetailBoard() {
+		MusicBoardVO mvo = new MusicBoardVO();
+		
+		mvo.setM_no(17);
+		
+		MusicBoardVO board = boardDao.boardDetail(mvo);
+		
+		log.info(board.toString());
+		
+	}
+	  
 	/*
 	 * @Test public void testBoardDetail() {
 	 * 

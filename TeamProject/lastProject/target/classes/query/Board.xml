@@ -3,8 +3,9 @@
 <mapper namespace="com.spring.client.board.dao.BoardDao">
 
 
-
-	<!-- 게시판 리스트 쿼리 -->
+	
+<!-- 
+	 게시판 리스트 쿼리
 	<select id="boardList" resultType="board" parameterType="board">
 		SELECT b_num, b_name, b_title, to_char(b_date,'YYYY-MM-DD') as b_date
 		FROM
@@ -24,8 +25,53 @@
  
 		ORDER BY b_num desc
 			
+	</select> -->
+	
+	
+	<!-- 전체 레코드 수 조회  -->
+	
+	<select id="boardListCnt" parameterType="board" resultType="int">
+		select count(*) FROM spring_board
+		<trim prefix= "where(" suffix=")">
+			<include refid="boardSearch"></include>
+		</trim>	
 	</select>
 	
+		<!-- 게시판 리스트 조회 ( 페이징 처리와 검색 처리 ) -->
+		<select id="boardList" resultType="board" parameterType="board">
+		<![CDATA[
+		
+			SELECT b_num, b_name, b_title, to_char(b_date,'YYYY-MM-DD') as b_date,
+			(select count(r_num) from spring_reply where b_num = boardlist.b_num) as r_cnt
+			FROM(
+				select /*+INDEX_DESC(spring_board spring_board_pk)*/
+        rownum as rnum,b_num,b_name,b_title,b_date
+        FROM spring_board
+			
+		WHERE ]]>
+		<trim prefix="(" suffix=") And" prefixOverrides="AND">
+			<include refid="boardSearch"></include>
+		</trim>
+		<![CDATA[ rownum <= #{pageNum} * #{amount}
+		) boardlist
+		WHERE rnum > (#{pageNum} - 1) * #{amount}
+		]]>
+
+	</select>
+	
+	<!-- 반복적으로 사용하는 sql문  -->
+	<sql id = "boardSearch">
+			<if test = "search == 'b_title'">
+				<![CDATA[ b_title LIKE '%' || #{keyword}||'%']]>
+			</if>
+			<if test = "search =='b_content'">
+				<![CDATA[b_content LIKE '%' || #{keyword} ||'%']]>
+			</if>
+			<if test = "search == 'b_name'">
+			<![CDATA[b_name LIKE '%' ||#{keyword} ||'%']]>
+			</if>
+	
+	</sql>
 	
 	
 	<!-- 게시판 입력 쿼리 -->

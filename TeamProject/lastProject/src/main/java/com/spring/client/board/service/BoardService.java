@@ -11,5 +11,6 @@ public interface BoardService {
 	public BoardVO updateForm(BoardVO bvo);
 	public int boardDelete(int b_num);
 	public int boardUpdate(BoardVO bvo);
+	public int boardListCnt(BoardVO bvo);
 
 }

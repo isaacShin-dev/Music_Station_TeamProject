@@ -14,6 +14,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.spring.client.board.service.BoardService;
 import com.spring.client.board.vo.BoardVO;
+import com.spring.client.common.vo.PageDTO;
 import com.spring.client.main.controller.MainController;
 
 import lombok.AllArgsConstructor;
@@ -37,6 +38,12 @@ public class BoardController {
 		//전체 레코드 조회
 		List<BoardVO> boardList = boardService.boardList(bvo);
 		model.addAttribute("boardList",boardList);
+		
+		//total record count 
+		int total = boardService.boardListCnt(bvo);
+		//paging
+		model.addAttribute("pageMaker",new PageDTO(bvo,total));
+		
 		
 		return "board/boardList";
 		
@@ -91,7 +98,7 @@ public class BoardController {
 	 * 타입을 보장.(단순 텍스트로 리턴 할 때 한글 처리) 
 	 ***********************************************************************************************/
 	
-	@ResponseBody
+	@ResponseBody// ajax 요청시 필수 .
 	@RequestMapping(value = "/pwdConfirm", method = RequestMethod.POST, 
 	produces = "text/plain; charset=UTF-8")
 	public String pwdConfirm(BoardVO bvo) {
@@ -181,5 +188,10 @@ public class BoardController {
 		return "redirect:"+url;
 		
 	}
+	
+	
+	
+	
+	
 	
 }

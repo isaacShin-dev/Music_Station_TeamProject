@@ -5,6 +5,7 @@ import com.spring.client.board.vo.BoardVO;
 
 public interface BoardDao {
 	public List<BoardVO> boardList(BoardVO bvo); // 매개변수는 검색을 위해 미리 설정 해둔다. 
+	public int boardListCnt(BoardVO bvo);
 	public int boardInsert(BoardVO bvo);
 	public BoardVO boardDetail(BoardVO bvo);
 	public int pwdConfirm(BoardVO bvo);

@@ -65,6 +65,11 @@ public class BoardServiceImpl implements BoardService {
 		result = boardDao.boardUpdate(bvo);
 		
 		return result ;
+	}
+	@Override
+	public int boardListCnt(BoardVO bvo) {
+
+		return boardDao.boardListCnt(bvo);
 	} 
 	
 	

@@ -1,42 +1,32 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE tiles-definitions PUBLIC
-  "-//Apache Software Foundation//DTD Tiles Configuration 3.0//EN"
-  "http://tiles.apache.org/dtds/tiles-config_3_0.dtd">
-  
+<!DOCTYPE tiles-definitions PUBLIC "-//Apache Software Foundation//DTD Tiles Configuration 3.0//EN"
+      "http://tiles.apache.org/dtds/tiles-config_3_0.dtd">
+      
 <tiles-definitions>
-	<!-- 경로 설정 -->
+
+   <definition name="index" template="/WEB-INF/views/template/client/mainLayout.jsp">
+      <put-attribute name="title" value="MTA인트로" />
+      <put-attribute name="header" value="" />
+      <put-attribute name="footer" value="" />
+   </definition>
+
+   <definition name="content" template="/WEB-INF/views/template/client/contentLayout.jsp">
+      <put-attribute name="title" value="MTA" />
+      <put-attribute name="header" value="/WEB-INF/views/template/client/header.jsp" />
+      <put-attribute name="body" value="" />
+      <put-attribute name="footer" value="/WEB-INF/views/template/client/footer.jsp" />
+   </definition> 
+   
+   <definition name="mainpage/*" extends="content">
+      <put-attribute name="title" value="MTA메인페이지" />
+      <put-attribute name="body" value="/WEB-INF/views/mainpage/{1}.jsp" />
+   </definition>
+   
+ 	<definition name = "board/*" extends="content">
 	
-	<definition name="intro" template="/WEB-INF/views/template/client/mainLayout.jsp">
-	 	<!-- 각 항목 마다, 값, 또는 경로 설정  -->
-		<put-attribute name="title" value="MTA" />
-		<put-attribute name="header" value ="/WEB-INF/views/template/client/header.jsp"/>
-		<put-attribute name="footer" value ="/WEB-INF/views/template/client/footer.jsp"/>	
-	</definition>
-	
-	<definition name="content" template="/WEB-INF/views/template/client/contentLayout.jsp">
-	 	<!-- 각 항목 마다, 값, 또는 경로 설정  -->
-		<put-attribute name="title" value="MTA" />
-		<put-attribute name="header" value ="/WEB-INF/views/template/client/header.jsp"/>
-		<put-attribute name="body" value =""/>	
-		<put-attribute name="footer" value ="/WEB-INF/views/template/client/footer.jsp"/>	
-	</definition>
-	
-	
-	<!-- "board/boardList"->name 값은 컨트롤이 반환해주는값 
-	extends -> "content" 의 내용을 상속 받아 옴. 바꿀 내용(title)은 따로 재설정 해준다. 
-	 현재 body의 value는 설정되어 있지 않음으로, body의 value를 설정해 준다.  -->
-	 <!--name =  요청받아온 이름(controller에서 반환해주는 return 값과 같아야한다.) extends = 상속받을 내용  -->
-	 
-	<definition name = "board/*" extends="content">
-	
-		<put-attribute name="title" value = "음악 게시판"/>
+		<put-attribute name="title" value = "Music Board Main"/>
 		<put-attribute name="body" value="/WEB-INF/views/board/{1}.jsp"/>
 	</definition>
-	
-	<!-- <definition name = "board/writeForm" extends="content"> 
-	
-		<put-attribute name="title" value = "기본 게시판"/>
-		<put-attribute name="body" value="/WEB-INF/views/board/writeForm.jsp"/>
-	</definition> -->
-
+   
+   
 </tiles-definitions>

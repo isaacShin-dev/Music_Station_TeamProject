@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+
     
 <!DOCTYPE html>
 <!-- 문서 유형 : 현재 웹 문서가 어떤 HTML 버전에 맞게 작성되었는지를 알려준다. -->
@@ -26,13 +28,16 @@
 		<link rel="shortcut icon" href="/resources/images/icon.png" />
 		<link rel="apple-touch-icon" href="/resources/images/icon.png" />
 		<!-- 모바일 웹 페이지 설정 끝 -->
+		<link rel="stylesheet" href="/resources/include/css/MusisBoard.css">
 		<link rel="stylesheet" href="/resources/include/dist/css/bootstrap.min.css">
 		<link rel="stylesheet" href="/resources/include/dist/css/bootstrap-theme.css">
+		
 
 		<script type="text/javascript" src ="/resources/include/js/jquery-1.12.4.min.js"></script>
 		
 		<script src="/resources/include/dist/js/bootstrap.min.js"></script>
 		<script type="text/javascript"src ="/resources/include/js/common.js"></script> 
+		
 		
 		
 		<!--[if lt IE 9]>
@@ -42,10 +47,21 @@
 		.required {
 			color: red;
 		}
+		
+		img{
+			height: 110px;
+			width: 140px;
+		
+		}
+		.goDetailRank{
+			height: 220px;
+			width: 170px;
+		}
 		</style>
-
 <script type="text/javascript">
-	$(function() {
+
+
+	$(function(){
 		$("#insertFormBtn").click(function() {
 			location.href = "/board/writeForm";
 		});
@@ -61,8 +77,24 @@
 			});
 			$("#detailForm").submit();
 		});
+		
+		/*rank 영역 클릭 시 상세 페이지 이동 */
+		$(".goDetailRank").click(function() {
+			var m_no = $(this).parents("figure").attr("data-num");
+			//console.log(m_no);
+			$("#m_no").val(m_no);
+			$("#detailForm").attr({
+				"method" : "get",
+				"action" : "/board/boardDetail"
+			});
+			$("#detailForm").submit();
+		});
+		
+		
+		
+		
 		/* 검색 후 검색 대상과 검색 단어 출력 */
-		let word ="<c:out value ='${data.keyword}' />";
+		let word ="<c:out value ='${data.keyword}'/>";
 		let value = "";
 		
 		if(word !=""){
@@ -103,10 +135,41 @@
 		});
 	});
 </script>
+
 <title>BoardList</title>
 	</head>
+	
 <body>
 	<div class="container">
+		<main id="music_rank">
+				<c:choose>
+					<c:when test="${not empty boardList }">
+						<!-- if 문으로 not empty가 true 일때, list가 있을 때 실행되는 구문. -->
+						<c:forEach var="board" items="${boardList}"
+							varStatus="status">
+							<figure class="rank_track" data-num ="${board.m_no}">
+								
+								<!-- click function() -->
+							<img src="/uploadStorage/coverImg/${board.m_coverimage}" class="goDetailRank"/>
+								<figcaption>
+									<p class="track_nm">${board.m_title}</p>
+									<p class="artist_nm">${board.m_name}</p>
+								</figcaption>
+							</figure>
+						</c:forEach>
+
+					</c:when>
+					<c:otherwise>
+						<!-- if문의 else -->
+							<p class="tac text-center">등록된 게시물이 존재하지 않습니다.</p>
+					</c:otherwise>
+				</c:choose>
+
+		</main>
+				
+	
+	
+	
 		<form id="detailForm">
 			<input type="hidden" id="m_no" name="m_no" />
 		</form>
@@ -150,17 +213,20 @@
 					
 					</tr>
 				</thead>
-				<tbody id = "list" class ="table-striped">
+				<tbody id = "list" class ="table table-hover">
 					<!-- 데이터 출력 -->
 					<c:choose>
 						<c:when test ="${not empty boardList }"> <!-- if 문으로 not empty가 true 일때, list가 있을 때 실행되는 구문. -->
 							<c:forEach var ="board" items="${boardList}" varStatus="status"> <!-- items 의 항목을 모두 반복 -->
-								<tr class ="text-center" data-num ="${board.m_no}"> <!-- data-num 이 해당 글의번호를 가지고있다. -->
-									<td>${board.m_no}</td>
+								<tr class ="text-center" data-num ="${board.m_no}"> <!-- data-num 이 해당 글번호를 가지고있다. -->
+									<td rowspan="1"><img src="/uploadStorage/coverImg/${board.m_coverimage}"/></td>
 									<td class = "goDetail text-left">${board.m_title}</td>
-									<td class ="text-left">${board.m_regdate}</td>
+									<td class ="text-left"><fmt:formatNumber value=" ${board.m_price}" pattern="###,###,###"/></td>
 									<td class ="name">${board.m_name}</td>
+									<td><audio controls="controls" src="/uploadStorage/audioFile/${board.m_file}"></audio></td>									
 								</tr>
+								
+								
 							</c:forEach>
 						</c:when>
 						<c:otherwise> <!-- if문의 else -->

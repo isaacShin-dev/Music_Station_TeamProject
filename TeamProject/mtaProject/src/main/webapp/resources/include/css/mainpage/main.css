@@ -1,0 +1,32 @@
+@charset "UTF-8";
+*{
+	margin:0;
+	padding:0;
+}
+ul li{
+	list-style:none;
+}
+.clearfix:after{
+	content:'';
+	display:block;
+	clear:both;
+}
+body{
+	background:#575b57; overflow-y:scroll; 
+}
+header{
+	margin-top:20px;
+	background:#020202;
+	height:50px;
+	overflow:hidden;
+	color:white;
+}
+nav{
+	width:960px; margin:0 auto;
+}
+nav > ul > li {
+	float: left; 
+	line-height:50px; 
+	margin-right:40px;
+	color : white;
+}	

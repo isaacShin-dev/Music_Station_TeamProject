@@ -30,11 +30,11 @@
 	href="/resources/include/dist/css/bootstrap.min.css">
 <link rel="stylesheet"
 	href="/resources/include/dist/css/bootstrap-theme.css">
-
+<script type="text/javascript" src="/resources/include/dist/js/bootstrap.min.js"></script>
 <script type="text/javascript"
 	src="/resources/include/js/jquery-1.12.4.min.js"></script>
 
-<script src="/resources/include/dist/js/bootstrap.min.js"></script>
+
 <script type="text/javascript" src="/resources/include/js/common.js"></script>
 
 
@@ -176,6 +176,8 @@
 				</tbody>
 			</table>
 		</div>
+		<%--상세정보 보여주기 종료  --%>
+		<jsp:include page="reply.jsp"/>
 	</div>
 </body>
 </html>

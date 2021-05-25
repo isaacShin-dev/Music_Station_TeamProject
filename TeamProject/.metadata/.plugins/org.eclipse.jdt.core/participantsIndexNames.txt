@@ -23,6 +23,8 @@ INDEX VERSION 1.131
 /mtaProject/src/main/java
 /Users/isaac/Documents/isaacProject/TeamProject/.metadata/.plugins/org.eclipse.jst.jsp.core/jspsearch/3477948732.index
 /lastProject/src/main/java
+/Users/isaac/Documents/isaacProject/TeamProject/.metadata/.plugins/org.eclipse.jst.jsp.core/jspsearch/2720026406.index
+/mtaProject/src/main/java
 /Volumes/Macintosh HD - Data - 데이터/TeamProject/.metadata/.plugins/org.eclipse.jst.jsp.core/jspsearch/2753467747.index
 /lastProject/src/main/java
 /Volumes/Macintosh HD - Data - 데이터/TeamProject/.metadata/.plugins/org.eclipse.jst.jsp.core/jspsearch/3477948732.index

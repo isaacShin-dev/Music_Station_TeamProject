@@ -23,4 +23,6 @@ public class BoardVO extends CommonVO {
 	private String b_content = ""; 	//내용
 	private String b_date = ""; 	//작성일
 	private String b_pwd = ""; 		//비밀번호
+	
+	private int r_cnt =0; //댓글 번호
 }

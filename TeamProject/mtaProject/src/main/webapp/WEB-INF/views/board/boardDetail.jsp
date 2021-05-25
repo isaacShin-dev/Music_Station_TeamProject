@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>	
 
 <!DOCTYPE html>
 <!-- 문서 유형 : 현재 웹 문서가 어떤 HTML 버전에 맞게 작성되었는지를 알려준다. -->
@@ -44,6 +45,13 @@
 		<script src="../js/html5shiv.js"></script>
 		<![endif]-->
 <title></title>
+<style type="text/css">
+.coverImg{
+	height: 700px;
+	width: 700px;
+}
+
+</style>
 <script type="text/javascript">
 	let buttonCheck = 0; // 수정버튼과 삭제버튼을 구별하기 위한 변수 (비밀번호가 일치했을 때 )
 	$(function() {
@@ -126,12 +134,12 @@
 <body>
 	<div class="container">
 	<form name= "f_data" id = "f_data" method="post">
-				<input type ="hidden" name = "b_num" value ="${detail.b_num}"/>
+				<input type ="hidden" name = "b_num" value ="${detail.m_no}"/>
 				
 			</form>		
 		<div id="pwdChk" class="authArea  col-md-9 text-left">
 			<form name="f_pwd" id="f_pwd" class="form-inline">
-				<input type="hidden" name="b_num" id="b_num" value="${detail.b_num}">
+				<input type="hidden" name="b_num" id="b_num" value="${detail.m_no}">
 				<label for="b_pwd" >비밀번호 : </label> <input
 					type="password" name="b_pwd" id="b_pwd" class="form-control" />
 
@@ -155,26 +163,33 @@
 			<table class="table table-bordered">
 				<tbody>
 					<tr>
-						<td class="col-md-3">글번호</td>
-						<td class="col-md-3 text-left">${detail.b_num}</td>
-						<td class="col-md-3">작성일</td>
-						<td class="col-md-3 text-left">${detail.b_date}</td>
+						
+						<td class="col-md-3 text-left"><img src="/uploadStorage/coverImg/${detail.m_coverimage}" class = "coverImg"/></td>
+						
 					</tr>
 					<tr>
 						<td class="col-md-3">작성자</td>
-						<td colspan="3" class="col-md-9 text-left">${detail.b_name}</td>
+						<td colspan="3" class="col-md-9 text-left">${detail.m_name}</td>
 					</tr>
 
 					<tr>
 						<td class="col-md-3">글제목</td>
-						<td colspan="3" class="col-md-9 text-left">${detail.b_title}</td>
+						<td colspan="3" class="col-md-9 text-left">${detail.m_title}</td>
+					</tr>
+					<tr>
+						<td class="col-md-3">BPM</td>
+						<td colspan="3" class="col-md-9 text-left">${detail.m_bpm}</td>
 					</tr>
 					<tr class="table-height">
 						<td class="col-md-3">글내용</td>
-						<td colspan="3" class="col-md-9 text-left">${detail.b_content}</td>
+						<td colspan="3" class="col-md-9 text-left">${detail.m_explain}</td>
 					</tr>
 				</tbody>
 			</table>
+			<div>
+				<button type = "button" class = "btn btn-success">구매</button>
+				<button type = "button" class = "btn btn-success">장바구니 담기</button>
+			</div>
 		</div>
 	</div>
 </body>

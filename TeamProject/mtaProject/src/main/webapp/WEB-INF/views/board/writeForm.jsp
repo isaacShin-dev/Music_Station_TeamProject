@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
     
 <!DOCTYPE html>
 <!-- 문서 유형 : 현재 웹 문서가 어떤 HTML 버전에 맞게 작성되었는지를 알려준다. -->
@@ -39,16 +40,22 @@
 			$(function(){
 				$("#boardInsertBtn").click(function(){
 					//입력값 체크 
-					if(!chkData("#b_name","이름을"))return ;
-					else if(!chkData("#b_title","제목을")) return;
-					else if(!chkData("#b_content","내용을")) return ;
-					else if(!chkData("#b_pwd","비밀번호를")) return ;
+					if(!chkData("#m_title","이름을"))return ;
+					else if(!chkData("#m_name","제목을")) return;
+					else if(!chkData("#coverImg","커버이미지를 ")) return ; //to-do  파일 등록에 대한 유효성 체크 구문을 다르게 주어, 메서드 생성 
+					else if(!chkData("#m_bpm","Bpm 정보를")) return ;
+					else if(!chkData("#m_explain","곡 설명을")) return ;
+					else if(!chkData("#file","음악파일을")) return ;
+					else if(!chkData("#m_price","가격을")) return ;
+					//else if(!chkData("#","")) return ;
 					else{
 						$("#f_writeForm").attr({
 							"method":"post",
+							"enctype":"multipart/form-data",
 							"action":"/board/boardInsert"
 						});
 						$("#f_writeForm").submit();
+						console.log($(this).coverImg);
 					}
 				});
 				
@@ -74,6 +81,7 @@
 			<!-- 	<h2 class ="text-center">글작성</h2> -->
 
 		<form id="f_writeForm">
+			<input type ="hidden" id ="user_id" name = "user_id" value ="test"/>
 			<table class="table table-light">
 				<colgroup>
 					<col width="17%" />
@@ -96,8 +104,9 @@
 					<tr>
 						<th><label for="m_coverimage" class="text-left">Cover
 								Image Attachment : </label></th>
-						<td><input type="file" name="m_coverimage" id="m_coverimage"></td>
+						<td><input type="file" name="coverImg" id="coverImg"></td>
 						<!-- 업로드 할 파일 미리보기가 출력될 영역 설정 예정  -->
+						<td hidden="true"><span class = "preview"></span></td>
 					</tr>
 					<tr>
 						<th><label for="m_bpm">BPM : </label></th>
@@ -111,27 +120,36 @@
 					</tr>
 					<tr>
 						<th><label for="m_file">File(wav,mp3) : </label></th>
-						<td><input type="file" name="m_file" id="m_file"></td>
+						<td><input type="file" name="file" id="file"></td>
+					</tr>
+
+					<tr>
+						<th><label for="m_isfree">Distribute for Free : </label></th>
+						<td><div class="btn-group btn-group-toggle" data-toggle="buttons">
+								<label class="btn btn-primary"> <input type="radio" name ="distribution" value = "1">Y</label>
+								<div class="btn-group btn-group-toggle" data-toggle="buttons">
+									<label class="btn btn-primary"> <input type="radio" name = "distribution" value ="0">N</label>
+								</div>
+							</div></td>
 					</tr>
 					<tr>
 						<th><label for="m_price">Price : </label></th>
 						<td><input type="text" name="m_price" id="m_price"
 							placeholder="판매 희망 금액"></td>
 					</tr>
+					
 					<tr>
-						<th><label for="m_isfree">Distribute for Free : </label></th>
-						<td><div class="btn-group btn-group-toggle"
-								data-toggle="buttons">
-								<label class="btn btn-primary"> <input type="radio">
-									Y
-								</label>
-								<div class="btn-group btn-group-toggle" data-toggle="buttons">
-									<label class="btn btn-primary"> <input type="radio">
-										N
-									</label>
-								</div>
-							</div></td>
-					</tr>
+						<th><label for ="m_genre">Genre : </label></th>
+						<td><select name ="m_genre" id = "m_genre" >
+							<option value = "genre">Genre</option>
+							<option value = "ballad">Ballad</option>
+							<option value ="Rock">Rock</option>
+							<option value ="r&b">R&B</option>
+							<option value ="new age">New Age</option>
+							<option value ="rap">Rap/Hip-hop</option>
+							
+						</select>
+
 				</tbody>
 
 			</table>

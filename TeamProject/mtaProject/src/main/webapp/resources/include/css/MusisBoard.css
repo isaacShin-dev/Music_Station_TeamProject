@@ -1,0 +1,67 @@
+
+
+
+#title_rank {
+	font-weight: bold;
+}
+
+#music_rank { /* 상단 랭킹 div 블럭  */
+	height: 300px;
+	border: 1px solid black;
+	padding-left: 25px;
+	padding-right: 25px;
+	margin-bottom: 10px;
+	
+	
+	/* background: #b4a5a5; */
+}
+
+.rank_track {
+	height: 120px;
+	width: 200px;
+	display: inline-block;
+	margin: 0px;
+	margin-right: 20px;
+	margin-top: 15px;
+	
+	margin-bottom: 140px;
+	
+	
+}
+figcaption{
+	 box-shadow: 5px 2px 40px; 
+}
+
+.rank_track .rank_img { /* 앨범 커버 이미지 크기 및 정 */
+	height: 200px;
+	width: 200px;
+	float: left;
+}
+
+.rank_track p {
+	margin: 0;
+	background-color: #f3f4ed;
+	}
+
+.track_nm {
+	font-weight: bold;
+	border-left: 1px solid #bdc7c9;
+	border-right: 1px solid #bdc7c9;
+}
+
+.artist_nm {
+	font-size: 80%;
+	border-bottom: 1px double #bdc7c9;
+
+	border-left: 1px solid #bdc7c9;
+	border-right: 1px solid #bdc7c9;	
+}
+.body_main{
+	display: inline-block;
+	border : 1px solid black ;
+	margin-top : 40px;
+	width : 100%;
+	height: auto;
+	margin-top:30px;
+	
+}

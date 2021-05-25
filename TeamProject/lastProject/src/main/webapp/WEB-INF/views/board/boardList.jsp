@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@taglib prefix="tag" tagdir="/WEB-INF/tags/" %>
     
 <!DOCTYPE html>
 <!-- 문서 유형 : 현재 웹 문서가 어떤 HTML 버전에 맞게 작성되었는지를 알려준다. -->
@@ -42,10 +43,31 @@
 		.required {
 			color: red;
 		}
+		.reply_count{
+			color : red ;
+			font-size: 10px;
+		}	
+	
 		</style>
 
 <script type="text/javascript">
+
+	function goPage() {
+		 
+	if($("#search").val() == "all") {
+			$("#keyword").val("");
+		}
+		$("#f_search").attr({
+			"method" : "GET",
+			"action" : "/board/boardList"
+
+		});
+		$("#f_search").submit();
+	}
+
 	$(function() {
+
+		//글쓰기 버튼 
 		$("#insertFormBtn").click(function() {
 			location.href = "/board/writeForm";
 		});
@@ -62,44 +84,51 @@
 			$("#detailForm").submit();
 		});
 		/* 검색 후 검색 대상과 검색 단어 출력 */
-		let word ="<c:out value ='${data.keyword}' />";
+		let word = "<c:out value ='${data.keyword}' />";
 		let value = "";
+
 		
-		if(word !=""){
+	if (word != "") {
 			$("#keyword").val("<c:out value ='${data.keyword}'/>");
 			$("#search").val("<c:out value ='${data.search}'/>");
-			
-			
-			if($("#search").val()!='b_content'){
+
+			if ($("#search").val() != 'b_content') {
 				//:contains()는 특정 텍스틀 포함한 요소 반환
-				if($("#search").val()=='b_title') value = "#list tr td.goDetail";
-				else if($("#search").val()=='b_name') value ="#list tr td.name";
-			
-			console.log($(value+ ":contains('"+word+"')").html());
-			
-			$(value+ ":contains('"+word+"')").each(function(){
-				var regex = new RegExp(word,'gi');
-				$(this).html($(this).html().replace(regex, "<span class = 'required'>"+word+"</span>"));
-			});
-				
+				if ($("#search").val() == 'b_title')
+					value = "#list tr td.goDetail";
+				else if ($("#search").val() == 'b_name')
+					value = "#list tr td.name";
+
+				console.log($(value + ":contains('" + word + "')").html());
+
+				$(value + ":contains('" + word + "')").each(
+						function() {
+							var regex = new RegExp(word, 'gi');
+							$(this).html(
+									$(this).html().replace(
+											regex,
+											"<span class = 'required'>" + word
+													+ "</span>"));
+						});
+
 			}
 		}
-		
 
 		/* 검색 버튼 클릭 시 처리 이벤트 */
 		$("#searchData").click(function() {
 			if ($("#search").val() != "all") {
 				if (!chkData("#keyword", "검색어를"))
 					return;
-			} else if ($("#search").val() == "all") {
-				$("#keyword").val("");
 			}
-			$("#f_search").attr({
-				"method" : "GET",
-				"action" : "/board/boardList"
-
-			});
-			$("#f_search").submit();
+			goPage();
+		});
+		
+		
+		//pagination 
+		$(".paginate_button a").click(function(e){
+			e.preventDefault();
+			$("#f_search").find("input[name='pageNum']").val($(this).attr("href"));
+			goPage();
 		});
 	});
 </script>
@@ -157,7 +186,12 @@
 							<c:forEach var ="board" items="${boardList}" varStatus="status"> <!-- items 의 항목을 모두 반복 -->
 								<tr class ="text-center" data-num ="${board.b_num}"> <!-- data-num 이 해당 글의번호를 가지고있다. -->
 									<td>${board.b_num}</td>
-									<td class = "goDetail text-left">${board.b_title}</td>
+									<%-- <td class = "goDetail text-left">${board.b_title}</td> --%>
+									<td class = "goDetail text-left">
+									${board.b_title}
+									<c:if test = "${board.r_cnt>0}">
+										<span class ="reply_count">[${board.r_cnt}]</span></c:if>
+									</td>
 									<td class ="text-left">${board.b_date}</td>
 									<td class ="name">${board.b_name}</td>
 								</tr>
@@ -174,7 +208,30 @@
 		</div>
 		<!-- ==========================리스트 종료============================== -->
 		
-		
+			<!-- ==========================pagination============================== 
+		<div class = "text-center">
+			<ul class = "pagination">
+				<c:if test ="${pageMaker.prev}">
+					<li class = "paginate_button previous">
+						<a href ="${pageMaker.startPage-1}">Previous</a>
+					</li>
+				</c:if>
+				<c:forEach var = "num" begin ="${pageMaker.startPage}" end = "${pageMaker.endPage }">
+					<li class = "paginate_button ${pageMaker.cvo.pageNum == num ? 'active':''}">
+						<a href = "${num}"> ${num} </a>
+					</li>								
+				</c:forEach>
+				<c:if test ="${pageMaker.next}">
+					<li class = "paginate_button next">
+						<a href = "${pageMaker.endPage +1}">Next</a>
+					</li>
+				</c:if>
+			</ul>
+		</div>
+		 ==========================pagination============================== -->
+		<tag:pagination endPage="${pageMaker.endPage }" startPage="${pageMaker.startPage }" amount="${pageMaker.cvo.amount }" 
+		next="${pageMaker.next }" prev="${pageMaker.prev }" pageNum="${pageMaker.cvo.pageNum }"/>	
+
 
 		<!-- ==========================글쓰기 버튼 출력 시작====================== -->
 		<div class ="contentBtn text-right" >

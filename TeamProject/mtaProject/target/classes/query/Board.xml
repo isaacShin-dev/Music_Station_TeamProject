@@ -6,11 +6,58 @@
 <select id="musicBoardList" parameterType="board" resultType="board">
 
 
-	Select * From music_board
+	SELECT
+	
+	m_no, m_title, m_name, m_coverimage,m_file, m_regdate, m_recommend, m_views, user_id, m_price, m_isfree, m_genre
+      	 FROM  music_board		
+      	
+	
 </select>
 
+<!-- 반복적으로 사용하는 sql문  -->
+<sql id="boardSearch">
+	<if test="search == 'b_title'">
+<![CDATA[ b_title LIKE '%' || #{keyword}||'%']]>
+	</if>
+	<if test="search =='b_content'">
+<![CDATA[b_content LIKE '%' || #{keyword} ||'%']]>
+	</if>
+	<if test="search == 'b_name'">
+<![CDATA[b_name LIKE '%' ||#{keyword} ||'%']]>
+	</if>
+</sql>
 
 
 
+<insert id="musicBoardInsert" parameterType="board">
+	INSERT INTO music_board (
+    m_no,
+    m_title,
+    m_name,
+    m_coverimage,
+    m_bpm,
+    m_explain,
+    m_file,
+    user_id,
+    m_price,
+    m_isfree,
+    m_genre
+) VALUES (
+music_board_sequence.nextval, #{m_title}, #{m_name}, #{m_coverimage}, #{m_bpm}, #{m_explain}, #{m_file}, #{user_id}, #{m_price}, #{m_isfree}, #{m_genre}
+)
+</insert>
 
+<select id="boardDetail" parameterType="board" resultType="board">
+
+	SELECT
+
+	m_no, m_title, m_name, m_coverimage, m_bpm, m_explain, m_file,
+	m_regdate, m_recommend, m_views, user_id, m_price, m_isfree, m_genre
+	
+	FROM music_board
+	
+	where m_no = #{m_no}
+
+
+</select>
 </mapper>

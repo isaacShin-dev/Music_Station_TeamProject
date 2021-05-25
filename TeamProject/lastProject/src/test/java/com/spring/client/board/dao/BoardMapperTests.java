@@ -82,5 +82,21 @@ public class BoardMapperTests {
 	 * @Test public void testBoardDelete() { log.info(boardDao.boardDelete(62)); }
 	 */
 	 
+	
+	/*
+	 * @Test public void testBoardList() { BoardVO bvo = new BoardVO();
+	 * bvo.setPageNum(1); bvo.setAmount(10);
+	 * 
+	 * bvo.setSearch("b_title"); bvo.setKeyword("ΈνΎπ");
+	 * 
+	 * 
+	 * List<BoardVO> list = boardDao.boardList(bvo); for(BoardVO vo : list) {
+	 * log.info(vo); }
+	 * 
+	 * 
+	 * }
+	 */
+	
+
 	 
 }
