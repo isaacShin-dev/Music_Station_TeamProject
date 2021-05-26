@@ -119,6 +119,13 @@
 				//리스트로 돌아갈까?
 			}
 		});
+		
+		
+		// 구매페이지 바로 이동. 
+		
+		$("#checkOutBtn").click(function(){
+			
+		});
 
 	});
 
@@ -220,7 +227,7 @@
 				</tbody>
 			</table>
 			<div>
-				<button type = "button" class = "btn btn-success" id = "purchaseBtn">구매</button>
+				<button type = "button" class = "btn btn-success" id = "checkOutBtn">구매</button>
 				<button type = "button" class = "btn btn-success" id = "addCartBtn">장바구니 담기</button>
 			</div>
 		</div>

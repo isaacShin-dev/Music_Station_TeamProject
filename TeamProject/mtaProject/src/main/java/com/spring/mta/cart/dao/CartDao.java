@@ -10,5 +10,7 @@ public interface CartDao {
 		public int addCart(CartVO cvo);
 
 		public List<CartVO> cartList(CartVO cvo);
+		
+		public int deleteCart(CartVO cvo);
 	
 }

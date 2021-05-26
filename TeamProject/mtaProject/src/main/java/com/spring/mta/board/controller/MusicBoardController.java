@@ -68,8 +68,6 @@ public class MusicBoardController {
 		model.addAttribute("detail",detail);
 		
 		return "board/boardDetail";
-		
-		
 	}
 	
 }

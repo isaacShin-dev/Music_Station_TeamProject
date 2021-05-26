@@ -17,5 +17,7 @@ public interface MusicBoardService {
 	public int musicBoardInsert(MusicBoardVO mvo) throws Exception; 
 	public MusicBoardVO boardDetail(MusicBoardVO mvo);
 	
+	
+	
 
 }

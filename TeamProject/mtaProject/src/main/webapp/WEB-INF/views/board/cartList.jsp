@@ -37,24 +37,92 @@
 
 <script src="/resources/include/dist/js/bootstrap.min.js"></script>
 <script type="text/javascript" src="/resources/include/js/common.js"></script>
+<script type="text/javascript">
+	$(function(){
+		$("#ListBtn").click(function(){
+			location.href ="/board/boardList";
+		});
+		
+		$("#checkOutBtn").click(function(){
+			//가격, 판매자 유저정보, 로그인세션(구매자정보)m_no 가지고 가기. 
+			$("#f_data").attr({
+				"method":"get",
+				"action":"/board/checkOut"
+			});	
+			$("#f_data").submit();
 
+		});
+		 //장바구니 리스트 전체 선택  
+		$("#allCheck").click(function(){
+			 var chk = $("#allCheck").prop("checked");
+			 if(chk) {
+			  $(".check").prop("checked", true);
+			 } else {
+			  $(".check").prop("checked", false);
+			 }
+			});
+		 
+		 //개별 선택 시 전체 선택 해제
+		 $(".check").click(function(){
+			  $("#allCheck").prop("checked", false);
+			 });
+		 
+		//선택된 항목 장바구니 삭제 
+		 $(".selectDelete_btn").click(function(){
+			  var confirm_val = confirm("정말 삭제하시겠습니까?");
+			  
+			  if(confirm_val) {
+			   var checkArr = new Array();
+			   
+			   $("input[class='check']:checked").each(function(){
+			    checkArr.push($(this).attr("data-cartNum"));
+			   });
+			    
+			   $.ajax({
+			    url : "/shop/deleteCart",
+			    type : "post",
+			    data : { check : checkArr },
+			    success : function(){
+			     location.href = "/board/cartList";
+			    }
+			   });
+			  } 
+			 });
+	});
+	
+
+</script>
 
 <!-- 모바일 웹 페이지 설정 끝 -->
+<style type="text/css">
+	img{
+		height: 70px;
+		width : 70px;
+	
+	}
+
+</style>
 </head>
 <body>
+
+	<form name= "f_data" id = "f_data">
+				<input type ="hidden" name = "m_no" value ="${cart.m_no}"/>
+				<input type = "hidden" name = "user_id" id = "user_id" value = "test"/>
+				
+			</form>	
 		<div id="boardsList">
 			<table summary="장바구니 리스트" class="table">
 
 				<colgroup>
 					<col width="10%" />
-					<col width="50%" />
+					<col width="10%" />
 					<col width="15%" />
 					<col width="13%" />
 					<col width="12%" />
 				</colgroup>
 				<thead>
 					<tr>
-						<th>카트 번호</th>
+						<th>선택</th>
 						<th>앨범커버</th>						
 						<th>가격</th>
 						<th>작성자</th>
@@ -63,11 +131,16 @@
 				</thead>
 				<tbody id = "list" class ="table table-hover">
 					<!-- 데이터 출력 -->
+					
+					
 					<c:choose>
 						<c:when test ="${not empty cartList }"> <!-- if 문으로 not empty가 true 일때, list가 있을 때 실행되는 구문. -->
+						<tr class = "text-center">
+						<td class = "text-left"><input type ="checkbox" name = "allCheck" id = "allCheck" class =""/><label for ="allCheck" class ="">&nbsp;&nbsp;&nbsp;전체선택</label></td></tr>
 							<c:forEach var ="cart" items="${cartList}" varStatus="status"> <!-- items 의 항목을 모두 반복 -->
-								<tr class ="text-center" data-num ="${cart.m_no}"> <!-- data-num 이 해당 글번호를 가지고있다. -->
-									<td rowspan="1"><img src="/uploadStorage/coverImg/${cart.m_coverimage}"/></td>
+								<tr class ="text-center" > 
+									<td class ="text-left"><input type="checkbox" class ="check" name ="check" data-cartNum ="${cart.cart_id}"/></td>
+									<td class = "text-left"><img src="/uploadStorage/coverImg/${cart.m_coverimage}"/></td>
 									<td class = "goDetail text-left">${cart.m_title}</td>
 									<td class ="text-left">${cart.m_price}</td>
 									<td class ="name">${cart.m_name}</td>													
@@ -83,7 +156,12 @@
 						</c:otherwise>
 					</c:choose>
 				</tbody>
-			</table>			
+			</table>	
+			<div class ="text-center">
+				<button id = "checkOutBtn" class ="btn btn-success">Check Out</button>
+				<button id = "ListBtn" class ="btn btn-success">Back to List</button>	
+				<button id = "selectDelete_btn" class ="btn btn-success" data-cartNum ="${cart.cart_id}">Delete Selected items</button>
+			</div>		
 		</div>
 </body>
 </html>

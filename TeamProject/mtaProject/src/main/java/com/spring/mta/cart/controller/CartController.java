@@ -45,11 +45,37 @@ public class CartController {
 	
 	@RequestMapping(value = "/cartList", method = RequestMethod.GET)
 	public String cartList(@ModelAttribute("cart") CartVO cvo, Model model) {
-		
+		cvo.setUser_id("test"); // 추후 세션 정보로 변경해주어야 함. 
 		List<CartVO> list = cartService.CartList(cvo);
 		model.addAttribute("cartList",list);
 		
 		
 		return "board/cartList";
 	}
+	
+	@RequestMapping(value = "/checkOut", method = RequestMethod.GET)
+	public String checkOut(@ModelAttribute("payment") CartVO cvo, Model model) {
+		cvo.setUser_id("test"); // 추후 세션 정보로 변경해주어야 함. 
+		List<CartVO> list = cartService.CartList(cvo);
+		model.addAttribute("payment",list);
+		
+		
+		return "board/checkOut";
+	}
+	
+	
+	
+	
 }
+
+
+
+
+
+
+
+
+
+
+
+
