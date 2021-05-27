@@ -43,15 +43,35 @@
 			location.href ="/board/boardList";
 		});
 		
+		
+		//checkOut buttion controll 
 		$("#checkOutBtn").click(function(){
-			//가격, 판매자 유저정보, 로그인세션(구매자정보)m_no 가지고 가기. 
-			$("#f_data").attr({
-				"method":"get",
-				"action":"/board/checkOut"
-			});	
-			$("#f_data").submit();
+			   var checkArr = new Array();
+			   
+			   $("input[class='check']:checked").each(function(){
+			    checkArr.push($(this).attr("data-cartNum"));
+			   });
+			   checkArr.push($(this).val());
+			   
+			   $.ajax({
+				    url : "/board/checkOut",
+				    type : "post",
+				    data : { 'check' : checkArr },
+				    success : function(result){
+						if(result == 1){
+							alert("dddd")
+						}else{
+							alert("시스템 오류");
+						}
+				    }
+				   });
+				   
+			   });
+			   
+			 
+			    
+		
 
-		});
 		 //장바구니 리스트 전체 선택  
 		$("#allCheck").click(function(){
 			 var chk = $("#allCheck").prop("checked");
@@ -67,8 +87,25 @@
 			  $("#allCheck").prop("checked", false);
 			 });
 		 
+		 
+		 
+		 //장바구니 가격 구하기. 
+		 $(".check").click(function(){
+			 
+			 $("input[class='check']:checked").each(function(){
+				 var total =0 
+				 
+				total += ${sum}+$(this).attr("data-mPrice");
+					$("#total").val(total) ;
+				   });
+			
+		 });
+		 
+		 
+		 
+		 
 		//선택된 항목 장바구니 삭제 
-		 $(".selectDelete_btn").click(function(){
+		 $("#selectDelete_btn").click(function(){
 			  var confirm_val = confirm("정말 삭제하시겠습니까?");
 			  
 			  if(confirm_val) {
@@ -79,16 +116,25 @@
 			   });
 			    
 			   $.ajax({
-			    url : "/shop/deleteCart",
+			    url : "/board/deleteCart",
 			    type : "post",
 			    data : { check : checkArr },
-			    success : function(){
-			     location.href = "/board/cartList";
+			    success : function(result){
+			    	if(result ==1){
+			    		location.href = "/board/cartList";		
+			    		
+			    	}else{
+			    		alert("장바구니 삭제 실패. 관리자에게 문의하세요.");
+			    	}
+			     
 			    }
 			   });
 			  } 
 			 });
-	});
+		
+		
+		
+	});// 최상위 종결 . 
 	
 
 </script>
@@ -137,17 +183,23 @@
 						<c:when test ="${not empty cartList }"> <!-- if 문으로 not empty가 true 일때, list가 있을 때 실행되는 구문. -->
 						<tr class = "text-center">
 						<td class = "text-left"><input type ="checkbox" name = "allCheck" id = "allCheck" class =""/><label for ="allCheck" class ="">&nbsp;&nbsp;&nbsp;전체선택</label></td></tr>
+						<c:set var="sum" value="0" />
 							<c:forEach var ="cart" items="${cartList}" varStatus="status"> <!-- items 의 항목을 모두 반복 -->
 								<tr class ="text-center" > 
-									<td class ="text-left"><input type="checkbox" class ="check" name ="check" data-cartNum ="${cart.cart_id}"/></td>
+									<td class ="text-left"><input type="checkbox" class ="check" name ="check" data-cartNum ="${cart.cart_id}" data-mPrice= "${cart.m_price}" value ="${cart.cart_id}"/></td>
 									<td class = "text-left"><img src="/uploadStorage/coverImg/${cart.m_coverimage}"/></td>
 									<td class = "goDetail text-left">${cart.m_title}</td>
 									<td class ="text-left">${cart.m_price}</td>
 									<td class ="name">${cart.m_name}</td>													
 								</tr>
 								
-								
+								<c:set var="sum" value="0" />
 							</c:forEach>
+							<div class="text-right">
+								 <div class="sum">
+									  총 합계 : <input type = "number" id ="total" disabled="disabled"/>원
+									 </div>
+								</div>
 						</c:when>
 						<c:otherwise> <!-- if문의 else -->
 							<tr>
@@ -158,7 +210,7 @@
 				</tbody>
 			</table>	
 			<div class ="text-center">
-				<button id = "checkOutBtn" class ="btn btn-success">Check Out</button>
+				<button id = "checkOutBtn" class ="btn btn-success" data-cartNum ="${cart.cart_id}">Check Out</button>
 				<button id = "ListBtn" class ="btn btn-success">Back to List</button>	
 				<button id = "selectDelete_btn" class ="btn btn-success" data-cartNum ="${cart.cart_id}">Delete Selected items</button>
 			</div>		

@@ -49,19 +49,67 @@
 		}
 		
 		img{
-			height: 110px;
+			height: 140px;
 			width: 140px;
+			border-radius: 30px;
 		
 		}
 		.goDetailRank{
-			height: 220px;
-			width: 170px;
+			height: 200px;
+			width: 200px;
+			border-radius: 10px 100px / 120px;	
+			
 		}
 		</style>
 <script type="text/javascript">
 
 
 	$(function(){
+		//recommend btn controll 
+	/* 	$(".btn-group").click(function(){
+			if(confirm("추천하시겠습니까?")){
+			var m_no = $(this).parents("tr").attr("data-num");
+			console.log(m_no);
+			$("#m_no").val(m_no);
+	
+			$("#detailForm").attr("action", "/board/recommend");
+			$("#detailForm").submit();
+			}
+		}); */
+		$(".btn-group").click(function(){
+			if(confirm("추천하시겠습니까?")){
+				var m_no = $(this).parents("tr").attr("data-num");
+				var m_recommend =$(this).html();
+				var recommend_no = parseInt(m_recommend)+1;
+				var currM_no = $(this).attr("data-num");
+				console.log("currM_no :"+currM_no);
+				console.log("m_no: "+currM_no);
+
+				
+				$.ajax({
+					url :"/board/recommend",
+					type : "get",
+					data : {m_no : m_no},// 유저아이디도 추가로 넘겨서 좋아요 여부 체크 
+					success : function(result){
+						if(result==1){
+							alert("게시물을 추천하셨습니다.");
+							console.log(recommend_no);
+							$(".btn-group[data-num='"+m_no+"']").html(recommend_no);
+								
+							}else{
+								alert("system malfucntion");
+							}
+						}	
+					}).fail (function(){
+						alert("시스템오류");
+					});
+					
+				}
+			});
+		
+		
+		
+		
 		$("#insertFormBtn").click(function() {
 			location.href = "/board/writeForm";
 		});
@@ -145,7 +193,7 @@
 				<c:choose>
 					<c:when test="${not empty boardList }">
 						<!-- if 문으로 not empty가 true 일때, list가 있을 때 실행되는 구문. -->
-						<c:forEach var="board" items="${boardList}"
+						<c:forEach var="board" items="${boardList}" end="5"
 							varStatus="status">
 							<figure class="rank_track" data-num ="${board.m_no}">
 								
@@ -200,9 +248,10 @@
 				<colgroup>
 					<col width="10%" />
 					<col width="50%" />
-					<col width="15%" />
+					<col width="21%" />
 					<col width="13%" />
-					<col width="12%" />
+					<col width="19%" />
+					<col width ="50%"/>
 				</colgroup>
 				<thead>
 					<tr>
@@ -210,6 +259,8 @@
 						<th>제목</th>						
 						<th>가격</th>
 						<th>작성자</th>
+						<th>추천수</th>
+						<th></th>
 					
 					</tr>
 				</thead>
@@ -219,10 +270,11 @@
 						<c:when test ="${not empty boardList }"> <!-- if 문으로 not empty가 true 일때, list가 있을 때 실행되는 구문. -->
 							<c:forEach var ="board" items="${boardList}" varStatus="status"> <!-- items 의 항목을 모두 반복 -->
 								<tr class ="text-center" data-num ="${board.m_no}"> <!-- data-num 이 해당 글번호를 가지고있다. -->
-									<td rowspan="1"><img src="/uploadStorage/coverImg/${board.m_coverimage}"/></td>
+									<td ><img src="/uploadStorage/coverImg/${board.m_coverimage}"/></td>
 									<td class = "goDetail text-left">${board.m_title}</td>
 									<td class ="text-left">${board.m_price}</td>
 									<td class ="name">${board.m_name}</td>
+									<td class =""><button type="button" class="btn-group btn-group-xs" data-num ="${board.m_no}">${board.m_recommend}</button></td>
 									<td><audio controls="controls" src="/uploadStorage/audioFile/${board.m_file}"></audio></td>									
 								</tr>
 								

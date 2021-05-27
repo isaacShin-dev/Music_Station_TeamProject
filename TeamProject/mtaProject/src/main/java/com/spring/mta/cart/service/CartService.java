@@ -13,5 +13,10 @@ public interface CartService {
 
 	List<CartVO> CartList(CartVO cvo);
 
-	
+	int deleteCart(CartVO cvo);
+
+	CartVO checkOut(CartVO cvo);
+
+	int cartCheckOut(CartVO cvo);
+
 }

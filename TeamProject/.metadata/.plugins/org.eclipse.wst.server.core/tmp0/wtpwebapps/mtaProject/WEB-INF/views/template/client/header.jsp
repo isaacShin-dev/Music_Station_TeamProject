@@ -13,70 +13,98 @@
 			  </label>
 				  <div class="sidebar">
 					   <div class="categori">
-						   <h3>Ballad</h3>
+						   <h3 id="music_font">Ballad</h3>
 						  
-						   <h3>Rock</h3>
+						   <h3 id="music_font">Rock</h3>
 						
-						   <h3>R&B</h3>
+						   <h3 id="music_font">R&B</h3>
 						 
-						   <h3>New Age</h3>
+						   <h3 id="music_font">New Age</h3>
 						 
-						   <h3>Rap/Hiphop</h3>
+						   <h3 id="music_font">Rap/Hiphop</h3>
 						   <br><br><hr>
 						   <br>
-						   <h3>News Board</h3>
+						   <h3 id="music_font">News Board</h3>
 						  
-						   <h3>Community</h3>
-						   <h3>About</h3>
+						   <h3 id="music_font">Community</h3>
+						   <h3 id="music_font">About</h3>
 					   </div>
 				 </div>
 				 <div id=mainhomepagecategori>
+		<form id="mainnpageform">		 
 		<div id="topcategori">
 			<div id="leftcategori">
-				<a href="eventintro.html" class="1">MTA 소개</a>
-				<a href="#" id="introhomepage"class="1">MTA Intro</a>
+				<a class="block">  |  </a>
+				<a id="mtaintro" class="topmainpagebutton">MTA 소개</a>
+				<a class="block">  |  </a>
+				<a id="introhomepage"class="topmainpagebutton">MTA Intro</a>
+				<a class="block">  |  </a>
 			</div>
 			<div id="rightcategori">	
-				<a href="#" id=mypagelogin>로그인</a>
-				<a href="/template/client/mainLayout" id=mypagebutton>마이페이지</a>
-				<a href="#">고객센터</a>
-				<a href="#">공지사항</a>	
-				<a href ="/board/cartList">장바구니</a>
+				<a class="block">  |  </a>
+				<a  id=mypagelogin class="topmainpagebutton">Login</a>
+				<a class="block">  |  </a>
+				<a  id=mypagebutton class="topmainpagebutton">MyPage</a>
+				<a class="block">  |  </a>
+				<a class="topmainpagebutton">Customer Service Center</a>
+				<a class="block">  |  </a>
+				<a class="topmainpagebutton">Notice</a>	
+				<a class="block">  |  </a>
 			</div>
 		</div>
+		</form>
 				 <!-- 메인페이지 제목-->
 		<div id="buttoncategori">
-			<div>
-				<h1>MTA에 오신걸 환영합니다.</h1>
-				<p>각종 다양한 장르인 음악과 저작권을 팔거나 구입하세요!</p>
+			<div id="buttoncategoriserve">
+				<h1 id="homepage_name" class="mainpagebutton">Music TradeAssociate</h1>
+				<p id="homepage_servename">Sell or Buy Various Genres Of Music and Copyrights!</p>
 			</div>
 		</div>	
 	</div>
 	<hr>
-	</br><br></br></br>
 				 
 
 		 <!-- 우측 슬라이드바  -->
-		 	<label class="inner" id="inner" onclick="click_page">
+		 	<label class="inner" id="inner" onclick="click_page" >
 		 	<div id="logindiv">
   				<div id="main_page">
   					
   				</div>
  				<br><br> 			
-  				<h1>Sign Up</h1>
+  				<h1 id="mypagefont">Sign Up</h1>
   				<br><br><hr><br>
   				<div id="idpwddiv">
+  				<form name="loginform" id="loginform">
   					<p id="idpwd">ID</p>
   					<input type="text" class="login" id="id_login">
   					<p id="idpwd">Passward</p>
   					<input type="password" class="login"  id="psw_login">
   				<br><br>
-  				<input type="button" id="login_button" value="Log In">
+  				<input type="button" class="login_button" id="login_button" value="Log In">
+  				</form>
   				<br />
   				<br>
-  				<a href="#" class="new_login" id="new_login">회원가입</a>
-  				<a href="#" class="id.pwd" id="id.pwd">아이디/비밀번호 찾기</a>
-  				
+  				<a   class="sign_upbutton" id="new_login">Membership</a>
+  				<a   class="sign_upbutton" id="id.pwd">ID/Password Search</a>
   				</div>
   			</div>
   			</label>
+  			<div id="mypage">
+  				<form name="mypageform" id="mypageform">
+  				<div id="my_page">	
+  					</div>  
+  				<br><br>
+  				<h1 id="mypagefont">MyPage</h1>
+ 				<br><br><hr><br>
+ 				<input type="button" id="mypage_board" class="button" value="Membership Information">
+ 				<br><br>
+ 				<input type="button" id="mypage_vente" class="button" value="Sales Inquiry">
+ 				<br><br>
+ 				<input type="button" id="mypage_purchase" class="button" value="Purchase List">
+ 				<br><br>
+ 				<input type="button" id="mypage_shopping" class="button" value="Shopping Basket">
+ 				<br><br>
+ 				<input type="button" id="mypage_about" class="button" value="Customer Service Center">
+ 				</form> 
+  				</div>
+  				

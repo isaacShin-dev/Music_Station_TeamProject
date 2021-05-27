@@ -32,6 +32,35 @@ public class CartServiceImpl implements CartService {
 		return list;
 	}
 
+	@Override
+	public int deleteCart(CartVO cvo) {
+		int result  =0;
+		result = cartDao.deleteCart(cvo);
+		
+		return result;
+	}
+
+	@Override
+	public CartVO checkOut(CartVO cvo) {
+		
+		CartVO list = null ; 
+		
+		list = cartDao.checkList(cvo);
+		
+		
+		
+		return list;
+	}
+
+	@Override
+	public int cartCheckOut(CartVO cvo) {
+		int result = 0;
+		result = cartDao.cartCheckOut(cvo);
+		return result ;
+	}
+
+	
+
 
 
 }

@@ -1,21 +1,21 @@
 @charset "UTF-8";
 input[id="menuicon"] {display:none;}
 input[id="menuicon"] + label{
-	display:block; 
-	margin:30px ;
-	width: 60px; 
-	height: 50px; 
-	position:relative; 
+	float:left;
+	margin:10px;
+	width: 50px;
+	height:20px;
+	position:relative;
 	cursor:pointer;
 }
 input[id="menuicon"]+label span{
 	display:block;
 	position:absolute;
-	width:100%;
-	height:5px;
-	border-radius:30px;
+	width:120%;
+	height:10px;
+	border-radius:0px;
 	background:white;
-	transition:all .35s;
+	transition:all .1s;
 }
 input[id="menuicon"] + label span:nth-chilid(1){
 	top:0;
@@ -68,4 +68,13 @@ input[id="menuicon"]:checked + label + div{
 	font-size:20px;
 	cursor : pointer;
 }
+#music_font{
+	font-family:sans-serif;
+	font-style:normal;
+	border: 1;
+	text-align:center;
+	font-size:30px;
+}
+
+
 

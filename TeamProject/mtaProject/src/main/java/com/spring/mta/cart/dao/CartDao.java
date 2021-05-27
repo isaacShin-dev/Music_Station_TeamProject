@@ -12,5 +12,9 @@ public interface CartDao {
 		public List<CartVO> cartList(CartVO cvo);
 		
 		public int deleteCart(CartVO cvo);
-	
+
+		public CartVO checkList(CartVO cvo);
+
+		public int cartCheckOut(CartVO cvo);
+
 }

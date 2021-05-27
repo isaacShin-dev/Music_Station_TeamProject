@@ -5,7 +5,7 @@
 	<insert id = "addCart" parameterType="cart">
 	
 		insert into m_cart (cart_id, user_id, m_no)
-		values(seq_cart.nextval, #{user_id}, #{m_no})
+		values( seq_cart.nextval, #{user_id}, #{m_no})
 		
 	</insert>
 	
@@ -28,8 +28,44 @@
 	
 	
 	</select>
+	
+	<select id="checkList" parameterType="cart" resultType="cart">
+	Select 
+			user_id,
+			m_title,
+			m_price,
+			m_coverimage
+			
+		From
+			music_board
+		Where 
+			And m.m_no = c.m_no 
+			And user_id = #{user_id}
+	</select>
 
 
+<!-- 카트 삭제 -->
+<delete id="deleteCart" parameterType="cart">
+ delete 
+ From 
+ 	m_cart
+ where 
+ 	cart_id = #{cart_id}
+    And user_id = #{user_id}
+</delete>
+
+<insert id="paymentCreation" parameterType="cart" >
+Insert into payment (
+	P_NO,
+	USER_ID,
+	P_DATE
+	)
+Values(
+	seq_payment.nextval, #{user_id}, to_char(sysdate,'YYYY.MM.DD')
+)
+
+
+</insert>
 
 
 </mapper>

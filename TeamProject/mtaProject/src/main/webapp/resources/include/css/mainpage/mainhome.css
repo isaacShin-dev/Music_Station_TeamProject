@@ -3,6 +3,7 @@
 	width:50%;
 	height:500px;
 	margin:auto;
+
 	
 
 }
@@ -16,6 +17,8 @@
 	float:left;
 	border-style: solid;
     border-width:3px;
+    background-color:#787878;
+    
 }
 
 #news_chart{
@@ -24,6 +27,7 @@
 	margin:auto;
 	border-style: solid;
     border-width:3px;
+    background-color:#787878;
 }
 
 #like_chart{
@@ -34,40 +38,77 @@
 	float:right;
 	border-style: solid;
     border-width:3px;
-	
+	background-color:#787878;
+	font-family:Geogia;
 	
 }
 
 #mainhomepagecategori{
-	width:70%;
-	height:100px;
+	width:100%;
+	height:200px;
 	margin:auto;
 	top:0;
 
 }
 #topcategori{
 	width:100%;
-	height:50px;
-
+	height:35px;
+	background-color:#787878;
+	font-size:20px;
+	font-family:Geogia;
+	color: white;
 }
 #leftcategori{
-	width:50%;
+	width:40%;
 	height:100px;
-	text-align:left;
+	text-align:center;
 	top:0;
 	left:0;
 	float:left;
 }
 #rightcategori{
-	width:50%;
+	width:45%;
 	height:100px;
 	background-color:100px;
-	text-align:right;
+	text-align:center;
 	top:0;
 	right:0;
 	float:right;
 }
 #buttoncategori{
 	text-align:center;
+	width:100%;
+	
+}
+#mainpagepitcure{
+	width:200px;
+	height:300px;
+	object-fit:cover;
+}
+.topmainpagebutton{
+	cursor:pointer;
+}
+#homepage_name{
+	font-size:34px;
+	font-family: Verdana, Geneva, Arial, sans-serif;
+	font-weight: bold;
+	text-decoration: underline;
+	font-style: italic;	
+}
+#homepage_servename{
+	font-size:24px;
+	font-family: sans-serif;
+	font-style:normal;
+}
+.block{
+opacity:0.5;	
+}
+.sign_upbutton{
+font-size:18px;	
+text-decoration: underline;
+cursor:pointer;
+}
+.mainpagebutton{
+	cursor:pointer;
 }
 

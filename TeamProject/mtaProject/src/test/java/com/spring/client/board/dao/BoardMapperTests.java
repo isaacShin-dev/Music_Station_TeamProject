@@ -26,6 +26,19 @@ public class BoardMapperTests {
 	@Setter(onMethod_ =@Autowired )
 	private MusicBoardDao boardDao ;
 
+	@Test
+	public void recommendTest() {
+		MusicBoardVO mvo = new MusicBoardVO();
+		
+		mvo.setM_no(57);
+		
+		int result = boardDao.recommend(mvo);
+		
+		log.info("result : "+result );
+		
+		
+		
+	}
 	/*
 	 * @Test public void testBoardList() { BoardVO bvo = new BoardVO();
 	 * List<BoardVO> list = boardDao.boardList(bvo); for(BoardVO vo : list) {

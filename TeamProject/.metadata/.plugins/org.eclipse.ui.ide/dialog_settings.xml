@@ -16,6 +16,8 @@
 		<item key="WizardProjectsImportPage.STORE_CLOSE_CREATED_PROJECTS_ID" value="false"/>
 		<item key="WizardProjectsImportPage.STORE_HIDE_CONFLICTING_PROJECTS_ID" value="false"/>
 		<list key="WizardProjectsImportPage.STORE_DIRECTORIES">
+			<item value="/Users/isaac/Downloads/lastProject"/>
+			<item value="/Users/isaac/Downloads/lastProject0525"/>
 			<item value="/Users/isaac/Desktop/lastProject"/>
 			<item value="/Users/isaac/Desktop/TeamProject/teamProject"/>
 		</list>

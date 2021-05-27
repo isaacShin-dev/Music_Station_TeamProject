@@ -61,13 +61,13 @@
 		//수정버튼 클릭 시 처리 이벤트
 		$("#updateFormBtn").click(function() {
 			$("#pwdChk").css("visibility", "visible");
-			$("#msg").text("작성시 입력한 비밀번호를 입력해 주세요.").css("color", "000099");
+			$("#msg").text("계정 비밀번호를 입력해 주세요.").css("color", "000099");
 			buttonCheck = 1;
 		});
 		//삭제버튼 클릭 시 처리 이벤트
 		$("#boardDeleteBtn").click(function() {
 			$("#pwdChk").css("visibility", "visible");
-			$("#msg").text("작성시 입력한 비밀번호를 입력해 주세요.").css("color", "000099");
+			$("#msg").text("계정 입력한 비밀번호를 입력해 주세요.").css("color", "000099");
 			buttonCheck = 2;
 		});
 
@@ -103,6 +103,29 @@
 			$("#detailForm").submit();
 		});*/
 		
+		
+		/* 제목 클릭 시 상세 페이지 이동을 위한 이벤트  
+		$(".goDetail").click(function() {
+			var m_no = $(this).parents("tr").attr("data-num");
+			console.log(m_no);
+			$("#m_no").val(m_no);
+			$("#detailForm").attr({
+				"method" : "get",
+				"action" : "/board/boardDetail"
+			});
+			$("#detailForm").submit();
+		});*/
+		
+		$("#checkOutBtn").click(function(){
+			$("#f_data").attr({
+				"method":"get",
+				"action":"/board/checkOut"
+			});
+			$("#f_data").submit();
+
+		});
+		
+		
 		//장바구니 버튼 이벤트 
 		$("#addCartBtn").click(function(){
 			var result = confirm('장바구니 담기 성공 ! 장바구니로 이동하시겠습니까?');
@@ -121,12 +144,7 @@
 		});
 		
 		
-		// 구매페이지 바로 이동. 
-		
-		$("#checkOutBtn").click(function(){
-			
-		});
-
+	
 	});
 
 	function boardPwdConfirm() {
@@ -230,6 +248,9 @@
 				<button type = "button" class = "btn btn-success" id = "checkOutBtn">구매</button>
 				<button type = "button" class = "btn btn-success" id = "addCartBtn">장바구니 담기</button>
 			</div>
+		</div>
+		<div>
+		<jsp:include page="reply.jsp"/>
 		</div>
 	</div>
 </body>

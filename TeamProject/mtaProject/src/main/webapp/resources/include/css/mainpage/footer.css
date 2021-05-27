@@ -1,0 +1,26 @@
+#footername{
+	display: inline-block;
+    width: 500px;
+	font-size:15px;
+	color:black;
+	text-align:right;
+	
+}
+#footernameserve{
+	width:100%;
+	text-align:center;
+	font-size:10px;
+}
+#container_footer{
+	width:100%;
+	font-size:24px;
+	text-align:center;
+	color:black;
+	height:100px;
+}
+#user_border{
+	font-weight: bold;
+}
+.footere_button{
+	cursor:pointer;
+}

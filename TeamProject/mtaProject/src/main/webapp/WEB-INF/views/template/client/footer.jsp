@@ -2,10 +2,23 @@
     pageEncoding="UTF-8"%>
 <%@ page trimDirectiveWhitespaces="true" %>
 
- <div class="container">
-	
-	
-	<p class = "text-muted"> 사업자 등록번호 : 128-23-45267 | 대표 : 류타치 |
-	개인정보보호책임자 : 리따이준 | 이메일 : java1234@naver.com |
-	서울특별시 성동구 왕십리로 303 4층</p>
+ <div class="container" id="container_footer">
+ <hr>
+ 	<div class="footer-size" id="footername">
+ 	<br>
+ 	<a class="block">|</a>
+	<a class="footere_button">공지사항</a>
+	<a class="block">|</a>
+	<a  class="footere_button" id="user_border">개인정보 처리방침</a>
+	<a class="block">|</a>
+	<a class="footere_button" id="user_border">이용약관</a>
+	<a class="block">|</a>
+	<a class="footere_button">고객센터</a>
+	<a class="block">|</a>
+	<a id="user_border" class="footere_button">회사소개</a>
+	<a class="block">|</a>
+	</div>
+	<div class="footer-size" id="footernameserve">
+	<p class="block">Copyright @ LeeDaijune Corp. All rights reserved.</p>
+	</div>
 </div>

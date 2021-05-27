@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import com.spring.mta.board.dao.MusicBoardDao;
 import com.spring.mta.board.vo.MusicBoardVO;
 import com.spring.mta.common.file.FileUploadUtil;
+import com.spring.mta.reply.dao.ReplyDao;
 
 import lombok.Setter;
 
@@ -18,6 +19,10 @@ public class MusicBoardServiceImpl implements MusicBoardService {
 	
 	@Setter(onMethod_ = @Autowired)
 	private MusicBoardDao musicBoardDao;
+	
+	
+	@Setter(onMethod_=@Autowired)
+	private ReplyDao replyDao ;
 
 	
 	@Override
@@ -56,6 +61,24 @@ public class MusicBoardServiceImpl implements MusicBoardService {
 		
 		
 		return detail;
+	}
+
+
+	@Override
+	public int replyCnt(int m_no) {
+		int result  =0;
+		result = replyDao.replyCnt(m_no);
+		
+		return result;
+	}
+
+
+	@Override
+	public int recommend(MusicBoardVO mvo) {
+		int result =0;
+		result = musicBoardDao.recommend(mvo);
+		
+		return result;
 	}
 	 
 

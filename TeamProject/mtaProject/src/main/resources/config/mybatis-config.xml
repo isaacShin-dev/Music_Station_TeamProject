@@ -4,6 +4,7 @@
 	<typeAliases>
 		<typeAlias type="com.spring.mta.board.vo.MusicBoardVO" alias="board"/>
 		<typeAlias type="com.spring.mta.cart.vo.CartVO" alias="cart"/>
+		<typeAlias type="com.spring.mta.reply.vo.ReplyVO" alias ="reply"/>
 	</typeAliases>
 	
 </configuration>

@@ -1,10 +1,14 @@
 package com.spring.mta.cart.vo;
 
+import com.spring.mta.common.vo.PaymentDTO;
+
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 
 @Data
-public class CartVO {
+@EqualsAndHashCode(callSuper = false)
+public class CartVO extends PaymentDTO {
 
 	
 	private String cart_id ="";
@@ -15,6 +19,5 @@ public class CartVO {
 	private String m_price = "";
 	private String m_coverimage ="";
 	
-	private int totalPrice = 0; 
 	
 }

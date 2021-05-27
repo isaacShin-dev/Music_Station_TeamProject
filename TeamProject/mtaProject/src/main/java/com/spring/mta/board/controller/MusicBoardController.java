@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -69,5 +70,44 @@ public class MusicBoardController {
 		
 		return "board/boardDetail";
 	}
+	
+	
+	
+	//댓글 갯수
+	
+	@ResponseBody
+	@RequestMapping(value = "/replyCnt")
+	public String replyCnt(@RequestParam("m_no") int m_no) {
+		
+		log.info("replyCnt 호출 성공");
+		int result =0;
+		
+		result = musicBoardService.replyCnt(m_no);
+
+		return String.valueOf(result);
+	}
+	
+	//추천 수 증가 
+	@ResponseBody
+	@RequestMapping(value ="/recommend", method = RequestMethod.GET)
+	public String recommend(@ModelAttribute MusicBoardVO mvo,  @RequestParam(value = "m_no") int m_no) {
+		log.info("recommend호출 ");
+		
+		mvo.setM_no(m_no);
+		
+		int result =0;
+		
+		result = musicBoardService.recommend(mvo);
+		
+		
+		log.info("restult :"+result);
+		
+		
+		return String.valueOf(result);
+		
+		
+		
+	}
+	
 	
 }

@@ -16,6 +16,8 @@ public interface MusicBoardService {
 	List<MusicBoardVO> musicBoardList(MusicBoardVO mvo);
 	public int musicBoardInsert(MusicBoardVO mvo) throws Exception; 
 	public MusicBoardVO boardDetail(MusicBoardVO mvo);
+	public int replyCnt(int m_no) ;
+	public int recommend(MusicBoardVO mvo);
 	
 	
 	

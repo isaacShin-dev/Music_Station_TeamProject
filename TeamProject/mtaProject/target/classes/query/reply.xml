@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.spring.mta.reply.dao.ReplyDao">
+	
+	
+	<select id="replyList" resultType="reply" parameterType="reply">
+	SELECT
+		r_num, m_no, r_name, r_content, r_pwd, to_char(r_date, 'YYYY-MM-DD
+		HH24:MI:SS') as r_date
+		FROM music_reply
+		WHERE m_no = #{m_no}
+		ORDER BY
+		r_num desc 
+	
+	
+	</select>
+
+<insert id="replyInsert" parameterType="reply">
+		<selectKey keyProperty="r_num" resultType="int" order ="BEFORE">
+			select music_reply_seq.nextval from dual
+		</selectKey>
+		
+		insert into music_reply (r_num, m_no, r_name, r_content, r_pwd)
+		
+		values
+		(#{r_num}, #{m_no}, #{r_name}, #{r_content}, #{r_pwd})
+	</insert>
+	
+	<select id="replyCnt" parameterType="int" resultType="int">
+		Select
+			Count(r_num) from music_reply 
+		Where
+			m_no =#{m_no}
+	</select>
+
+
+
+</mapper>

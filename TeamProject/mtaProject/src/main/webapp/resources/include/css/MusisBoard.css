@@ -1,6 +1,3 @@
-
-
-
 #title_rank {
 	font-weight: bold;
 }
@@ -11,8 +8,7 @@
 	padding-left: 25px;
 	padding-right: 25px;
 	margin-bottom: 10px;
-	
-	
+
 	/* background: #b4a5a5; */
 }
 
@@ -23,45 +19,50 @@
 	margin: 0px;
 	margin-right: 20px;
 	margin-top: 15px;
-	
+	box-shadow: 2px 2px 40px;
 	margin-bottom: 140px;
-	
-	
-}
-figcaption{
-	 box-shadow: 5px 2px 40px; 
+	border-radius: 10px 100px/120px;
 }
 
 .rank_track .rank_img { /* 앨범 커버 이미지 크기 및 정 */
 	height: 200px;
 	width: 200px;
 	float: left;
+	border-radius: 10px 100px/120px;
 }
 
 .rank_track p {
 	margin: 0;
 	background-color: #f3f4ed;
-	}
+}
 
 .track_nm {
 	font-weight: bold;
 	border-left: 1px solid #bdc7c9;
 	border-right: 1px solid #bdc7c9;
+	border-radius: 10px 100px/120px;
+	text-align: center;
 }
 
 .artist_nm {
 	font-size: 80%;
 	border-bottom: 1px double #bdc7c9;
-
-	border-left: 1px solid #bdc7c9;
-	border-right: 1px solid #bdc7c9;	
+	border-radius: 10px 100px/120px;
+	text-align: center; border-left : 1px solid #bdc7c9;
+	border-right: 1px solid #bdc7c9;
+	border-left: 1px solid #bdc7c9
 }
-.body_main{
+
+.body_main {
 	display: inline-block;
-	border : 1px solid black ;
-	margin-top : 40px;
-	width : 100%;
+	border: 1px solid black;
+	margin-top: 40px;
+	width: 100%;
 	height: auto;
-	margin-top:30px;
-	
+	margin-top: 30px;
+}
+
+td .goDetail, td .text-left, td .name{
+	text-align : center;
+	padding : none;
 }

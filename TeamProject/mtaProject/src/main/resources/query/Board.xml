@@ -60,4 +60,12 @@ music_board_sequence.nextval, #{m_title}, #{m_name}, #{m_coverimage}, #{m_bpm}, 
 
 
 </select>
+
+
+<update id="recommend" parameterType="board" >
+update music_board
+set m_recommend = m_recommend+1 
+where m_no = #{m_no}
+
+</update>
 </mapper>

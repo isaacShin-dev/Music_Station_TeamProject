@@ -29,7 +29,7 @@ body,html{
            rgba(0, 20, 20, 0.5) 50%,
            rgba(0, 20, 20, 0.25) 75%,
            rgba(0, 20, 20, 0) 100%
-          ), url(/resources/include/css//img/main1.jpg);
+          ), url(/resources/include/img/main1.jpg);
         background-size: cover;
 }
 h1[id=main_name]{
@@ -83,7 +83,7 @@ div[id="login.page"]{
 #video{
 	position:absolute;
     left:550px;
-	
+	top:30px;
 }    
 
     

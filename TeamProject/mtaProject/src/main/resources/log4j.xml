@@ -13,7 +13,7 @@
 	</appender>
 	
 	<!-- Application Loggers -->
-	<logger name="com.spring.client">
+	<logger name="com.spring.mta">
 		<level value="info" />
 	</logger>
 	
