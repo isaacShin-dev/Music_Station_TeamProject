@@ -46,6 +46,8 @@ public class MusicBoardController {
 		log.info("writeForm ȣ�� ����");
 		return "/board/writeForm";
 	}
+	
+	
 	@RequestMapping(value ="/boardInsert", method =RequestMethod.POST)
 	public String boardInsert(MusicBoardVO bvo, Model model) throws Exception{
 		log.info("boardInsert ȣ�� ����");
@@ -61,6 +63,8 @@ public class MusicBoardController {
 		}
 		return "redirect:"+url; 
 	}
+	
+	
 	@RequestMapping(value="/boardDetail", method = RequestMethod.GET)
 	public String boardDetail(@ModelAttribute("data") MusicBoardVO mvo, Model model) {
 		log.info("board detail 호출 성공 ");
@@ -69,6 +73,13 @@ public class MusicBoardController {
 		model.addAttribute("detail",detail);
 		
 		return "board/boardDetail";
+	}
+	
+	@RequestMapping(value ="/fileDownload", method = RequestMethod.GET)
+	public void fileDownload(@ModelAttribute("data") MusicBoardVO mvoo) throws Exception{
+		log.info("download controller 호출 성공");
+		
+		
 	}
 	
 	
@@ -108,6 +119,7 @@ public class MusicBoardController {
 		
 		
 	}
+	
 	
 	
 }

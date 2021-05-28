@@ -55,11 +55,38 @@
 		
 		}
 		.goDetailRank{
-			height: 200px;
-			width: 200px;
+			height: 220px;
+			width: 220px;
 			border-radius: 10px 100px / 120px;	
 			
 		}
+		
+		audio:hover, audio:focus, audio:active
+{
+/* -webkit-box-shadow: 15px 15px 20px rgba(0,0, 0, 0.4);
+-moz-box-shadow: 15px 15px 20px rgba(0,0, 0, 0.4);
+box-shadow: 15px 15px 20px rgba(0,0, 0, 0.4);
+-webkit-transform: scale(1.05);
+-moz-transform: scale(1.05);
+transform: scale(1.05);
+}
+with:-
+
+audio
+{
+-webkit-transition:all 0.5s linear;
+-moz-transition:all 0.5s linear;
+-o-transition:all 0.5s linear;
+transition:all 0.5s linear;
+-moz-box-shadow: 2px 2px 4px 0px #006773;
+-webkit-box-shadow:  2px 2px 4px 0px #006773;
+box-shadow: 2px 2px 4px 0px #006773;
+-moz-border-radius:7px 7px 7px 7px ;
+-webkit-border-radius:7px 7px 7px 7px ;
+border-radius:7px 7px 7px 7px ;
+} */
+
+audio::-webkit-media-controls-fullscreen-button
 		</style>
 <script type="text/javascript">
 
@@ -126,6 +153,20 @@
 			$("#detailForm").submit();
 		});
 		
+		
+		$("#fileDownBtn").click(function(){
+			//console.log("filedownlaod btn clicked ");
+			var m_no = $(this).parents("tr").attr("data-num");
+			console.log(m_no);
+			$("#m_no").val(m_no);
+			$("#detailForm").attr({
+				"method" : "get",
+				"action" : "/board/fileDownload"
+			});
+			$("#detailForm").submit();
+			
+		});
+		
 		/*rank 영역 클릭 시 상세 페이지 이동 */
 		$(".goDetailRank").click(function() {
 			var m_no = $(this).parents("figure").attr("data-num");
@@ -181,7 +222,11 @@
 			});
 			$("#f_search").submit();
 		});
-	});
+	
+	
+	}); // 최상위 종료 
+	
+
 </script>
 
 <title>BoardList</title>
@@ -189,57 +234,62 @@
 	
 <body>
 	<div class="container">
-		<main id="music_rank">
-				<c:choose>
-					<c:when test="${not empty boardList }">
-						<!-- if 문으로 not empty가 true 일때, list가 있을 때 실행되는 구문. -->
-						<c:forEach var="board" items="${boardList}" end="5"
-							varStatus="status">
-							<figure class="rank_track" data-num ="${board.m_no}">
-								
-								<!-- click function() -->
-							<img src="/uploadStorage/coverImg/${board.m_coverimage}" class="goDetailRank"/>
-								<figcaption>
-									<p class="track_nm">${board.m_title}</p>
-									<p class="artist_nm">${board.m_name}</p>
-								</figcaption>
-							</figure>
-						</c:forEach>
+		<div id="music_rank">
+			<c:choose>
+				<c:when test="${not empty boardList }">
+					<!-- if 문으로 not empty가 true 일때, list가 있을 때 실행되는 구문. -->
 
-					</c:when>
-					<c:otherwise>
-						<!-- if문의 else -->
-							<p class="tac text-center">등록된 게시물이 존재하지 않습니다.</p>
-					</c:otherwise>
-				</c:choose>
 
-		</main>
-				
-	
-	
-	
+					<c:forEach var="board" items="${boardList}" varStatus="status">
+						<figure class="rank_track" data-num="${board.m_no}">
+
+							<!-- click function() -->
+							<img src="/uploadStorage/coverImg/${board.m_coverimage}"
+								class="goDetailRank" />
+							<figcaption>
+								<p class="track_nm">${board.m_title}</p>
+								<p class="artist_nm">${board.m_name}</p>
+							</figcaption>
+						</figure>
+					</c:forEach>
+
+				</c:when>
+
+
+				<c:otherwise>
+					<!-- if문의 else -->
+					<p class="tac text-center">등록된 게시물이 존재하지 않습니다.</p>
+				</c:otherwise>
+			</c:choose>
+
+		</div>
+
+
+
+
 		<form id="detailForm">
 			<input type="hidden" id="m_no" name="m_no" />
 		</form>
 		<%-- =====================검색기능 시작 =========================== --%>
-            <div id="boardSearch" class="text-right">           
-            	<form id="f_search" name ="f_search" class="form-inline">
-	            	<div class ="form-group">         
-	            	  	<label>검색조건</label>
-			            <select id="search" name ="search" class="form-control" >
-			            	<option value ="all">전체</option>
-			            	<option value ="b_title">제목</option>
-			            	<option value ="b_content">내용</option>
-			            	<option value ="b_name">작성자</option>
-			            </select>			        
-	            		<input type ="text" id ="keyword" name ="keyword" placeholder="검색어를 입력하세요" class="form-control"  >
-	            		<button type ="button" id = "searchData" class= "btn btn-primary btn-sm">검색</button>
-	            	</div>   
-         		</form>
-            </div>
-	<%-- =====================검색기능 종료 =========================== --%>
+		<div id="boardSearch" class="text-right">
+			<form id="f_search" name="f_search" class="form-inline">
+				<div class="form-group">
+					<label>검색조건</label> <select id="search" name="search"
+						class="form-control">
+						<option value="all">전체</option>
+						<option value="b_title">제목</option>
+						<option value="b_content">내용</option>
+						<option value="b_name">작성자</option>
+					</select> <input type="text" id="keyword" name="keyword"
+						placeholder="검색어를 입력하세요" class="form-control">
+					<button type="button" id="searchData"
+						class="btn btn-primary btn-sm">검색</button>
+				</div>
+			</form>
+		</div>
+		<%-- =====================검색기능 종료 =========================== --%>
 		<div class="text-center">
-			<!-- <h3>글목록</h3> -->			
+			<!-- <h3>글목록</h3> -->
 		</div>
 		<%-- ==================== 리스트 시작 =========================== --%>
 		<div id="boardsList">
@@ -251,57 +301,69 @@
 					<col width="21%" />
 					<col width="13%" />
 					<col width="19%" />
-					<col width ="50%"/>
+					<col width="50%" />
 				</colgroup>
 				<thead>
 					<tr>
 						<th>앨범커버</th>
-						<th>제목</th>						
+						<th>제목</th>
 						<th>가격</th>
 						<th>작성자</th>
 						<th>추천수</th>
 						<th></th>
-					
+
 					</tr>
 				</thead>
-				<tbody id = "list" class ="table table-hover">
+				<tbody id="list" class="table">
 					<!-- 데이터 출력 -->
 					<c:choose>
-						<c:when test ="${not empty boardList }"> <!-- if 문으로 not empty가 true 일때, list가 있을 때 실행되는 구문. -->
-							<c:forEach var ="board" items="${boardList}" varStatus="status"> <!-- items 의 항목을 모두 반복 -->
-								<tr class ="text-center" data-num ="${board.m_no}"> <!-- data-num 이 해당 글번호를 가지고있다. -->
-									<td ><img src="/uploadStorage/coverImg/${board.m_coverimage}"/></td>
-									<td class = "goDetail text-left">${board.m_title}</td>
-									<td class ="text-left">${board.m_price}</td>
-									<td class ="name">${board.m_name}</td>
-									<td class =""><button type="button" class="btn-group btn-group-xs" data-num ="${board.m_no}">${board.m_recommend}</button></td>
-									<td><audio controls="controls" src="/uploadStorage/audioFile/${board.m_file}"></audio></td>									
+						<c:when test="${not empty boardList }">
+							<!-- if 문으로 not empty가 true 일때, list가 있을 때 실행되는 구문. -->
+							<c:forEach var="board" items="${boardList}" varStatus="status">
+								<!-- items 의 항목을 모두 반복 -->
+								<tr class="text-center" data-num="${board.m_no}">
+									<!-- data-num 이 해당 글번호를 가지고있다. -->
+									<td><img src="/uploadStorage/coverImg/${board.m_coverimage}" /></td>
+									<td class="goDetail text-left">${board.m_title}</td>
+									<td class="text-center">₩ ${board.m_price}</td>
+									<td class="text-center">${board.m_name}</td>
+									<td class=""><button type="button"
+											class="btn-group btn-group-xs" data-num="${board.m_no}">${board.m_recommentcnt}</button></td>
+									<td><audio controls controlsList="nodownload"
+											src="/uploadStorage/audioFile/${board.m_file}"></audio></td>
+									<td><button type="button" class="btn btn-default" id ="fileDownBtn"
+											aria-label="Left Align">
+											<span class="glyphicon glyphicon-save"
+												aria-hidden="true"></span>
+										</button></td>
 								</tr>
-								
-								
+
+
 							</c:forEach>
 						</c:when>
-						<c:otherwise> <!-- if문의 else -->
+						<c:otherwise>
+							<!-- if문의 else -->
 							<tr>
-								<td colspan="4" class ="tac text-center">등록된 게시물이 존재하지 않습니다.</td>
+								<td colspan="4" class="tac text-center">등록된 게시물이 존재하지 않습니다.</td>
 							</tr>
 						</c:otherwise>
 					</c:choose>
 				</tbody>
-			</table>			
+			</table>
 		</div>
 		<!-- ==========================리스트 종료============================== -->
-		
-		
+
+
 
 		<!-- ==========================글쓰기 버튼 출력 시작====================== -->
-		<div class ="contentBtn text-right" >
-			<input type="button" id = "insertFormBtn" class ="btn btn-success" value ="글쓰기">
+		<div class="contentBtn text-right">
+			<input type="button" id="insertFormBtn" class="btn btn-success"
+				value="글쓰기">
 		</div>
 		<!-- ==========================글쓰기 버튼 출력 종료======================= -->
 	</div>
-	
 
-	
+
+
 </body>
 </html>

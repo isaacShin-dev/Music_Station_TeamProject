@@ -5,7 +5,23 @@
   <link rel="self" href="https://spring.io/blog.atom" />
   <id>http://spring.io/blog.atom</id>
   <icon>https://spring.io/favicon.ico</icon>
-  <updated>2021-05-25T06:00:00Z</updated>
+  <updated>2021-05-27T07:00:00Z</updated>
+  <entry>
+    <title>A Bootiful Podcast: Micrometer-lead Tommy Ludwig</title>
+    <link rel="alternate" href="https://spring.io/blog/2021/05/27/a-bootiful-podcast-micrometer-lead-tommy-ludwig" />
+    <category term="engineering" label="Engineering" />
+    <author>
+      <name>Josh Long</name>
+    </author>
+    <id>tag:spring.io,2021-05-27:4456</id>
+    <updated>2021-05-27T07:00:00Z</updated>
+    <content type="html">&lt;p&gt;Hi, Spring fans! In this episode, &lt;a href="https://twitter.com/starbuxman"&gt;Josh Long (@starbuxman)&lt;/a&gt; talks to Micrometer-lead and observability guru &lt;a href="https://twitter.com/tommyludwig"&gt;Tommy Ludwig (@tommyludwig)&lt;/a&gt; about Tokyo, Japan; metrics; tracing; and so much more. &lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href="https://micrometer.io"&gt;the Micrometer project&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;iframe title="Micrometer project lead and observability guru Tommy Ludwig" allowtransparency="true" height="150" width="100%" style="border: none; min-width: min(100%, 430px);" scrolling="no" data-name="pb-iframe-player" src="https://www.podbean.com/player-v2/?i=rg9ht-104b7af-pb&amp;from=pb6admin&amp;download=1&amp;share=1&amp;download=1&amp;rtl=0&amp;fonts=Arial&amp;skin=1&amp;btn-skin=7"&gt;&lt;/iframe&gt;
+&lt;!-- rendered by Sagan Renderer Service --&gt;</content>
+  </entry>
   <entry>
     <title>This Week in Spring - May 25th, 2021</title>
     <link rel="alternate" href="https://spring.io/blog/2021/05/24/this-week-in-spring-may-25th-2021" />
@@ -585,22 +601,6 @@ Artem&lt;/p&gt;
 &lt;div class="paragraph"&gt;
 &lt;p&gt;&lt;a href="https://spring.io/projects/spring-hateoas/"&gt;Project Page&lt;/a&gt; | &lt;a href="https://github.com/spring-projects/spring-hateoas"&gt;GitHub&lt;/a&gt; | &lt;a href="https://github.com/spring-projects/spring-hateoas/issues"&gt;Issues&lt;/a&gt; | &lt;a href="https://docs.spring.io/spring-hateoas/docs/1.3.1/reference/html/"&gt;Documentation&lt;/a&gt; | &lt;a href="http://stackoverflow.com/questions/tagged/spring-hateoas"&gt;Stack Overflow&lt;/a&gt; | &lt;a href="https://gitter.im/spring-projects/spring-hateoas"&gt;Gitter&lt;/a&gt;&lt;/p&gt;
 &lt;/div&gt;
-&lt;!-- rendered by Sagan Renderer Service --&gt;</content>
-  </entry>
-  <entry>
-    <title>Spring Framework 5.3.7 and 5.2.15 available now</title>
-    <link rel="alternate" href="https://spring.io/blog/2021/05/12/spring-framework-5-3-7-and-5-2-15-available-now" />
-    <category term="releases" label="Releases" />
-    <author>
-      <name>Stéphane Nicoll</name>
-    </author>
-    <id>tag:spring.io,2021-05-12:4435</id>
-    <updated>2021-05-12T13:21:00Z</updated>
-    <content type="html">&lt;p&gt;&lt;strong&gt;Update 2021-05-25:&lt;/strong&gt; The releases contains fixes for Spring Framework &lt;a href="https://tanzu.vmware.com/security/cve-2021-22118"&gt;CVE-2021-22118&lt;/a&gt;.&lt;/p&gt;
-&lt;p&gt;On behalf of the team and everyone who has contributed, I am pleased to announce that Spring Framework &lt;code&gt;5.3.7&lt;/code&gt; and &lt;code&gt;5.2.15&lt;/code&gt; are available now.&lt;/p&gt;
-&lt;p&gt;Spring Framework &lt;code&gt;5.3.7&lt;/code&gt; includes &lt;a href="https://github.com/spring-projects/spring-framework/releases/tag/v5.3.7"&gt;45 fixes and improvements&lt;/a&gt;. Spring Framework &lt;code&gt;5.2.15&lt;/code&gt; includes &lt;a href="https://github.com/spring-projects/spring-framework/releases/tag/v5.2.15.RELEASE"&gt;9 selected fixes and improvements&lt;/a&gt;.&lt;/p&gt;
-&lt;p&gt;Stay tuned for follow-up Spring Boot releases later this week.&lt;/p&gt;
-&lt;p&gt;&lt;a href="https://projects.spring.io/spring-framework/"&gt;Project Page&lt;/a&gt; | &lt;a href="https://github.com/spring-projects/spring-framework"&gt;GitHub&lt;/a&gt; | &lt;a href="https://github.com/spring-projects/spring-framework/issues"&gt;Issues&lt;/a&gt; | &lt;a href="https://docs.spring.io/spring-framework/docs/5.3.7/spring-framework-reference"&gt;Documentation&lt;/a&gt;&lt;/p&gt;
 &lt;!-- rendered by Sagan Renderer Service --&gt;</content>
   </entry>
 </feed>

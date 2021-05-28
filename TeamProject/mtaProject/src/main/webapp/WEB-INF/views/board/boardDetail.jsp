@@ -31,12 +31,15 @@
 	href="/resources/include/dist/css/bootstrap.min.css">
 <link rel="stylesheet"
 	href="/resources/include/dist/css/bootstrap-theme.css">
+	<link href='https://fonts.googleapis.com/css?family=Roboto:100' rel='stylesheet' type='text/css'>
+	<link rel="stylesheet" href ="/resources/include/css/musicPlayer.css">
 
 <script type="text/javascript"
 	src="/resources/include/js/jquery-1.12.4.min.js"></script>
 
 <script src="/resources/include/dist/js/bootstrap.min.js"></script>
 <script type="text/javascript" src="/resources/include/js/common.js"></script>
+
 
 
 <!-- 모바일 웹 페이지 설정 끝 -->
@@ -47,14 +50,55 @@
 <title></title>
 <style type="text/css">
 .coverImg{
-	height: 700px;
-	width: 700px;
+	height: 550px;
+	width: 550px;
+}
+.fa {
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
+  font-size: 18px;
+  cursor: pointer;
+  color: #555;
 }
 
+.fa-play {
+  display: none;}
+  
+  #volume-control{
+  	size: 40%;
+  }
 </style>
 <script type="text/javascript">
 	let buttonCheck = 0; // 수정버튼과 삭제버튼을 구별하기 위한 변수 (비밀번호가 일치했을 때 )
+	
+
 	$(function() {
+		let path = $("#m_file").val();
+		console.log(path);
+		var audio = new Audio(path);
+		console.log(audio);
+		audio.volume = 0.4;
+		audio.autoplay = true;
+
+		$('.trigger').click(function() {
+			if (audio.paused == false) {
+				audio.pause();
+				$('.fa-play').show();
+				$('.fa-pause').hide();
+				$('.music-card').removeClass('playing');
+			} else {
+				audio.play();
+				$('.fa-pause').show();
+				$('.fa-play').hide();
+				$('.music-card').addClass('playing');
+			}
+		});
+
+		let volume = document.querySelector("#volume-control");
+		volume.addEventListener("change", function(e) {
+			audio.volume = e.currentTarget.value / 100;
+		});
 
 		$("#pwdChk").css("visibility", "hidden"); /* 화면에 보이진 않지만, 영역은 차지할 수 있도록.(div) */
 
@@ -80,8 +124,8 @@
 			buttonCheck = "";
 			$("#passwd").val("");
 		});
-		
-		$("#boardInsertBtn").click(function(){
+
+		$("#boardInsertBtn").click(function() {
 			location.href = "/board/writeForm";
 		});
 
@@ -89,8 +133,7 @@
 		$("#boardListBtn").click(function() {
 			location.href = "/board/boardList";
 		});
-		
-		
+
 		/* 제목 클릭 시 상세 페이지 이동을 위한 이벤트  
 		$(".goDetail").click(function() {
 			var m_no = $(this).parents("tr").attr("data-num");
@@ -102,8 +145,7 @@
 			});
 			$("#detailForm").submit();
 		});*/
-		
-		
+
 		/* 제목 클릭 시 상세 페이지 이동을 위한 이벤트  
 		$(".goDetail").click(function() {
 			var m_no = $(this).parents("tr").attr("data-num");
@@ -115,36 +157,33 @@
 			});
 			$("#detailForm").submit();
 		});*/
-		
-		$("#checkOutBtn").click(function(){
+
+		$("#checkOutBtn").click(function() {
 			$("#f_data").attr({
-				"method":"get",
-				"action":"/board/checkOut"
+				"method" : "get",
+				"action" : "/board/checkOut"
 			});
 			$("#f_data").submit();
 
 		});
-		
-		
+
 		//장바구니 버튼 이벤트 
-		$("#addCartBtn").click(function(){
+		$("#addCartBtn").click(function() {
 			var result = confirm('장바구니 담기 성공 ! 장바구니로 이동하시겠습니까?');
-			
-			if(result){
+
+			if (result) {
 				$("#f_data").attr({
-					"method":"post",
-					"action":"/board/addCart"
+					"method" : "post",
+					"action" : "/board/addCart"
 				});
-				
+
 				$("#f_data").submit();
 
-			}else{
+			} else {
 				//리스트로 돌아갈까?
 			}
 		});
-		
-		
-	
+
 	});
 
 	function boardPwdConfirm() {
@@ -163,7 +202,7 @@
 					var goUrl = "";
 					if (resultData == "실패") {
 						console.log(resultData);
-						$("#msg").text("비밀번호를 확인해주세요."); 
+						$("#msg").text("비밀번호를 확인해주세요.");
 						$("#b_pwd").select();
 					} else if (resultData == "성공") {
 						$("#msg").text("");
@@ -193,8 +232,10 @@
 	<form name= "f_data" id = "f_data">
 				<input type ="hidden" name = "m_no" value ="${detail.m_no}"/>
 				<input type = "hidden" name = "user_id" id = "user_id" value = "test"/>
-				
 			</form>		
+	<form name = "file" id = "file">
+		<input type ="hidden" name = "m_file" id = "m_file" value ="/uploadStorage/audioFile/${detail.m_file}"/>	
+	</form>
 		<div id="pwdChk" class="authArea  col-md-9 text-left">
 			<form name="f_pwd" id="f_pwd" class="form-inline">
 				<input type="hidden" name="b_num" id="b_num" value="${detail.m_no}">
@@ -220,10 +261,36 @@
 		<div class="text-center">
 			<table class="table table-bordered">
 				<tbody>
+					<tr >						
+						<%-- <td class="col-md-3 text-left"><img src="/uploadStorage/coverImg/${detail.m_coverimage}" class = "coverImg"/></td> --%>
+						<td colspan="2" class ="text-center">
+							<div class='music-card playing'>
+								<div class='image'>
+									<img src="/uploadStorage/coverImg/${detail.m_coverimage}" />
+								</div>
+								<div class='wave'></div>
+								<div class='wave'></div>
+								<div class='wave'></div>
+
+								<div class='info'>
+									<div >
+										<p class="fa-pause trigger"style = "cursor: pointer;">❚❚</p>
+
+										<p class="fa-play trigger" style = "cursor: pointer;">▶</p>
+										
+									</div>
+									
+
+									<h2 class='title'>${detail.m_title}</h2>
+									<div class='artist'>${detail.m_name}</div>
+								</div>
+							</div>
+						</td>					
+					</tr>
 					<tr>
-						
-						<td class="col-md-3 text-left"><img src="/uploadStorage/coverImg/${detail.m_coverimage}" class = "coverImg"/></td>
-						
+						<td> 
+							<p> <input type="range" id="volume-control"></p>
+						</td>
 					</tr>
 					<tr>
 						<td class="col-md-3">작성자</td>

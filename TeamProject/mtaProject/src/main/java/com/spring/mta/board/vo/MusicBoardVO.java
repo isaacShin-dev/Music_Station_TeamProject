@@ -29,7 +29,7 @@ public class MusicBoardVO extends CommonVO {
 	private MultipartFile file;
 	private String m_file = "";
 	private String m_regdate ="";
-	private int m_recommend =0;
+	private int m_recommentcnt =0;
 	private int m_views=0;
 	private String user_id ="";
 	private String m_price ="";

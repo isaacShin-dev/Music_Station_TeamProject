@@ -8,7 +8,7 @@
 
 	SELECT
 	
-	m_no, m_title, m_name, m_coverimage,m_file, m_regdate, m_recommend, m_views, user_id, m_price, m_isfree, m_genre
+	m_no, m_title, m_name, m_coverimage,m_file, m_regdate, M_RECOMMENTCNT, m_views, user_id, m_price, m_isfree, m_genre
       	 FROM  music_board		
       	
 	
@@ -52,7 +52,7 @@ music_board_sequence.nextval, #{m_title}, #{m_name}, #{m_coverimage}, #{m_bpm}, 
 	SELECT
 
 	m_no, m_title, m_name, m_coverimage, m_bpm, m_explain, m_file,
-	m_regdate, m_recommend, m_views, user_id, m_price, m_isfree, m_genre
+	m_regdate, M_RECOMMENTCNT, m_views, user_id, m_price, m_isfree, m_genre
 	
 	FROM music_board
 	
@@ -64,7 +64,7 @@ music_board_sequence.nextval, #{m_title}, #{m_name}, #{m_coverimage}, #{m_bpm}, 
 
 <update id="recommend" parameterType="board" >
 update music_board
-set m_recommend = m_recommend+1 
+set M_RECOMMENTCNT = M_RECOMMENTCNT+1 
 where m_no = #{m_no}
 
 </update>

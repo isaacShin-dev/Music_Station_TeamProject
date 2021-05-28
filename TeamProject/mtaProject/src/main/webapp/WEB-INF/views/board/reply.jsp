@@ -119,7 +119,7 @@
 					let url = "/replies/all/"+m_no; // +".json";
 					
 					$.getJSON(url, function(data){
-						console.log("list count :"+data.length);
+						
 						replyCnt = data.length; 
 						$(data).each(function(){
 							var r_num = this.r_num;
