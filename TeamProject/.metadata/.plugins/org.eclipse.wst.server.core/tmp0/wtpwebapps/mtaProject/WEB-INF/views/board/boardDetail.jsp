@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>	
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
 <!DOCTYPE html>
 <!-- 문서 유형 : 현재 웹 문서가 어떤 HTML 버전에 맞게 작성되었는지를 알려준다. -->
@@ -31,8 +31,9 @@
 	href="/resources/include/dist/css/bootstrap.min.css">
 <link rel="stylesheet"
 	href="/resources/include/dist/css/bootstrap-theme.css">
-	<link href='https://fonts.googleapis.com/css?family=Roboto:100' rel='stylesheet' type='text/css'>
-	<link rel="stylesheet" href ="/resources/include/css/musicPlayer.css">
+<link href='https://fonts.googleapis.com/css?family=Roboto:100'
+	rel='stylesheet' type='text/css'>
+<link rel="stylesheet" href="/resources/include/css/musicPlayer.css">
 
 <script type="text/javascript"
 	src="/resources/include/js/jquery-1.12.4.min.js"></script>
@@ -49,33 +50,23 @@
 		<![endif]-->
 <title></title>
 <style type="text/css">
-.coverImg{
-	height: 550px;
-	width: 550px;
-}
 .fa {
-  position: absolute;
-  bottom: 10px;
-  right: 10px;
-  font-size: 18px;
-  cursor: pointer;
-  color: #555;
+	position: absolute;
+	bottom: 10px;
+	right: 10px;
+	font-size: 18px;
+	cursor: pointer;
+	color: #555;
 }
 
-.fa-play {
-  display: none;}
-  
-  #volume-control{
-  	size: 40%;
-  }
 </style>
 <script type="text/javascript">
 	let buttonCheck = 0; // 수정버튼과 삭제버튼을 구별하기 위한 변수 (비밀번호가 일치했을 때 )
-	
 
 	$(function() {
 		let path = $("#m_file").val();
 		console.log(path);
+
 		var audio = new Audio(path);
 		console.log(audio);
 		audio.volume = 0.4;
@@ -94,10 +85,11 @@
 				$('.music-card').addClass('playing');
 			}
 		});
-
-		let volume = document.querySelector("#volume-control");
-		volume.addEventListener("change", function(e) {
-			audio.volume = e.currentTarget.value / 100;
+		
+		//볼륨 조절 가능한 
+		$("#volumeSlider").change(function(){
+		    let volume = $(this).val();
+		    audio.volume = volume ;
 		});
 
 		$("#pwdChk").css("visibility", "hidden"); /* 화면에 보이진 않지만, 영역은 차지할 수 있도록.(div) */
@@ -227,20 +219,21 @@
 </head>
 <body>
 
-	
+
 	<div class="container">
-	<form name= "f_data" id = "f_data">
-				<input type ="hidden" name = "m_no" value ="${detail.m_no}"/>
-				<input type = "hidden" name = "user_id" id = "user_id" value = "test"/>
-			</form>		
-	<form name = "file" id = "file">
-		<input type ="hidden" name = "m_file" id = "m_file" value ="/uploadStorage/audioFile/${detail.m_file}"/>	
-	</form>
+		<form name="f_data" id="f_data">
+			<input type="hidden" name="m_no" value="${detail.m_no}" /> <input
+				type="hidden" name="user_id" id="user_id" value="test" />
+		</form>
+		<form name="file" id="file">
+			<input type="hidden" name="m_file" id="m_file"
+				value="/uploadStorage/audioFile/${detail.m_file}" />
+		</form>
 		<div id="pwdChk" class="authArea  col-md-9 text-left">
 			<form name="f_pwd" id="f_pwd" class="form-inline">
 				<input type="hidden" name="b_num" id="b_num" value="${detail.m_no}">
-				<label for="b_pwd" >비밀번호 : </label> <input
-					type="password" name="b_pwd" id="b_pwd" class="form-control" />
+				<label for="b_pwd">비밀번호 : </label> <input type="password"
+					name="b_pwd" id="b_pwd" class="form-control" />
 
 				<button type="button" id="pwdBut" class="btn btn-default btn-sm">확인</button>
 				<button type="button" id="pwdButCancel"
@@ -250,74 +243,62 @@
 		</div>
 		<div class="btnArea col-md-3 text-right">
 			<button type="button" id="updateFormBtn"
-				class="btn btn-primary btn-sm">수정</button>
+				class="btn btn-default btn-sm">수정</button>
 			<button type="button" id="boardDeleteBtn"
-				class="btn btn-primary btn-sm">삭제</button>
+				class="btn btn-default btn-sm">삭제</button>
 			<button type="button" id="boardInsertBtn"
-				class="btn btn-primary btn-sm">쓰기</button>
+				class="btn btn-default btn-sm">쓰기</button>
 			<button type="button" id="boardListBtn"
-				class="btn btn-primary btn-sm">목록</button>
+				class="btn btn-default btn-sm">목록</button>
 		</div>
+		<%-- <div style="background-image: url('/uploadStorage/coverImg/${detail.m_coverimage}');" id ="background"> --%>
+			<div class='music-card playing'>
+				<div class='image'>
+					<img src="/uploadStorage/coverImg/${detail.m_coverimage}" />
+				</div>
+				<div class='wave'></div>
+				<div class='wave'></div>
+				<div class='wave'></div>
+
+				<div class='info'>
+					<div>
+						<p class="fa fa-pause trigger" style="cursor: pointer;">❚❚</p>
+
+						<p class="fa fa-play trigger" style="cursor: pointer;">▶</p>
+					</div>
+
+
+					<h2 class='title'>${detail.m_title}</h2>
+					<div class='artist'>${detail.m_name}</div>
+				</div>
+
+			</div>
+		<!-- </div> -->
+
 		<div class="text-center">
-			<table class="table table-bordered">
-				<tbody>
-					<tr >						
-						<%-- <td class="col-md-3 text-left"><img src="/uploadStorage/coverImg/${detail.m_coverimage}" class = "coverImg"/></td> --%>
-						<td colspan="2" class ="text-center">
-							<div class='music-card playing'>
-								<div class='image'>
-									<img src="/uploadStorage/coverImg/${detail.m_coverimage}" />
-								</div>
-								<div class='wave'></div>
-								<div class='wave'></div>
-								<div class='wave'></div>
 
-								<div class='info'>
-									<div >
-										<p class="fa-pause trigger"style = "cursor: pointer;">❚❚</p>
-
-										<p class="fa-play trigger" style = "cursor: pointer;">▶</p>
-										
-									</div>
-									
-
-									<h2 class='title'>${detail.m_title}</h2>
-									<div class='artist'>${detail.m_name}</div>
-								</div>
-							</div>
-						</td>					
-					</tr>
-					<tr>
-						<td> 
-							<p> <input type="range" id="volume-control"></p>
-						</td>
-					</tr>
-					<tr>
-						<td class="col-md-3">작성자</td>
-						<td colspan="3" class="col-md-9 text-left">${detail.m_name}</td>
-					</tr>
-
-					<tr>
-						<td class="col-md-3">글제목</td>
-						<td colspan="3" class="col-md-9 text-left">${detail.m_title}</td>
-					</tr>
-					<tr>
-						<td class="col-md-3">BPM</td>
-						<td colspan="3" class="col-md-9 text-left">${detail.m_bpm}</td>
-					</tr>
-					<tr class="table-height">
-						<td class="col-md-3">글내용</td>
-						<td colspan="3" class="col-md-9 text-left">${detail.m_explain}</td>
-					</tr>
-				</tbody>
-			</table>
+			
+			<div id="detialInfo">										
+						<label class="col-md-3">Author</label>
+							<p>${detail.m_name}</p> 
+							
+						<label class="col-md-3">Title</label>
+							<p>${detail.m_title}</p> 
+							
+						<label class="col-md-3">BPM</label>
+							<p>${detail.m_bpm}</p> 
+							
+						<label class="col-md-3">Content</label>
+							<p>${detail.m_explain}</p>
+			</div>
 			<div>
-				<button type = "button" class = "btn btn-success" id = "checkOutBtn">구매</button>
-				<button type = "button" class = "btn btn-success" id = "addCartBtn">장바구니 담기</button>
+				<button type="button" class="btn btn-success" id="checkOutBtn">구매</button>
+				<button type="button" class="btn btn-success" id="addCartBtn">장바구니
+					담기</button>
 			</div>
 		</div>
 		<div>
-		<jsp:include page="reply.jsp"/>
+			<jsp:include page="reply.jsp" />
 		</div>
 	</div>
 </body>

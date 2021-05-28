@@ -23,22 +23,38 @@ import javax.sql.DataSource;
 @Log4j
 public class BoardMapperTests {
 
-	@Setter(onMethod_ =@Autowired )
+	@Setter(onMethod_ =@Autowired)
 	private MusicBoardDao boardDao ;
-
+	
 	@Test
-	public void recommendTest() {
+	public void recentTest() {
+		List<MusicBoardVO> mvoList = null ;
+		
 		MusicBoardVO mvo = new MusicBoardVO();
 		
-		mvo.setM_no(57);
-		
-		int result = boardDao.recommend(mvo);
-		
-		log.info("result : "+result );
-		
-		
-		
+		mvoList = boardDao.musicRecentList(mvo);
+		 
+		for(MusicBoardVO vo : mvoList) {
+			log.info(vo);
+		}
+	
 	}
+	
+	
+
+//	@Test
+//	public void recommendTest() {
+//		MusicBoardVO mvo = new MusicBoardVO();
+//		
+//		mvo.setM_no(57);
+//		
+//		int result = boardDao.recommend(mvo);
+//		
+//		log.info("result : "+result );
+		
+		
+		
+	
 	/*
 	 * @Test public void testBoardList() { BoardVO bvo = new BoardVO();
 	 * List<BoardVO> list = boardDao.boardList(bvo); for(BoardVO vo : list) {

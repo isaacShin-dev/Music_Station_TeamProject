@@ -80,6 +80,15 @@ public class MusicBoardServiceImpl implements MusicBoardService {
 		
 		return result;
 	}
+
+
+	@Override
+	public List<MusicBoardVO> musicRecentList(MusicBoardVO mvo) {
+		List<MusicBoardVO> list = null;
+		list = musicBoardDao.musicRecentList(mvo);
+		return list;
+		
+	}
 	 
 
 	

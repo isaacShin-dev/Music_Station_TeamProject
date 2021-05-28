@@ -191,10 +191,10 @@ audio::-webkit-media-controls-fullscreen-button
 			$("#search").val("<c:out value ='${data.search}'/>");
 			
 			
-			if($("#search").val()!='b_content'){
+			if($("#search").val()!='m_explain'){
 				//:contains()는 특정 텍스틀 포함한 요소 반환
-				if($("#search").val()=='b_title') value = "#list tr td.goDetail";
-				else if($("#search").val()=='b_name') value ="#list tr td.name";
+				if($("#search").val()=='m_title') value = "#list tr td.goDetail";
+				else if($("#search").val()=='m_name') value ="#list tr td.name";
 			
 			console.log($(value+ ":contains('"+word+"')").html());
 			
@@ -236,11 +236,11 @@ audio::-webkit-media-controls-fullscreen-button
 	<div class="container">
 		<div id="music_rank">
 			<c:choose>
-				<c:when test="${not empty boardList }">
+				<c:when test="${not empty recentList }">
 					<!-- if 문으로 not empty가 true 일때, list가 있을 때 실행되는 구문. -->
 
 
-					<c:forEach var="board" items="${boardList}" varStatus="status">
+					<c:forEach var="board" items="${recentList}" varStatus="status">
 						<figure class="rank_track" data-num="${board.m_no}">
 
 							<!-- click function() -->
@@ -277,9 +277,9 @@ audio::-webkit-media-controls-fullscreen-button
 					<label>검색조건</label> <select id="search" name="search"
 						class="form-control">
 						<option value="all">전체</option>
-						<option value="b_title">제목</option>
-						<option value="b_content">내용</option>
-						<option value="b_name">작성자</option>
+						<option value="m_title">제목</option>
+						<option value="m_explain">내용</option>
+						<option value="m_name">작성자</option>
 					</select> <input type="text" id="keyword" name="keyword"
 						placeholder="검색어를 입력하세요" class="form-control">
 					<button type="button" id="searchData"
@@ -326,7 +326,7 @@ audio::-webkit-media-controls-fullscreen-button
 									<td><img src="/uploadStorage/coverImg/${board.m_coverimage}" /></td>
 									<td class="goDetail text-left">${board.m_title}</td>
 									<td class="text-center">₩ ${board.m_price}</td>
-									<td class="text-center">${board.m_name}</td>
+									<td class="name">${board.m_name}</td>
 									<td class=""><button type="button"
 											class="btn-group btn-group-xs" data-num="${board.m_no}">${board.m_recommentcnt}</button></td>
 									<td><audio controls controlsList="nodownload"

@@ -12,5 +12,7 @@ public interface MusicBoardDao {
 	public MusicBoardVO boardDetail(MusicBoardVO mvo);
 
 	public int recommend(MusicBoardVO mvo);
+
+	public List<MusicBoardVO> musicRecentList(MusicBoardVO mvo);
 	
 }

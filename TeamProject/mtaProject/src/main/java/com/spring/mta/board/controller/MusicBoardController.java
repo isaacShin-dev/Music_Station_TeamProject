@@ -35,6 +35,9 @@ public class MusicBoardController {
 		List<MusicBoardVO> boardList  = musicBoardService.musicBoardList(mvo);
 		model.addAttribute("boardList",boardList);
 		
+		List<MusicBoardVO> recentList = musicBoardService.musicRecentList(mvo);
+		model.addAttribute("recentList",recentList);
+		
 		return "board/boardList";
 
 	}	
