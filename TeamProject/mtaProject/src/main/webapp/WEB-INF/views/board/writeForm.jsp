@@ -76,11 +76,12 @@
 				$("input[name ='m_isfree']").click(function(){
 					if($("input[name ='m_isfree']:checked").val()== "1"){
 						$("#m_price").attr("disabled",true);
-						$("#m_price").attr("placeholder","무료배포");
+						
+						
 						
 					}else{
 						$("#m_price").attr("disabled",false);
-						$("#m_price").attr("placeholder","판매 희망 금액");
+						
 						
 						
 						
@@ -152,7 +153,7 @@
 					</tr>
 					<tr>
 						<th><label for="m_price">Price : </label></th>
-						<td><input type="text" name="m_price" id="m_price" 
+						<td><input type="text" name="m_price" id="m_price" value = "0"
 							placeholder="판매 희망 금액"></td>
 					</tr>
 					

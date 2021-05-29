@@ -320,7 +320,14 @@ border-radius:7px 7px 7px 7px ;
 									<td><img
 										src="/uploadStorage/coverImg/${board.m_coverimage}" /></td>
 									<td class="goDetail text-left">${board.m_title}</td>
-									<td class="text-center">₩ ${board.m_price}</td>
+									<c:choose>
+										<c:when test ="${board.m_price !=0}">
+											<td class="text-center">₩ ${board.m_price}</td>
+										</c:when>
+										<c:otherwise>
+											<td class="text-center">무료 배포</td>
+										</c:otherwise>
+									</c:choose>								
 									<td class="name">${board.m_name}</td>
 									<td class=""><button type="button"
 											class="btn-group btn-group-xs" data-num="${board.m_no}">${board.m_recommentcnt}</button></td>
