@@ -15,4 +15,6 @@ public interface MusicBoardDao {
 
 	public List<MusicBoardVO> musicRecentList(MusicBoardVO mvo);
 	
+	public int boardListCnt(MusicBoardVO mvo);
+	
 }

@@ -27,6 +27,8 @@
 <link rel="shortcut icon" href="/resources/images/icon.png" />
 <link rel="apple-touch-icon" href="/resources/images/icon.png" />
 <!-- 모바일 웹 페이지 설정 끝 -->
+<script type="text/javascript"
+	src="/resources/include/js/jquery-1.12.4.min.js"></script>
 <link rel="stylesheet"
 	href="/resources/include/dist/css/bootstrap.min.css">
 <link rel="stylesheet"
@@ -35,8 +37,7 @@
 	rel='stylesheet' type='text/css'>
 <link rel="stylesheet" href="/resources/include/css/musicPlayer.css">
 
-<script type="text/javascript"
-	src="/resources/include/js/jquery-1.12.4.min.js"></script>
+
 
 <script src="/resources/include/dist/js/bootstrap.min.js"></script>
 <script type="text/javascript" src="/resources/include/js/common.js"></script>
@@ -50,6 +51,25 @@
 		<![endif]-->
 <title></title>
 <style type="text/css">
+#backImg {
+	background-size: cover;
+	position: absolute;
+	z-index: 1;
+	opacity: 0.3;
+	height: 337px;
+	width: 347px;
+	
+}
+
+#thumbImg {
+	position: absolute;
+	z-index: 1;
+	border-radius: 30px;
+	height: 140px;
+	width: 140px;
+	margin : 100px ; 
+}
+
 .fa {
 	position: absolute;
 	bottom: 10px;
@@ -59,11 +79,47 @@
 	color: #555;
 }
 
+#volumeSlider {
+	width: 150px;
+	align-content: center;
+}
+
+input[type="range"] {
+	cursor :default;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  &:focus {
+    outline: none;
+  }
+  &::-webkit-slider-thumb {
+    -webkit-appearance: none;
+  }
+ 
+}
+
+.range-style {
+	width: 400px;
+	height: 60px;
+	padding: 20px;
+	border-radius: 10px;
+	box-shadow: -2px -2px 8px white, 2px 2px 8px rgba(black, 0.5);
+	border: thin;
+	border-color: #a7bbc7; display : flex;
+	align-items: center;
+	height: 20px;
+	border-radius: 10px;
+	box-shadow: t -2px -2px 8px white, inset 2px 2px 8px rgba(black, 0.5);
+	display: flex;
+}
 </style>
 <script type="text/javascript">
 	let buttonCheck = 0; // 수정버튼과 삭제버튼을 구별하기 위한 변수 (비밀번호가 일치했을 때 )
 
-	$(function() {
+	$(function(){
+		
+
+		
 		let path = $("#m_file").val();
 		console.log(path);
 
@@ -72,8 +128,8 @@
 		audio.volume = 0.4;
 		audio.autoplay = true;
 
-		$('.trigger').click(function() {
-			if (audio.paused == false) {
+		$('.trigger').click(function(){
+			if (audio.paused == false){
 				audio.pause();
 				$('.fa-play').show();
 				$('.fa-pause').hide();
@@ -86,31 +142,32 @@
 			}
 		});
 		
-		//볼륨 조절 가능한 
+
 		$("#volumeSlider").change(function(){
 		    let volume = $(this).val();
 		    audio.volume = volume ;
 		});
-
+		
 		$("#pwdChk").css("visibility", "hidden"); /* 화면에 보이진 않지만, 영역은 차지할 수 있도록.(div) */
 
 		//수정버튼 클릭 시 처리 이벤트
-		$("#updateFormBtn").click(function() {
+		$("#updateFormBtn").click(function(){
 			$("#pwdChk").css("visibility", "visible");
 			$("#msg").text("계정 비밀번호를 입력해 주세요.").css("color", "000099");
 			buttonCheck = 1;
 		});
 		//삭제버튼 클릭 시 처리 이벤트
-		$("#boardDeleteBtn").click(function() {
+		$("#boardDeleteBtn").click(function(){
 			$("#pwdChk").css("visibility", "visible");
 			$("#msg").text("계정 입력한 비밀번호를 입력해 주세요.").css("color", "000099");
 			buttonCheck = 2;
 		});
 
 		//비밀번호 확인 버튼 클릭 시 처리 이벤트
-		$("#pwdBut").click(function(event) {
+		$("#pwdBut").click(function(event){
 			boardPwdConfirm();
 		});
+		
 		$("#pwdButCancel").click(function() {
 			$("#pwdChk").css("visibility", "hidden");
 			buttonCheck = "";
@@ -254,7 +311,10 @@
 		<%-- <div style="background-image: url('/uploadStorage/coverImg/${detail.m_coverimage}');" id ="background"> --%>
 			<div class='music-card playing'>
 				<div class='image'>
-					<img src="/uploadStorage/coverImg/${detail.m_coverimage}" />
+					<img id ="backImg" src="/uploadStorage/coverImg/${detail.m_coverimage}" />
+				</div>
+				<div>
+					<img id ="thumbImg" src="/uploadStorage/coverImg/${detail.m_coverimage}" />
 				</div>
 				<div class='wave'></div>
 				<div class='wave'></div>
@@ -270,6 +330,9 @@
 
 					<h2 class='title'>${detail.m_title}</h2>
 					<div class='artist'>${detail.m_name}</div>
+					<div>
+						<input id="volumeSlider" class ="range-style" type="range" min="0" max="1" step="0.01" value="0.4" onchange="changevolume(this.value)" />
+					</div>
 				</div>
 
 			</div>

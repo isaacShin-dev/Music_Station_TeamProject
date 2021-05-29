@@ -56,4 +56,5 @@
     <fullyQualifiedTypeName name="com.spring.client.board.dao.BoardMapperTests"/>
     <fullyQualifiedTypeName name="com.spring.mta.board.vo.MusicBoardVO"/>
     <fullyQualifiedTypeName name="java.util.List"/>
+    <fullyQualifiedTypeName name="com.spring.mta.common.vo.pageDTO"/>
 </qualifiedTypeNameHistroy>

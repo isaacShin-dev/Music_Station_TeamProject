@@ -1,9 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+	pageEncoding="UTF-8"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@taglib prefix="tag" tagdir="/WEB-INF/tags/"%>
 
-    
+
 <!DOCTYPE html>
 <!-- 문서 유형 : 현재 웹 문서가 어떤 HTML 버전에 맞게 작성되었는지를 알려준다. -->
 
@@ -11,58 +12,60 @@
      DTD 선언문이 HTML 페이지의 가장 첫 라인에 명시되어야 웹 브라우저가 HTML 버전을 인식.
      HTML태그나 CSS를 해당 버전에 맞도록 처리하므로 웹 표준 준수를 위하여 반드시 명시되어야 한다.-->
 <html lang="ko">
-	<head>
-		
-		<!-- html5 : 파일의 인코딩 방식 지정 - 한국어 처리를 위한 euc-kr과 다국어 처리를 위한 utf-8로 설정.-->
-		<meta charset="utf-8" />
-		<!-- html4 : 파일의 인코딩 방식 지정 -->
-		<!--<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />-->
+<head>
 
-		<meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1" />
-		<!-- 브라우저의 호환성 보기 모드를 막고, 해당 브라우저에서 지원하는 가장 최신 버전의 방식으로 HTML 보여주도록 설정.-->
-		
-		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no" />
-		<!--viewport : 화면에 보이는 영역을 제어하는 기술. width는 device-width로 설정(브라우저 너비를 장치 너비에 맞추어 표시). initial-scale는 초기비율(보이는 영역과 웹 페이지를 맞춤). user-scalable는 사용자가 화면축소를 하지 못하도록 설정.-->
-      	
-		<!-- 모바일 웹 페이지 설정 -->
-		<link rel="shortcut icon" href="/resources/images/icon.png" />
-		<link rel="apple-touch-icon" href="/resources/images/icon.png" />
-		<!-- 모바일 웹 페이지 설정 끝 -->
-		<link rel="stylesheet" href="/resources/include/css/MusisBoard.css">
-		<link rel="stylesheet" href="/resources/include/dist/css/bootstrap.min.css">
-		<link rel="stylesheet" href="/resources/include/dist/css/bootstrap-theme.css">
-		
+<!-- html5 : 파일의 인코딩 방식 지정 - 한국어 처리를 위한 euc-kr과 다국어 처리를 위한 utf-8로 설정.-->
+<meta charset="utf-8" />
+<!-- html4 : 파일의 인코딩 방식 지정 -->
+<!--<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />-->
 
-		<script type="text/javascript" src ="/resources/include/js/jquery-1.12.4.min.js"></script>
-		
-		<script src="/resources/include/dist/js/bootstrap.min.js"></script>
-		<script type="text/javascript"src ="/resources/include/js/common.js"></script> 
-		
-		
-		
-		<!--[if lt IE 9]>
+<meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1" />
+<!-- 브라우저의 호환성 보기 모드를 막고, 해당 브라우저에서 지원하는 가장 최신 버전의 방식으로 HTML 보여주도록 설정.-->
+
+<meta name="viewport"
+	content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no" />
+<!--viewport : 화면에 보이는 영역을 제어하는 기술. width는 device-width로 설정(브라우저 너비를 장치 너비에 맞추어 표시). initial-scale는 초기비율(보이는 영역과 웹 페이지를 맞춤). user-scalable는 사용자가 화면축소를 하지 못하도록 설정.-->
+
+<!-- 모바일 웹 페이지 설정 -->
+<link rel="shortcut icon" href="/resources/images/icon.png" />
+<link rel="apple-touch-icon" href="/resources/images/icon.png" />
+<!-- 모바일 웹 페이지 설정 끝 -->
+<script type="text/javascript"
+	src="/resources/include/js/jquery-1.12.4.min.js"></script>
+<link rel="stylesheet" href="/resources/include/css/MusisBoard.css">
+<link rel="stylesheet"
+	href="/resources/include/dist/css/bootstrap.min.css">
+<link rel="stylesheet"
+	href="/resources/include/dist/css/bootstrap-theme.css">
+
+
+
+
+<script src="/resources/include/dist/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="/resources/include/js/common.js"></script>
+
+
+
+<!--[if lt IE 9]>
 		<script src="../js/html5shiv.js"></script>
 		<![endif]-->
-		<style type="text/css">
-		.required {
-			color: red;
-		}
-		
-		img{
-			height: 140px;
-			width: 140px;
-			border-radius: 30px;
-		
-		}
-		.goDetailRank{
-			height: 220px;
-			width: 220px;
-			border-radius: 10px 100px / 120px;	
-			
-		}
-		
-		audio:hover, audio:focus, audio:active
-{
+<style type="text/css">
+.required {
+	color: red;
+}
+
+img {
+	height: 140px;
+	width: 140px;
+	border-radius: 30px;
+}
+
+.goDetailRank {
+	height: 220px;
+	width: 220px;
+	border-radius: 10px 100px/120px;
+}
+
 /* -webkit-box-shadow: 15px 15px 20px rgba(0,0, 0, 0.4);
 -moz-box-shadow: 15px 15px 20px rgba(0,0, 0, 0.4);
 box-shadow: 15px 15px 20px rgba(0,0, 0, 0.4);
@@ -86,23 +89,14 @@ box-shadow: 2px 2px 4px 0px #006773;
 border-radius:7px 7px 7px 7px ;
 } */
 
-audio::-webkit-media-controls-fullscreen-button
-		</style>
+/* audio::-webkit-media-controls-fullscreen-button
+ */
+</style>
 <script type="text/javascript">
 
 
 	$(function(){
-		//recommend btn controll 
-	/* 	$(".btn-group").click(function(){
-			if(confirm("추천하시겠습니까?")){
-			var m_no = $(this).parents("tr").attr("data-num");
-			console.log(m_no);
-			$("#m_no").val(m_no);
-	
-			$("#detailForm").attr("action", "/board/recommend");
-			$("#detailForm").submit();
-			}
-		}); */
+		
 		$(".btn-group").click(function(){
 			if(confirm("추천하시겠습니까?")){
 				var m_no = $(this).parents("tr").attr("data-num");
@@ -193,8 +187,8 @@ audio::-webkit-media-controls-fullscreen-button
 			
 			if($("#search").val()!='m_explain'){
 				//:contains()는 특정 텍스틀 포함한 요소 반환
-				if($("#search").val()=='m_title') value = "#list tr td.goDetail";
-				else if($("#search").val()=='m_name') value ="#list tr td.name";
+				if($("#search").val() == 'm_title') value = "#list tr td.goDetail";
+				else if($("#search").val() == 'm_name') value ="#list tr td.name";
 			
 			console.log($(value+ ":contains('"+word+"')").html());
 			
@@ -230,8 +224,8 @@ audio::-webkit-media-controls-fullscreen-button
 </script>
 
 <title>BoardList</title>
-	</head>
-	
+</head>
+
 <body>
 	<div class="container">
 		<div id="music_rank">
@@ -323,7 +317,8 @@ audio::-webkit-media-controls-fullscreen-button
 								<!-- items 의 항목을 모두 반복 -->
 								<tr class="text-center" data-num="${board.m_no}">
 									<!-- data-num 이 해당 글번호를 가지고있다. -->
-									<td><img src="/uploadStorage/coverImg/${board.m_coverimage}" /></td>
+									<td><img
+										src="/uploadStorage/coverImg/${board.m_coverimage}" /></td>
 									<td class="goDetail text-left">${board.m_title}</td>
 									<td class="text-center">₩ ${board.m_price}</td>
 									<td class="name">${board.m_name}</td>
@@ -331,10 +326,9 @@ audio::-webkit-media-controls-fullscreen-button
 											class="btn-group btn-group-xs" data-num="${board.m_no}">${board.m_recommentcnt}</button></td>
 									<td><audio controls controlsList="nodownload"
 											src="/uploadStorage/audioFile/${board.m_file}"></audio></td>
-									<td><button type="button" class="btn btn-default" id ="fileDownBtn"
-											aria-label="Left Align">
-											<span class="glyphicon glyphicon-save"
-												aria-hidden="true"></span>
+									<td><button type="button" class="btn btn-default"
+											id="fileDownBtn" aria-label="Left Align">
+											<span class="glyphicon glyphicon-save" aria-hidden="true"></span>
 										</button></td>
 								</tr>
 
@@ -352,7 +346,11 @@ audio::-webkit-media-controls-fullscreen-button
 			</table>
 		</div>
 		<!-- ==========================리스트 종료============================== -->
-
+		<!--==========================pagination============================== -->
+		<tag:pagination endPage="${pageMaker.endPage }"
+			startPage="${pageMaker.startPage }" amount="${pageMaker.cvo.amount }"
+			next="${pageMaker.next }" prev="${pageMaker.prev }"
+			pageNum="${pageMaker.cvo.pageNum }" />
 
 
 		<!-- ==========================글쓰기 버튼 출력 시작====================== -->

@@ -89,6 +89,16 @@ public class MusicBoardServiceImpl implements MusicBoardService {
 		return list;
 		
 	}
+
+
+	@Override
+	public int boardListCnt(MusicBoardVO mvo) {
+
+		int result =0;
+		
+		result =musicBoardDao.boardListCnt(mvo);
+		return result;
+	}
 	 
 
 	

@@ -15,6 +15,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.spring.mta.board.service.MusicBoardService;
 import com.spring.mta.board.vo.MusicBoardVO;
+import com.spring.mta.common.vo.pageDTO;
 import com.spring.mta.main.controller.MainController;
 import lombok.AllArgsConstructor;
 import lombok.extern.log4j.Log4j;
@@ -32,11 +33,18 @@ public class MusicBoardController {
 	public String musicBoardList(@ModelAttribute("data") MusicBoardVO mvo, Model model) {
 		
 		log.info("list method");
+		
 		List<MusicBoardVO> boardList  = musicBoardService.musicBoardList(mvo);
 		model.addAttribute("boardList",boardList);
 		
 		List<MusicBoardVO> recentList = musicBoardService.musicRecentList(mvo);
 		model.addAttribute("recentList",recentList);
+		
+		//paggination 
+		
+		int total = musicBoardService.boardListCnt(mvo);
+		
+		model.addAttribute("pageMaker",new pageDTO(mvo, total));
 		
 		return "board/boardList";
 

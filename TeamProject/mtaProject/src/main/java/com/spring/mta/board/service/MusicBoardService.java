@@ -19,6 +19,7 @@ public interface MusicBoardService {
 	public int replyCnt(int m_no) ;
 	public int recommend(MusicBoardVO mvo);
 	public List<MusicBoardVO> musicRecentList(MusicBoardVO mvo);
+	public int boardListCnt(MusicBoardVO mvo);
 	
 	
 	
