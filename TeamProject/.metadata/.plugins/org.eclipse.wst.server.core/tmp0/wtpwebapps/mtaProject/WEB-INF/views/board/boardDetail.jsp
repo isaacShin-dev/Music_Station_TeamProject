@@ -207,10 +207,10 @@ input[type="range"] {
 			$("#detailForm").submit();
 		});*/
 
-		$("#checkOutBtn").click(function() {
+		$("#paymentBtn").click(function() {
 			$("#f_data").attr({
 				"method" : "get",
-				"action" : "/board/checkOut"
+				"action" : "/board/payment"
 			});
 			$("#f_data").submit();
 
@@ -341,21 +341,45 @@ input[type="range"] {
 		<div class="text-center">
 
 			
-			<div id="detialInfo">										
-						<label class="col-md-3">Author</label>
-							<p>${detail.m_name}</p> 
-							
-						<label class="col-md-3">Title</label>
-							<p>${detail.m_title}</p> 
-							
-						<label class="col-md-3">BPM</label>
-							<p>${detail.m_bpm}</p> 
-							
-						<label class="col-md-3">Content</label>
-							<p>${detail.m_explain}</p>
+			<div id="detialInfo">
+			<table class = "">
+					<tr>
+						<td><label class="col-md-1">Author</label></td>
+						<td>${detail.m_name}</td>
+					</tr>
+					<tr>
+						<td><label class="col-md-1">Title</label></td>
+						<td>${detail.m_title}</td>
+					</tr>
+					<tr>
+						<td><label class="col-md-1">BPM</label></td>
+						<td>${detail.m_bpm}</td>
+					</tr>
+					<tr>
+						<td><label class="col-md-1">Content</label></td>
+						<td>${detail.m_explain}</td>
+					</tr>
+
+				</table>									
+
 			</div>
 			<div>
-				<button type="button" class="btn btn-success" id="checkOutBtn">구매</button>
+				<c:choose>
+					<c:when test="${detail.m_price !=0}">
+						<td><button type="button" class="btn btn-default"
+								id="paymentBtn" aria-label="Left Align">
+								<span aria-hidden="true">BUY</span>
+							</button></td>
+					</c:when>
+					<c:otherwise>
+						<td><a href="/uploadStorage/audioFile/${detail.m_file}"
+							target="_blank"><button type="button" class="btn btn-default"
+									id="fileDownBtn" aria-label="Left Align">
+									<span class="glyphicon glyphicon-save" aria-hidden="true"></span>
+
+								</button></a></td>
+					</c:otherwise>
+				</c:choose>
 				<button type="button" class="btn btn-success" id="addCartBtn">장바구니
 					담기</button>
 			</div>

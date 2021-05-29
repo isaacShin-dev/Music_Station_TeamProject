@@ -54,16 +54,26 @@
 	color: red;
 }
 
-img {
+.goDetail, .img {
 	height: 140px;
 	width: 140px;
 	border-radius: 30px;
+	cursor: pointer;
+}
+.goDetail{
+	font-size: 12px; 
 }
 
 .goDetailRank {
 	height: 220px;
 	width: 220px;
 	border-radius: 10px 100px/120px;
+	cursor: pointer;
+}
+
+.table>tbody>tr>td, .table>tbody>tr>th, .table>tfoot>tr>td, .table>tfoot>tr>th,
+	.table>thead>tr>td, .table>thead>tr>th {
+	vertical-align: middle;
 }
 
 /* -webkit-box-shadow: 15px 15px 20px rgba(0,0, 0, 0.4);
@@ -95,48 +105,90 @@ border-radius:7px 7px 7px 7px ;
 <script type="text/javascript">
 
 
-	$(function(){
-		
-		$(".btn-group").click(function(){
-			if(confirm("추천하시겠습니까?")){
-				var m_no = $(this).parents("tr").attr("data-num");
-				var m_recommend =$(this).html();
-				var recommend_no = parseInt(m_recommend)+1;
-				var currM_no = $(this).attr("data-num");
-				console.log("currM_no :"+currM_no);
-				console.log("m_no: "+currM_no);
+// 좋아요 여부 체크function
+	
 
-				
-				$.ajax({
-					url :"/board/recommend",
-					type : "get",
-					data : {m_no : m_no},// 유저아이디도 추가로 넘겨서 좋아요 여부 체크 
-					success : function(result){
-						if(result==1){
-							alert("게시물을 추천하셨습니다.");
-							console.log(recommend_no);
-							$(".btn-group[data-num='"+m_no+"']").html(recommend_no);
-								
-							}else{
-								alert("system malfucntion");
-							}
-						}	
-					}).fail (function(){
-						alert("시스템오류");
-					});
+/* 	function likeCheck(m_no) {
+		var like_Check ;
+		$.ajax({
+			url : "/board/likeCheck",
+			type : "get",
+			data : {
+				m_no : m_no
+			},
+			success : function(result) {
+				like_Check = result;
+				console.log(like_Check);
+			},
+			error : function() {
+				alert("system error !!");
+			}
+		});
+		return like_Check;
+	} */
+
+/* 	 function likeCheck(m_no) {
+	
+	 
+	
+	 console.log(m_no);
+	 $("#m_no").val(m_no);
+	 $("#detailForm").attr({
+	 "method" : "get",
+	 "action" : "/board/likeCheck"
+	 });
+	 $("#detailForm").submit();
+	 } */
+	
+
+	$(function() {
+		//좋아요 버튼 클릭 이벤트 
+		$(".btn-group").click(
+				function() {
+
+						if (confirm("추천하시겠습니까?")) {
+							var m_no = $(this).parents("tr").attr("data-num");
+							var m_recommend = $(this).html();
+							var recommend_no = parseInt(m_recommend) + 1;
+							var currM_no = $(this).attr("data-num");
+							/* console.log("currM_no :"+currM_no);
+							console.log("m_no: "+currM_no); */
+
+							$.ajax({
+										url : "/board/recommend",
+										type : "get",
+										data : {m_no : m_no},
+										success : function(result) {
+
+											if (result == 1) {
+												alert("게시물을 추천하셨습니다.");
+												console.log(recommend_no);
+												$(
+														".btn-group[data-num='"
+																+ m_no + "']")
+														.html(recommend_no);
+
+											} else {
+												alert("이미 추천하신 게시물입니다.");
+											}
+										}
+									}).fail(function() {
+								alert("시스템오류");
+							});
+
+						}
+
 					
-				}
-			});
-		
-		
-		
-		
+
+				});
+
+		// 글 작성 버튼 이벤트 
 		$("#insertFormBtn").click(function() {
 			location.href = "/board/writeForm";
 		});
 
 		/* 제목 클릭 시 상세 페이지 이동을 위한 이벤트  */
-		$(".goDetail").click(function() {
+		$(".goDetail,.img").click(function() {
 			var m_no = $(this).parents("tr").attr("data-num");
 			console.log(m_no);
 			$("#m_no").val(m_no);
@@ -146,21 +198,20 @@ border-radius:7px 7px 7px 7px ;
 			});
 			$("#detailForm").submit();
 		});
-		
-		
-		$("#fileDownBtn").click(function(){
+
+		$("#paymentBtn").click(function() {
 			//console.log("filedownlaod btn clicked ");
 			var m_no = $(this).parents("tr").attr("data-num");
 			console.log(m_no);
 			$("#m_no").val(m_no);
 			$("#detailForm").attr({
 				"method" : "get",
-				"action" : "/board/fileDownload"
+				"action" : "/board/payment"
 			});
 			$("#detailForm").submit();
-			
+
 		});
-		
+
 		/*rank 영역 클릭 시 상세 페이지 이동 */
 		$(".goDetailRank").click(function() {
 			var m_no = $(this).parents("figure").attr("data-num");
@@ -172,34 +223,36 @@ border-radius:7px 7px 7px 7px ;
 			});
 			$("#detailForm").submit();
 		});
-		
-		
-		
-		
+
 		/* 검색 후 검색 대상과 검색 단어 출력 */
-		let word ="<c:out value ='${data.keyword}'/>";
+		let word = "<c:out value ='${data.keyword}'/>";
 		let value = "";
-		
-		if(word !=""){
+
+		if (word != "") {
 			$("#keyword").val("<c:out value ='${data.keyword}'/>");
 			$("#search").val("<c:out value ='${data.search}'/>");
-			
-			
-			if($("#search").val()!='m_explain'){
+
+			if ($("#search").val() != 'm_explain') {
 				//:contains()는 특정 텍스틀 포함한 요소 반환
-				if($("#search").val() == 'm_title') value = "#list tr td.goDetail";
-				else if($("#search").val() == 'm_name') value ="#list tr td.name";
-			
-			console.log($(value+ ":contains('"+word+"')").html());
-			
-			$(value+ ":contains('"+word+"')").each(function(){
-				var regex = new RegExp(word,'gi');
-				$(this).html($(this).html().replace(regex, "<span class = 'required'>"+word+"</span>"));
-			});
-				
+				if ($("#search").val() == 'm_title')
+					value = "#list tr td.goDetail";
+				else if ($("#search").val() == 'm_name')
+					value = "#list tr td.name";
+
+				console.log($(value + ":contains('" + word + "')").html());
+
+				$(value + ":contains('" + word + "')").each(
+						function() {
+							var regex = new RegExp(word, 'gi');
+							$(this).html(
+									$(this).html().replace(
+											regex,
+											"<span class = 'required'>" + word
+													+ "</span>"));
+						});
+
 			}
 		}
-		
 
 		/* 검색 버튼 클릭 시 처리 이벤트 */
 		$("#searchData").click(function() {
@@ -216,11 +269,8 @@ border-radius:7px 7px 7px 7px ;
 			});
 			$("#f_search").submit();
 		});
-	
-	
-	}); // 최상위 종료 
-	
 
+	}); // 최상위 종료
 </script>
 
 <title>BoardList</title>
@@ -263,6 +313,7 @@ border-radius:7px 7px 7px 7px ;
 
 		<form id="detailForm">
 			<input type="hidden" id="m_no" name="m_no" />
+			
 		</form>
 		<%-- =====================검색기능 시작 =========================== --%>
 		<div id="boardSearch" class="text-right">
@@ -317,12 +368,12 @@ border-radius:7px 7px 7px 7px ;
 								<!-- items 의 항목을 모두 반복 -->
 								<tr class="text-center" data-num="${board.m_no}">
 									<!-- data-num 이 해당 글번호를 가지고있다. -->
-									<td><img
+									<td><img class = "img"
 										src="/uploadStorage/coverImg/${board.m_coverimage}" /></td>
 									<td class="goDetail text-left">${board.m_title}</td>
 									<c:choose>
-										<c:when test ="${board.m_price !=0}">
-											<td class="text-center">₩ ${board.m_price}</td>
+										<c:when test ="${board.m_price != 0}">
+											<td class="text-center"> <fmt:formatNumber value="${board.m_price}" type="currency"  currencyCode ="KRW" pattern="₩ ###,###,###" /></td>
 										</c:when>
 										<c:otherwise>
 											<td class="text-center">무료 배포</td>
@@ -333,10 +384,23 @@ border-radius:7px 7px 7px 7px ;
 											class="btn-group btn-group-xs" data-num="${board.m_no}">${board.m_recommentcnt}</button></td>
 									<td><audio controls controlsList="nodownload"
 											src="/uploadStorage/audioFile/${board.m_file}"></audio></td>
+									<c:choose>
+										<c:when test ="${board.m_price !=0}">
 									<td><button type="button" class="btn btn-default"
+											id="paymentBtn" aria-label="Left Align">
+											<span aria-hidden="true">BUY</span>
+										</button></td>
+										</c:when>
+										<c:otherwise>
+											<td><a href="/uploadStorage/audioFile/${board.m_file}" target="_blank"><button type="button" class="btn btn-default"
 											id="fileDownBtn" aria-label="Left Align">
 											<span class="glyphicon glyphicon-save" aria-hidden="true"></span>
-										</button></td>
+										
+										</button></a></td>
+										</c:otherwise>
+									</c:choose>	
+											
+									
 								</tr>
 
 
@@ -368,7 +432,9 @@ border-radius:7px 7px 7px 7px ;
 		<!-- ==========================글쓰기 버튼 출력 종료======================= -->
 	</div>
 
-
+	<form id = "like_f">
+	<input type ="hidden" id="likecnt" name ="likecnt" value ="${result.likecnt}"/>
+	</form>
 
 </body>
 </html>

@@ -36,6 +36,13 @@
 		<!--[if lt IE 9]>
 		<script src="../js/html5shiv.js"></script>
 		<![endif]-->
+		<style type="text/css">
+			input[type="number"]::-webkit-outer-spin-button, input[type="number"]::-webkit-inner-spin-button
+				{
+				-webkit-appearance: none;
+				margin: 0;
+			}
+</style>
 		<script type="text/javascript">
 			$(function(){
 				$("#boardInsertBtn").click(function(){
@@ -88,9 +95,17 @@
 					}
 				});
 				
-
+			
+				
+				
 			});// 최상위 종료.
-		
+			
+			
+
+				  
+				
+					  
+			
 		</script>
 
 		<title>WriteForm.jsp</title>
@@ -129,7 +144,7 @@
 					</tr>
 					<tr>
 						<th><label for="m_bpm">BPM : </label></th>
-						<td><input type="text" name="m_bpm" id="m_bpm"
+						<td><input type="number" name="m_bpm" id="m_bpm" pattern="[0-9]+"value = "0"
 							placeholder="BPM 정보 입력"></td>
 					</tr>
 					<tr>
@@ -154,7 +169,7 @@
 					<tr>
 						<th><label for="m_price">Price : </label></th>
 						<td><input type="text" name="m_price" id="m_price" value = "0"
-							placeholder="판매 희망 금액"></td>
+							placeholder="판매 희망 금액" onkeyup="chkNumber(this)" pattern="[0-9]+"></td>
 					</tr>
 					
 					<tr>

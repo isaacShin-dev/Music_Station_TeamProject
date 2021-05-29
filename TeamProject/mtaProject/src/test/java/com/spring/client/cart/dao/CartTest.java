@@ -21,8 +21,8 @@ import lombok.extern.log4j.Log4j;
 @Log4j
 public class CartTest {
 
-	@Setter(onMethod_=@Autowired)
-	private CartDao cartDao ;
+//	@Setter(onMethod_=@Autowired)
+//	private CartDao cartDao ;
 	
 	
 //	@Test

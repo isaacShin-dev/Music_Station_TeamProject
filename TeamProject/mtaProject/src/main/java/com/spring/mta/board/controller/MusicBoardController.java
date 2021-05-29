@@ -15,7 +15,10 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.spring.mta.board.service.MusicBoardService;
 import com.spring.mta.board.vo.MusicBoardVO;
+import com.spring.mta.common.vo.UserInfoVO;
 import com.spring.mta.common.vo.pageDTO;
+import com.spring.mta.like.service.LikeService;
+import com.spring.mta.like.vo.LikeCntVO;
 import com.spring.mta.main.controller.MainController;
 import lombok.AllArgsConstructor;
 import lombok.extern.log4j.Log4j;
@@ -26,6 +29,7 @@ import lombok.extern.log4j.Log4j;
 @AllArgsConstructor  
 public class MusicBoardController {
 	private MusicBoardService musicBoardService; 
+	private LikeService likeService;
 	
 /***********	call out Music_board List*****
 ************************************************/	
@@ -86,9 +90,14 @@ public class MusicBoardController {
 		return "board/boardDetail";
 	}
 	
-	@RequestMapping(value ="/fileDownload", method = RequestMethod.GET)
-	public void fileDownload(@ModelAttribute("data") MusicBoardVO mvoo) throws Exception{
+	@RequestMapping(value ="/payment", method = RequestMethod.GET)
+	public String fileDownload(@ModelAttribute("data") MusicBoardVO mvo, Model model) throws Exception{
 		log.info("download controller 호출 성공");
+		
+		MusicBoardVO paymentInfo = musicBoardService.boardDetail(mvo);
+		model.addAttribute("paymentInfo",paymentInfo);
+		
+		return "board/paymentPage";
 		
 		
 	}
@@ -112,24 +121,45 @@ public class MusicBoardController {
 	//추천 수 증가 
 	@ResponseBody
 	@RequestMapping(value ="/recommend", method = RequestMethod.GET)
-	public String recommend(@ModelAttribute MusicBoardVO mvo,  @RequestParam(value = "m_no") int m_no) {
+	public String recommend(@ModelAttribute("data") MusicBoardVO mvo,  @RequestParam(value = "m_no") int m_no)throws Exception {
 		log.info("recommend호출 ");
-		
-		mvo.setM_no(m_no);
-		
+		int likecheck = 0 ;
 		int result =0;
+		int likeAdd =0;
+		LikeCntVO lvo = new LikeCntVO();
 		
-		result = musicBoardService.recommend(mvo);
+		lvo.setUser_id("test");
+		lvo.setM_no(m_no);
+		likecheck = likeService.likeCheck(lvo);
 		
 		
-		log.info("restult :"+result);
+		if(likecheck <1) {
+			mvo.setM_no(m_no);
+			result = musicBoardService.recommend(mvo);
+			
+			lvo.setUser_id("test");
+			lvo.setM_no(m_no);
+			likeAdd = likeService.likeAdd(lvo);
+			
+			log.info("restult :"+result);
+		}else {
+			
+			result = -1;
+		}
 		
+
+		
+	
+		
+
 		
 		return String.valueOf(result);
 		
 		
 		
 	}
+	
+	
 	
 	
 	

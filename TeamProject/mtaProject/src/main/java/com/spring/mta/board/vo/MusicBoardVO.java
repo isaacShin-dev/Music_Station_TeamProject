@@ -35,6 +35,7 @@ public class MusicBoardVO extends CommonVO {
 	private String m_price ="";
 	private int m_isfree= 0;
 	private String m_genre ="";
+	private int m_stock =0;
 	
 	private int r_cnt = 0;
 	

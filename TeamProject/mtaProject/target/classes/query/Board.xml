@@ -36,14 +36,16 @@ m_no, m_title, m_name, m_coverimage,m_file, to_char(m_regdate,'YYYY-MM-DD'), M_R
              </trim>
        </select>
 
-<!-- 게시판 리스트 조회(페이징 처리와 검색 처리)  -->
+<!-- 게시판 리스트 조회(페이징 처리와 검색 처리) to_char(m_price,'L9,999,999') as -->
        <select id= "musicBoardList" parameterType="board" resultType="board">
      <![CDATA[
           SELECT 
-          m_no, m_title, m_name,m_coverimage,m_file, to_char(m_regdate, 'YYYY-MM-DD') as m_regdate, m_recommentCnt, m_views, user_id, m_price, m_isfree,m_genre
+          m_no, m_title, m_name,m_coverimage,m_file, to_char(m_regdate, 'YYYY-MM-DD') as m_regdate,
+           m_recommentCnt, m_views, user_id, m_price, m_isfree,m_genre,m_stock
           FROM ( 
              SELECT /*+ INDEX_DESC(music_board music_board_pk)*/
-                   rownum as rnum,  m_no, m_title, m_name,m_coverimage,m_file, m_regdate,  m_recommentCnt, m_views, user_id, m_price, m_isfree,m_genre
+                   rownum as rnum,  m_no, m_title, m_name,m_coverimage,m_file, m_regdate,  
+                   m_recommentCnt, m_views, user_id, m_price, m_isfree,m_genre,m_stock
                    from music_board
           WHERE ]]>
           <trim prefix="(" suffix=") AND " prefixOverrides="AND">
@@ -111,7 +113,7 @@ music_board_sequence.nextval, #{m_title}, #{m_name}, #{m_coverimage}, #{m_bpm}, 
 	SELECT
 
 	m_no, m_title, m_name, m_coverimage, m_bpm, m_explain, m_file,
-	m_regdate, M_RECOMMENTCNT, m_views, user_id, m_price, m_isfree, m_genre
+	m_regdate, M_RECOMMENTCNT, m_views, user_id, m_price, m_isfree, m_genre,m_stock
 	
 	FROM music_board
 	
