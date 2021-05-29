@@ -66,11 +66,29 @@
 					});
 				});
 				//목록 돌아가기
+				
 				$("#boardListBtn").click(function(){
 					location.href = "/board/boardList";
 				});
+			
+				// 무료 배포 선택 여부에 따라 금액 입력 비활성화 설정. 
 				
-			});
+				$("input[name ='m_isfree']").click(function(){
+					if($("input[name ='m_isfree']:checked").val()== "1"){
+						$("#m_price").attr("disabled",true);
+						$("#m_price").attr("placeholder","무료배포");
+						
+					}else{
+						$("#m_price").attr("disabled",false);
+						$("#m_price").attr("placeholder","판매 희망 금액");
+						
+						
+						
+					}
+				});
+				
+
+			});// 최상위 종료.
 		
 		</script>
 
@@ -125,16 +143,16 @@
 
 					<tr>
 						<th><label for="m_isfree">Distribute for Free : </label></th>
-						<td><div class="btn-group btn-group-toggle" data-toggle="buttons">
-								<label class="btn btn-primary"> <input type="radio" name ="distribution" value = "1">Y</label>
-								<div class="btn-group btn-group-toggle" data-toggle="buttons">
-									<label class="btn btn-primary"> <input type="radio" name = "distribution" value ="0">N</label>
-								</div>
-							</div></td>
+						<td>
+								<input type="radio" name = "m_isfree" value = "1" ><label class = " ">Y</label>
+								
+								<input type="radio" name = "m_isfree" value ="0"><label class = " ">N</label>
+								
+							</td>
 					</tr>
 					<tr>
 						<th><label for="m_price">Price : </label></th>
-						<td><input type="text" name="m_price" id="m_price"
+						<td><input type="text" name="m_price" id="m_price" 
 							placeholder="판매 희망 금액"></td>
 					</tr>
 					
