@@ -17,4 +17,6 @@ public interface CartDao {
 
 		public int cartCheckOut(CartVO cvo);
 
+		public int cartListCheck(CartVO cvo);
+
 }

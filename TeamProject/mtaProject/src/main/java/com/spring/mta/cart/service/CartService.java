@@ -9,14 +9,16 @@ import com.spring.mta.cart.vo.CartVO;
 
 public interface CartService {
 
-	int addCart(CartVO cvo);
+	public int addCart(CartVO cvo);
 
-	List<CartVO> CartList(CartVO cvo);
+	public List<CartVO> CartList(CartVO cvo);
 
-	int deleteCart(CartVO cvo);
+	public int deleteCart(CartVO cvo);
 
-	CartVO checkOut(CartVO cvo);
+	public CartVO checkOut(CartVO cvo);
 
-	int cartCheckOut(CartVO cvo);
+	public int cartCheckOut(CartVO cvo);
+
+	public int CartListCheck(CartVO cvo);
 
 }

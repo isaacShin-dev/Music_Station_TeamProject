@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.spring.mta.board.vo.MusicBoardVO;
 import com.spring.mta.cart.service.CartService;
 import com.spring.mta.cart.vo.CartVO;
 
@@ -26,23 +27,28 @@ public class CartController {
 	private CartService cartService;
 	
 	
-	
-	@RequestMapping(value ="/addCart", method =RequestMethod.POST)
-	public String addCart(CartVO cvo, Model model) {
+	@ResponseBody
+	@RequestMapping(value ="/addCart", method =RequestMethod.GET)
+	public String addCart(@ModelAttribute("data") CartVO cvo,  @RequestParam(value = "m_no") int m_no)throws Exception {
 		log.info("addcart call ");
-		
 		int result = 0;
-		String url = "";
+		int cartCheck = 0;
 		
-		result = cartService.addCart(cvo);
-		if(result ==1) {
- 			url = "/board/cartList";
+		cvo.setUser_id("test");
+		cvo.setM_no(m_no);
+		cartCheck =	cartService.CartListCheck(cvo);
+		log.info("장바구니 중복 체크"+cartCheck);
+		
+		if(cartCheck < 1) {
+			cvo.setUser_id("test");
+			result = cartService.addCart(cvo);
+			log.info("장바구니 추가 결과 : "+result );
 		}else {
-			url ="/board/boardList";
+			result = 2;
 		}
 		
-		
-		return "redirect:"+url;
+
+		return  String.valueOf(result);
 		
 	}
 	
@@ -53,6 +59,7 @@ public class CartController {
 		cvo.setUser_id("test"); // 추후 세션 정보로 변경해주어야 함. 
 		List<CartVO> list = cartService.CartList(cvo);
 		model.addAttribute("cartList",list);
+		
 		
 		
 		return "board/cartList";

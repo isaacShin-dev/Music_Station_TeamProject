@@ -207,6 +207,7 @@ input[type="range"] {
 			$("#detailForm").submit();
 		});*/
 
+		//결제 버튼 
 		$("#paymentBtn").click(function() {
 			$("#f_data").attr({
 				"method" : "get",
@@ -218,21 +219,31 @@ input[type="range"] {
 
 		//장바구니 버튼 이벤트 
 		$("#addCartBtn").click(function() {
-			var result = confirm('장바구니 담기 성공 ! 장바구니로 이동하시겠습니까?');
+			if (confirm("장바구니에 담으시겠습니까?")) {
+				var m_no = $("#m_no").val();
 
-			if (result) {
-				$("#f_data").attr({
-					"method" : "post",
-					"action" : "/board/addCart"
-				});
+				$.ajax({
+							url : "/board/addCart",
+							type : "get",
+							data : {m_no : m_no},
+							success : function(result) {
+								if (result == 1) {
+								if(confirm("장바구니에 상품을 담았습니다. 장바구니로 이동하시겠습니까?")){
+									location.href = "/board/cartList";
+								}
+										
+								} else {
+									alert("장바구니에 이미 추가되어있는 상품입니다.");
+								}
+							}
+						}).fail(function() {
+							alert("시스템오류");
+						});
 
-				$("#f_data").submit();
-
-			} else {
-				//리스트로 돌아갈까?
 			}
-		});
 
+	});
+				
 	});
 
 	function boardPwdConfirm() {
@@ -279,7 +290,7 @@ input[type="range"] {
 
 	<div class="container">
 		<form name="f_data" id="f_data">
-			<input type="hidden" name="m_no" value="${detail.m_no}" /> <input
+			<input type="hidden" name="m_no" id="m_no" value="${detail.m_no}" /> <input
 				type="hidden" name="user_id" id="user_id" value="test" />
 		</form>
 		<form name="file" id="file">

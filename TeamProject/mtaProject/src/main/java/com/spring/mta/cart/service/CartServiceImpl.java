@@ -59,6 +59,14 @@ public class CartServiceImpl implements CartService {
 		return result ;
 	}
 
+	@Override
+	public int CartListCheck(CartVO cvo) {
+		int result =0;
+		
+		result = cartDao.cartListCheck(cvo);
+		return result;
+	}
+
 	
 
 

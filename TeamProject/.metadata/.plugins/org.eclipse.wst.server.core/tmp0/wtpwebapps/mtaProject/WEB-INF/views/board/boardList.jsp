@@ -33,6 +33,7 @@
 <script type="text/javascript"
 	src="/resources/include/js/jquery-1.12.4.min.js"></script>
 <link rel="stylesheet" href="/resources/include/css/MusisBoard.css">
+
 <link rel="stylesheet"
 	href="/resources/include/dist/css/bootstrap.min.css">
 <link rel="stylesheet"
@@ -103,7 +104,16 @@ border-radius:7px 7px 7px 7px ;
  */
 </style>
 <script type="text/javascript">
-
+function goPage() {
+	if($("#search").val()=="all"){
+		$("#keyword").val("");
+	}
+	$("#f_search").attr({
+		"method" : "get",
+		"action" :"/board/boardList"
+	});
+	$("#f_search").submit();	
+}
 
 // 좋아요 여부 체크function
 	
@@ -142,6 +152,12 @@ border-radius:7px 7px 7px 7px ;
 	
 
 	$(function() {
+		//새로운 글 불러오기
+		
+		
+		
+		
+		
 		//좋아요 버튼 클릭 이벤트 
 		$(".btn-group").click(
 				function() {
@@ -253,12 +269,13 @@ border-radius:7px 7px 7px 7px ;
 
 			}
 		}
+		
+
 
 		/* 검색 버튼 클릭 시 처리 이벤트 */
 		$("#searchData").click(function() {
 			if ($("#search").val() != "all") {
-				if (!chkData("#keyword", "검색어를"))
-					return;
+				if (!chkData("#keyword", "검색어를")) return;
 			} else if ($("#search").val() == "all") {
 				$("#keyword").val("");
 			}
@@ -270,6 +287,13 @@ border-radius:7px 7px 7px 7px ;
 			$("#f_search").submit();
 		});
 
+		/* pageMaker */
+    	$(".paginate_button a").click(function (e) {
+			e.preventDefault();
+			$("#f_search").find("input[name='pageNum']").val($(this).attr("href"));
+			goPage();
+		});
+	
 	}); // 최상위 종료
 </script>
 
@@ -318,6 +342,8 @@ border-radius:7px 7px 7px 7px ;
 		<%-- =====================검색기능 시작 =========================== --%>
 		<div id="boardSearch" class="text-right">
 			<form id="f_search" name="f_search" class="form-inline">
+				<input type="hidden" name="pageNum" value="${pageMaker.cvo.pageNum}"> 
+				<input type="hidden" name="amount" value="${pageMaker.cvo.amount}">
 				<div class="form-group">
 					<label>검색조건</label> <select id="search" name="search"
 						class="form-control">
@@ -382,7 +408,10 @@ border-radius:7px 7px 7px 7px ;
 									<td class="name">${board.m_name}</td>
 									<td class=""><button type="button"
 											class="btn-group btn-group-xs" data-num="${board.m_no}">${board.m_recommentcnt}</button></td>
-									<td><audio controls controlsList="nodownload"
+											
+									<td class="player-container" oncontextmenu='return false'>
+									
+									<audio id="player" controls controlsList="nodownload"
 											src="/uploadStorage/audioFile/${board.m_file}"></audio></td>
 									<c:choose>
 										<c:when test ="${board.m_price !=0}">

@@ -67,5 +67,14 @@ Values(
 
 </insert>
 
+<select id="cartListCheck" parameterType="cart" resultType="int">
+Select
+	count(cart_id)
+from
+	m_cart
+where
+	user_id = #{user_id} and m_no = #{m_no}
+</select>
+
 
 </mapper>

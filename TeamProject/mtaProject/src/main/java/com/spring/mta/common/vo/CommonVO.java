@@ -21,7 +21,8 @@ public class CommonVO {
 	
 	
 	//날짜검색 시 사용할 필드 
-	
+	private String start_date = "";
+	private String end_date = "";
 	
 	public CommonVO() {
 		this(1, 10);

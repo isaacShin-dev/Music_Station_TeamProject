@@ -21,64 +21,28 @@ import lombok.extern.log4j.Log4j;
 @Log4j
 public class CartTest {
 
-//	@Setter(onMethod_=@Autowired)
-//	private CartDao cartDao ;
+	@Setter(onMethod_=@Autowired)
+	private CartDao cartDao ;
+	
+
 	
 	
-//	@Test
-//	public void paymentInsertTest() {
-//		CartVO cvo = new CartVO();
-//		PaymentDTO p = new PaymentDTO();
-//		
-//		cvo.setUser_id("test");
-//		
-//		int result = cartDao.cartCheckOut(cvo);
-//		
-//		log.info("result : "+result);
-//	}
-	
-	
+	@Test
+	public void cartchcec() {
 		
+		int result = 0;
+		CartVO cvo = new CartVO();
+
+		cvo.setUser_id("test");
+		cvo.setM_no(79);
+		result = cartDao.cartListCheck(cvo);
+		log.info(result);
 		
 	}
-	
-//	@Test
-//	public void cartInsertTest() {
-//		
-//		log.info("addCart 호출 성공 ");
-//		CartVO cvo = new CartVO();
-//		cvo.setCart_id("test");
-//		cvo.setUser_id("test");
-//		cvo.setM_no(56);
-//		
-//		int result = cartDao.addCart(cvo);
-//		
-//		log.info("resutl : "+result);
-//		
-//	}
-//	@Test
-//	public void cartList() {
-//		log.info("cartList !!!!!!!!!");
-//		
-//		CartVO cvo = new CartVO();
-//		cvo.setUser_id("test");
-//		List<CartVO> list = cartDao.cartList(cvo);
-//		
-//		for(CartVO vo : list) {
-//			log.info(vo);
-//		}
-//	}
-	
-//	@Test
-//	public void cartDeleteTest() {
-//		int result =0; 
-//		CartVO cvo = new CartVO();
-//		cvo.setCart_id("32");
-//		cvo.setUser_id("test");
-//		
-//		result = cartDao.deleteCart(cvo);
-//		log.info("result : "+result);
-//		
-//	}
-	
+		
+		
 }
+	
+
+	
+

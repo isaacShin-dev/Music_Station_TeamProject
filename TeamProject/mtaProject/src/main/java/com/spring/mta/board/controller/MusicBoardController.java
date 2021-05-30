@@ -48,7 +48,7 @@ public class MusicBoardController {
 		
 		int total = musicBoardService.boardListCnt(mvo);
 		
-		model.addAttribute("pageMaker",new pageDTO(mvo, total));
+		model.addAttribute("pageMaker", new pageDTO(mvo, total));
 		
 		return "board/boardList";
 
@@ -147,17 +147,10 @@ public class MusicBoardController {
 			result = -1;
 		}
 		
-
-		
-	
-		
-
-		
-		return String.valueOf(result);
-		
-		
-		
+		return String.valueOf(result);	
 	}
+	
+	
 	
 	
 	
