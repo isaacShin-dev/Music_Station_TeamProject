@@ -131,9 +131,9 @@
 								Image Attachment : </label></th>
 						<td><input type="file" name="coverImg" id="coverImg"></td>
 						<!-- 업로드 할 파일 미리보기가 출력될 영역 설정 예정  -->
-						 <td ><span class = "preview">
+						<%--  <td ><span class = "preview">
 							 <img id ="" src="/uploadStorage/coverImg/${updateData.m_coverimage}" style="width: 100px;height: 100px;"/>
-						</span></td> 
+						</span></td>  --%>
 					</tr>
 					<tr>
 						<th><label for="m_bpm">BPM : </label></th>
@@ -148,8 +148,8 @@
 					<tr>
 						<th><label for="m_file">File(wav,mp3) : </label></th>
 						<td><input type="file" name="file" id="file" ></td>
-						 <td><audio id="player" controls controlsList="nodownload"
-											src="/uploadStorage/audioFile/${updateData.m_file}"></audio></td> 
+						<%--  <td><audio id="player" controls controlsList="nodownload"
+											src="/uploadStorage/audioFile/${updateData.m_file}"></audio></td>  --%>
 					</tr>
 
 					<tr>
