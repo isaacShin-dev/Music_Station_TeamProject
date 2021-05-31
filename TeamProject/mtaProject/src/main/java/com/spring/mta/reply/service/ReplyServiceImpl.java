@@ -35,6 +35,35 @@ public class ReplyServiceImpl implements ReplyService {
 		return result ;
 	}
 
+	@Override
+	public int replyDelete(int r_num) {
+		int result =0;
+			result = replyDao.replyDelete(r_num);
+		return result ;
+	}
+
+	@Override
+	public ReplyVO replySelect(Integer r_num) {
+		ReplyVO rvo = null ;
+		rvo = replyDao.replySelect(r_num);
+		return rvo;
+	}
+
+	@Override
+	public int pwdConfirm(ReplyVO rvo) {
+		int result =0;
+		result = replyDao.pwdConfirm(rvo);
+		return result;
+	}
+
+	@Override
+	public int replyUpdate(ReplyVO rvo) {
+		int result = 0;
+		
+		result = replyDao.replyUpdate(rvo);
+		return result;
+	}
+
 
 	
 

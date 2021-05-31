@@ -5,12 +5,17 @@ import java.util.List;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
+
 
 import com.spring.mta.reply.service.ReplyService;
 import com.spring.mta.reply.vo.ReplyVO;
@@ -81,4 +86,98 @@ public class ReplyController {
 			return result==1 ? new ResponseEntity<String>("SUCCESS", HttpStatus.OK):
 								new ResponseEntity<String>(HttpStatus.INTERNAL_SERVER_ERROR);
 		}
+		
+		
+		/**************************************************************
+		 * 댓글 수정전 조회 
+		 * 
+		**************************************************************/
+		@GetMapping(value ="/{r_num}",
+			produces = { MediaType.APPLICATION_XML_VALUE, MediaType.APPLICATION_JSON_UTF8_VALUE})
+public ResponseEntity<ReplyVO> replySelect(@PathVariable("r_num") Integer r_num){
+	log.info("replySelect 호출성공 ");
+	
+	ResponseEntity<ReplyVO> entity = null ;
+	entity = new ResponseEntity<>(replyService.replySelect(r_num), HttpStatus.OK);
+			
+			return entity;
+	
+}
+		
+//	댓글 수정
+		
+		
+		@RequestMapping(value ="/{r_num}",
+				method = {RequestMethod.PUT,RequestMethod.PATCH},
+				consumes = "application/json",
+				produces = {MediaType.TEXT_PLAIN_VALUE})
+		public ResponseEntity<String> replyUpdate(@PathVariable("r_num") Integer r_num, @RequestBody ReplyVO rvo){
+			log.info("replyUpdate !!");
+			
+			rvo.setR_num(r_num);
+			int result = replyService.replyUpdate(rvo);
+			return result == 1 ? new ResponseEntity<String>("SUCCESS",HttpStatus.OK):
+							new ResponseEntity<String>(HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+
+		
+		
+//	댓글 비밀번호 확인 
+		
+		@RequestMapping(value ="/pwdConfirm")
+		public ResponseEntity<Integer> pwdConfirm(@ModelAttribute ReplyVO rvo){
+			log.info("pwdConfirm호출 성공");
+			
+			ResponseEntity<Integer> entity = null;
+			int result = 0;
+			
+			result = replyService.pwdConfirm(rvo);
+			entity = new ResponseEntity<Integer>(result, HttpStatus.OK);
+			
+			return entity;
+			
+			
+		}
+		
+		// 댓글 삭제구현. 
+		
+		@DeleteMapping(value ="/{r_num}", produces = {MediaType.TEXT_PLAIN_VALUE})
+		public ResponseEntity<String> replyDelete(@PathVariable("r_num") Integer r_num){
+			log.info("replyDelete 호출 성공 ");
+			
+			log.info("r_num : "+r_num);
+			
+			int result  = replyService.replyDelete(r_num);
+			
+			return result ==1 ? new ResponseEntity<String>("SUCCESS", HttpStatus.OK):
+								new ResponseEntity<String>(HttpStatus.INTERNAL_SERVER_ERROR);
+		
+		}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 }

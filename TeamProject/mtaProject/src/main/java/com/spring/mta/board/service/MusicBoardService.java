@@ -1,5 +1,6 @@
 package com.spring.mta.board.service;
 
+import java.io.IOException;
 import java.util.List;
 
 
@@ -20,6 +21,8 @@ public interface MusicBoardService {
 	public int recommend(MusicBoardVO mvo);
 	public List<MusicBoardVO> musicRecentList(MusicBoardVO mvo);
 	public int boardListCnt(MusicBoardVO mvo);
+	public int mBoardUpdate(MusicBoardVO mvo) throws Exception;
+	public MusicBoardVO updateForm(MusicBoardVO mvo);
 	
 	
 	

@@ -152,9 +152,12 @@ input[type="range"] {
 
 		//수정버튼 클릭 시 처리 이벤트
 		$("#updateFormBtn").click(function(){
-			$("#pwdChk").css("visibility", "visible");
+			/* $("#pwdChk").css("visibility", "visible");
 			$("#msg").text("계정 비밀번호를 입력해 주세요.").css("color", "000099");
-			buttonCheck = 1;
+			buttonCheck = 1; */
+			$("#f_data").attr("action", "/board/updateForm");
+			$("#f_data").submit();
+			
 		});
 		//삭제버튼 클릭 시 처리 이벤트
 		$("#boardDeleteBtn").click(function(){
@@ -246,43 +249,7 @@ input[type="range"] {
 				
 	});
 
-	function boardPwdConfirm() {
-		if (!chkData("#b_pwd", "비밀번호를"))
-			return;
-		else {
-			$.ajax({
-				url : "/board/pwdConfirm", //전송 rul
-				type : "post",
-				data : $("#f_pwd").serialize(),
-				dataType : "text",
-				error : function() {
-					alert("시스템 오류, 관리자에게 문의 하세요.");
-				},
-				success : function(resultData) {
-					var goUrl = "";
-					if (resultData == "실패") {
-						console.log(resultData);
-						$("#msg").text("비밀번호를 확인해주세요.");
-						$("#b_pwd").select();
-					} else if (resultData == "성공") {
-						$("#msg").text("");
-						console.log(resultData);
-						if (buttonCheck == 1) { //수정
-							goUrl = "/board/updateForm";
-							$("#f_data").attr("action", goUrl);
-							$("#f_data").submit();
-						} else if (buttonCheck == 2) { //삭제
-							if (confirm("정말 삭제하시겠습니까?")) {
-								goUrl = "/board/boardDelete";
-								$("#f_data").attr("action", goUrl);
-								$("#f_data").submit();
-							}
-						}
-					}
-				}
-			});
-		}
-	}
+	
 </script>
 </head>
 <body>

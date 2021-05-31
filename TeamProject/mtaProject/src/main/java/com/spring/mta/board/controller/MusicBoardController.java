@@ -1,5 +1,6 @@
 package com.spring.mta.board.controller;
 
+import java.io.IOException;
 import java.util.List;
 
 import org.springframework.stereotype.Controller;
@@ -151,6 +152,41 @@ public class MusicBoardController {
 	}
 	
 	
+	
+	// updateForm 
+	
+	@RequestMapping("/updateForm")
+	public String updateForm(@ModelAttribute("data") MusicBoardVO mvo, Model model) {
+		log.info("updateForm ȣ�� ����");
+		log.info("b_num : "+mvo.getM_no());
+		
+		MusicBoardVO updateData = musicBoardService.updateForm(mvo);
+		
+		model.addAttribute("updateData",updateData);
+		
+		return "board/updateForm";
+	}
+	
+	@RequestMapping(value ="/mBoardUpdate", method = RequestMethod.POST)
+	public String mBoardUpdate(@ModelAttribute MusicBoardVO mvo, RedirectAttributes ras) throws Exception {
+		log.info("mBoardUpdate 호출 성공 !!!!! ");
+		int result =0;
+		
+		String url = "";
+		
+		result = musicBoardService.mBoardUpdate(mvo);
+		ras.addFlashAttribute("data",mvo);
+		
+		if(result ==1) {
+			url ="/board/boardDetail";
+		}else {
+			url = "/board/updateForm";
+		}
+		
+		
+		
+		return "redirect:"+url ;
+	}
 	
 	
 	

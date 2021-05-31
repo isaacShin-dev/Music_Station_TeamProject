@@ -65,6 +65,10 @@
 						$('#replyModal').modal();
 					});
 					
+				
+					
+
+					
 					/*글입력을 위한 Ajax 연동 처리 */
 					$(document).on("click", "button[data-button='insertBtn']", function(){
 						console.log("insertBtn");
@@ -107,10 +111,191 @@
 					
 						});
 					});
+					
+					
 					$('#button[data-dismiss="modal"]').click(function(){
 						dataReset();
 					});
 					
+					/* 비밀번호 체크 화면에서취소 누를 경우  */
+					
+					$(document).on("click",".pwdResetBut",function(){
+						$(this).parents("div.panel .panel-heading .pwdArea").remove();	
+					});
+					
+					/* 비밀번호 확인 버튼 클릭 이벤트  */
+					
+					$(document).on("click",".pwdCheckBut", function(){
+						var r_num = $(this).parents("div.panel").attr("data-num");
+						console.log(r_num);
+						var form = $(this).parents(".inline");
+						var pwd = form.find(".passwd");
+						console.log(pwd);
+						var msg = form.find(".msg");
+						var value = 0;
+						
+						if(!checkForm(pwd,msg,"비밀번호를"))return ;
+						else{
+							pwdCheck(r_num,pwd,msg).then(function(data){
+								console.log("data : "+data);
+								if(data == 1){
+									console.log("비밀번호 확인 후 btnKind :"+ btnKind);
+									
+									if(btnKind =="upbtn"){
+										updateForm(r_num);
+									}else if(btnKind =="delBtn"){
+										deleteBtn(m_no,r_num);
+									}
+								}
+								btnKind="";
+							});
+							
+						}
+						
+					});
+					
+					/* 비밀번호 확인 버튼 실직적인 함수 처리  */
+					function pwdCheck(r_num,pwd,msg){
+						var def = new $.Deferred();
+						
+						$.ajax({
+							url : "/replies/pwdConfirm.json",
+							type : "post",
+							data : "r_num ="+r_num+"&r_pwd="+pwd.val(),
+							dataType : "text",
+							error : function(){
+								alert("system error ");
+							},
+							success : function(resultData){
+								console.log("resultData : "+resultData);
+								if(resultData ==0){
+									msg.addClass("msg_error");
+									msg.text("입력한 비밀번호가 일치하지 않습니다.");
+									pwd.select();
+								}else if(resultData ==1){
+									def.resolve(resultData);
+									$(pwd).parents("div.panel .panel-heading .pwdArea").remove();
+								}
+							}
+							
+
+						}); //ajax
+						return def.promise();
+					}
+					
+					/* 비밀번호 입력 양식에 키보드로 문자를 누르면 처리  */
+					
+					$(document).on("keydown", ".passwd", function(){
+						var span = $(this).parents("form").find("span");
+						span.removeClass("msg_error");
+						span.addClass("msg_default");
+						span.html(message);
+					});
+					
+					/* 수정 폼 화면 구현 함수  */
+					
+					function updateForm(r_num) {
+						$.ajax({
+							url : "replies/"+r_num+".json",
+							type : "get",
+							dataType : "json",
+							error : function(){
+								alert("system error");
+							},
+							success :function(data){
+								$("#r_name").val(data.r_name);
+								$("#r_content").val(data.r_content);
+								
+								var num_input = $("<input>");
+								num_input.attr({
+									"type":"hidden",
+									"name":"r_num"});
+								num_input.val(r_num);
+								$("#comment_form").append(num_input);
+								
+								setModal("댓글수정","updateBtn","수정");
+								$("#r_name").attr("readonly","readonly");
+								$("#replyModal").modal();
+								
+							}
+						});//ajax
+					}
+					
+					
+					/* 글 삭제를 위한ajax 연동 처리  */
+					
+					function deleteBtn(m_no,r_num) {
+						if(confirm("선택하신 댓글을 삭제하시겠습니까?")){
+							$.ajax({
+								url : 'replies/'+r_num,
+								type : "delete",
+								headers :{
+									"X-HTTP-Method-Override": "DELETE"																
+								},
+								dataType : 'text',
+								error : function(){
+									alert("system error");
+								},
+								success : function(result){
+									console.log("result :"+result);
+									if(result =='SUCCESS'){
+										alert("reply deleted");
+										listAll(m_no);
+									}
+								}
+							});//ajax
+						}
+					}
+					
+					
+					/* 수정 및 삭제 전 비밀번호 화면 출력을 위한 처리  */
+					
+					$(document).on("click","button[data-btn]",function(){
+						$(".btn").parents("div.panel .panel-heading .pwdArea").remove();
+						$(this).parents("div.panel .panel-heading").append(pwdView());
+						btnKind = $(this).attr("data-btn");
+						console.log("클릭 버튼 btnKind :"+btnKind);
+					});
+					
+					
+					
+					/* 수정을 위한 ajax 연동 처리  */
+					
+					$(document).on("click","button[data-button='updateBtn']",function(){
+						console.log("updateBtn");
+						var r_num = $("input[name='r_num']").val();
+						if(!checkForm("#r_content","댓글내용을")) return; 
+						else{
+							$.ajax({
+								url:'/replies/'+r_num,
+								type :'put',
+								headers:{
+									"Content-Type":"application/json",
+									"X-HTTP-Method-Override":"PUT"
+								},
+								data : JSON.stringify({
+									r_content:$("#r_content").val(),
+									r_pwd:("#r_pwd").val()
+								}),
+								dataType : 'text',
+								error : function(){
+									alert("system error");
+								},
+								success : function(result){
+									console.log("result : "+result);
+									if(result == 'SUCCESS'){
+										alert("댓글 수정이 완료 되었습니다.");
+										dataReset();
+										$("#replyModal").modal('hide');
+										listAll(m_no);
+									}
+								}
+							});//ajax
+						}
+						
+					});
+					
+
 				}); //최상위 종료
 				
 				/*댓글목록 보여주는 함수 */
@@ -167,10 +352,13 @@
 					let delBtn = $("<button>");
 					delBtn.attr({
 						"type" : "button"
+						
 					});
 					delBtn.attr("data-btn", "delBtn");
 					delBtn.addClass("btn btn-primary gap");
 					delBtn.html("삭제하기");
+					
+					
 	
 					// 내용 
 					let content_div = $("<div>");
@@ -195,6 +383,48 @@
 					$("#r_name").val("");
 					$("#r_pwd").val("");
 					$("#r_content").val("");
+				}
+				
+				/* 비밀번호 체크를 동적 화면 구현  */
+				
+				function pwdView() {
+					var span =$("<span>");
+					span.addClass("pwdArea");
+					
+					var pwd_form = $("<form>");
+					pwd_form.attr("name","f_pwd");
+					pwd_form.addClass("form-inline inline");
+					
+					var pwd_label = $("<label>");
+					pwd_label.attr("for","passwd");
+					pwd_label.html("비밀번호 : ");
+					
+					
+					var pwd_input =$("<input>");
+					pwd_input.attr({"type":"password","name":"passwd"});
+					pwd_input.addClass("form-control passwd gap");
+					pwd_input.prop("autofocus","autofocus");
+					
+					var pwd_check = $("<input>");
+					pwd_check.attr({"type" : "button", "value": "확인"});
+					pwd_check.addClass("btn btn-default pwdCheckBut gap");
+					
+					var pwd_reset =$("<input>");
+					 pwd_reset.attr({
+						"type" : "button", "value" :"취소"
+					});
+					 pwd_reset.addClass("btn btn-default pwdResetBut gap");
+					 
+					 var pwd_span =$("<span>");
+					 pwd_span.addClass("msg");
+					 pwd_span.html(message);
+					 
+					 pwd_form.append(pwd_label).append(pwd_input).append(pwd_check).append(pwd_reset).append(pwd_span);
+					 return span.append(pwd_form);
+					
+					
+					
+					
 				}
 				
 			</script>

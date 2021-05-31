@@ -26,19 +26,59 @@ public class BoardMapperTests {
 	@Setter(onMethod_ =@Autowired)
 	private MusicBoardDao boardDao ;
 	
+//	@Test
+//	public void recentTest() {
+//		List<MusicBoardVO> mvoList = null ;
+//		
+//		MusicBoardVO mvo = new MusicBoardVO();
+//		
+//		mvoList = boardDao.musicRecentList(mvo);
+//		 
+//		for(MusicBoardVO vo : mvoList) {
+//			log.info(vo);
+//		}
+//	 update music_board
+//	    set m_title = #{m_title}
+//	    , m_name = #{m_name}
+//	    ,m_no = #{m_no}
+//	    ,user_id = #{user_id}
+//	    ,m_coverimage =#{m_coverimage}
+//	    ,m_bpm = #{m_bpm}
+//	    , m_explain = #{m_explain}
+//	    ,m_file =#{m_file}
+//	    ,m_price =#{m_price}
+//	    ,m_isfree =#{m_isfree}
+//	    ,m_genre =#{m_genre}
+//	    , m_regdate = sysdate
+//	    Where m_no = #{m_no}
+
+	
 	@Test
-	public void recentTest() {
-		List<MusicBoardVO> mvoList = null ;
-		
+	public void updateTest() {
 		MusicBoardVO mvo = new MusicBoardVO();
 		
-		mvoList = boardDao.musicRecentList(mvo);
-		 
-		for(MusicBoardVO vo : mvoList) {
-			log.info(vo);
-		}
-	
+		int result  =0;
+		
+		mvo.setM_title("update test");
+		mvo.setM_name("updatetest");
+		mvo.setM_no(81);
+		mvo.setUser_id("test");
+		mvo.setM_coverimage("test.jpg");
+		mvo.setM_bpm(20);
+		mvo.setM_explain("testtsets update");
+		mvo.setM_file("testupdate.mp3");
+		mvo.setM_isfree(0);
+		mvo.setM_genre("hiphop");
+		
+		
+		
+		
+		result = boardDao.mBoardUpdate(mvo);
+		
+		log.info("result : "+result);
 	}
+	
+	
 	
 	
 

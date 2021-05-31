@@ -51,6 +51,7 @@ m_no, m_title, m_name, m_coverimage,m_file, to_char(m_regdate,'YYYY-MM-DD'), M_R
           <trim prefix="(" suffix=") AND " prefixOverrides="AND">
           
              <include refid="boardSearch"></include>
+             <include refid="boardCategory"></include>
           </trim>
           <![CDATA[  rownum <= #{pageNum} * #{amount}
           ) boardlist
@@ -86,6 +87,27 @@ WHERE ROWNUM <= 5
       		<if test="search == 'm_explain'">
       			<![CDATA[ m_explain LIKE '%' || #{keyword}||'%']]>
       		</if>
+</sql>
+
+
+<sql id ="boardCategory">
+	<if test ="m_genre =='Ballad'">
+		<![CDATA[ m_genre = 'ballad']]>
+	</if>
+		<if test ="m_genre =='Electronic'">
+		<![CDATA[ m_genre = 'Electronic']]>
+	</if>
+	<if test ="m_genre == 'RnB'">
+		<![CDATA[ m_genre = 'Rnb']]>
+	</if>
+	<if test ="m_genre =='NewAge'">
+		<![CDATA[ m_genre = 'Agenew']]>
+	</if>
+		<if test ="m_genre =='Rap/Hiphop'">
+		<![CDATA[ m_genre = 'Rap']]>
+	</if>
+	
+
 </sql>
 
 
@@ -129,4 +151,37 @@ set M_RECOMMENTCNT = M_RECOMMENTCNT+1
 where m_no = #{m_no}
 
 </update>
+
+<update id="mBoardUpdate" parameterType="board">
+    
+    
+    update music_board
+    set m_title = #{m_title}
+    , m_name = #{m_name}
+    ,m_no = #{m_no}
+    ,user_id = #{user_id}
+    ,m_coverimage =#{m_coverimage}
+    ,m_bpm = #{m_bpm}
+    , m_explain = #{m_explain}
+    ,m_file =#{m_file}
+    ,m_price =#{m_price}
+    ,m_isfree =#{m_isfree}
+    ,m_genre =#{m_genre}
+    , m_regdate = sysdate
+    Where m_no = #{m_no}
+   
+   
+
+  
+   
+   
+   
+   
+   
+   
+   
+   
+</update>
+
+ 
 </mapper>

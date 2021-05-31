@@ -43,12 +43,18 @@
 
 			$(function() {
 				$("#boardUpdateBtn").click(function() {
-					if(!chkData("#b_title","제목을")) return;
-					else if(!chkData("#b_content","내용을")) return ;
+					if(!chkData("#m_title","이름을"))return ;
+					else if(!chkData("#m_name","제목을")) return;
+					else if(!chkData("#coverImg","커버이미지를 ")) return ; //to-do  파일 등록에 대한 유효성 체크 구문을 다르게 주어, 메서드 생성 
+					else if(!chkData("#m_bpm","Bpm 정보를")) return ;
+					else if(!chkData("#m_explain","곡 설명을")) return ;
+					else if(!chkData("#file","음악파일을")) return ;
+					else if(!chkData("#m_price","가격을")) return ;
 					else{
 						$("#f_updateForm").attr({
-							"method":"post",
-							"action":"/board/boardUpdate"
+							"method": "post",
+							"enctype":"multipart/form-data",
+							"action": "/board/mBoardUpdate"
 						});
 						$("#f_updateForm").submit();
 					}
@@ -63,54 +69,118 @@
 				$("#boardListBtn").click(function() {
 					location.href = "/board/boardList";
 				});
+				
+				$("input[name ='m_isfree']").click(function(){
+					if($("input[name ='m_isfree']:checked").val()== "1"){
+						$("#m_price").attr("disabled",true);
+						$("#m_price").val("0");
+						
+						
+						
+						
+					}else{
+						$("#m_price").attr("disabled",false);
+						
+						
+						
+						
+					}
+				});
+				
 			});
 		</script>
 		<title>UpdateForm.jsp</title>
 	</head>
 	<body>
+	<form id = "hidden">
+	
+	</form>
 
 	<div class="container">
 		<h2 class="text-center">글수정</h2>
 		<div class="text-cencter">
 			<form id="f_updateForm" name="f_updateForm">
-				<input type="hidden" id="b_num" name="b_num" value="${updateData.b_num }"/>
+				<input type="hidden" id="m_no" name="m_no" value="${updateData.m_no }"/>
+				<input type ="hidden" id ="user_id" name = "user_id" value ="${updateData.user_id }"/>
 				<table class="table table-bordered">
 					<colgroup>
 						<col width="17%" />
 						<col width="33%" />
 						<col width="17%" />
 						<col width="33%" />
-					<tbody>
-						<tr>
-							<td>글번호</td>
-							<td colspan="3" class="text-left">${updateData.b_num}</td>
-						</tr>
-						<tr>
-							<td>작성일</td>
-							<td colspan="3" class="text-left">${updateData.b_date}</td>
-						</tr>
-						<tr>
-							<td>작성자</td>
-							<td colspan="3" class="text-left">${updateData.b_name}</td>
-						</tr>
-						<tr>
-							<td>글제목</td>
-							<td colspan="3" class="text-left" ><input type="text" id="b_title" name="b_title"
-								value="${updateData.b_title }" class="form-control" /></td>
-						</tr>
-						<tr class="table-height">
-							<td>글내용</td>
-							<td colspan="3" class="text-left"><textarea rows="8px"
-									id="b_content" name="b_content" class="form-control"
-									style="resize: none;">${updateData.b_content}</textarea></td>
-						</tr>
-						<tr>
-							<td>비밀번호</td>
-							<td colspan="3" class="text-left"><input type="password"
-								id="b_pwd" name="b_pwd" class="form-control"
-								maxlength="12" />(수정할 비밀번호 입력)</td>
-						</tr>
-					</tbody>
+						<colgroup>
+					<col width="17%" />
+					<col width="33%" />
+					<col width="17%" />
+					<col width="33%" />
+				</colgroup>
+				<tbody>
+					<tr>
+						<th><label for="m_title" class="text-left">Title : </label></th>
+						<td><input type="text" name="m_title" id="m_title" value = "${updateData.m_title }"
+							placeholder="게시글 제목을 입력하세요"></td>
+					</tr>
+					<tr>
+						<th><label for="m_name" class="text-left">Track Title
+								: </label></th>
+						<td><input type="text" name="m_name" id="m_name" value = "${updateData.m_name }"
+							placeholder="곡 제목을 입력하세요"></td>
+					</tr>
+					<tr>
+						<th><label for="m_coverimage" class="text-left">Cover
+								Image Attachment : </label></th>
+						<td><input type="file" name="coverImg" id="coverImg"></td>
+						<!-- 업로드 할 파일 미리보기가 출력될 영역 설정 예정  -->
+						 <td ><span class = "preview">
+							 <img id ="" src="/uploadStorage/coverImg/${updateData.m_coverimage}" style="width: 100px;height: 100px;"/>
+						</span></td> 
+					</tr>
+					<tr>
+						<th><label for="m_bpm">BPM : </label></th>
+						<td><input type="number" name="m_bpm" id="m_bpm" pattern="[0-9]+"value = "0" value ="${updateData.m_bpm }"
+							placeholder="BPM 정보 입력"></td>
+					</tr>
+					<tr>
+						<th><label for="m_explain">Description : </label></th>
+						<td><textarea name="m_explain" id="m_explain" cols="30"
+								rows="10" style="resize: none;" placeholder="곡 설명"> ${updateData.m_explain}</textarea></td>
+					</tr>
+					<tr>
+						<th><label for="m_file">File(wav,mp3) : </label></th>
+						<td><input type="file" name="file" id="file" ></td>
+						 <td><audio id="player" controls controlsList="nodownload"
+											src="/uploadStorage/audioFile/${updateData.m_file}"></audio></td> 
+					</tr>
+
+					<tr>
+						<th><label for="m_isfree">Distribute for Free : </label></th>
+						<td>
+								<input type="radio" name = "m_isfree" value = "1" ><label class = " ">Y</label>
+								
+								<input type="radio" name = "m_isfree" value ="0"><label class = " ">N</label>
+								
+							</td>
+					</tr>
+					<tr>
+						<th><label for="m_price">Price : </label></th>
+						<td><input type="text" name="m_price" id="m_price" value = "${updateData.m_price}"
+							placeholder="판매 희망 금액" onkeyup="chkNumber(this)" pattern="[0-9]+"></td>
+					</tr>
+					
+					<tr>
+						<th><label for ="m_genre">Genre : </label></th>
+						<td><select name ="m_genre" id = "m_genre" >
+							<option value = "genre">Genre</option>
+							<option value = "ballad">Ballad</option>
+							<option value ="Elelctronic">Elelctronic</option>
+							<option value ="r&b">R&B</option>
+							<option value ="new age">New Age</option>
+							<option value ="rap">Rap/Hip-hop</option>
+							
+						</select>
+
+				</tbody>
+
 				</table>
 			</form>
 		</div>

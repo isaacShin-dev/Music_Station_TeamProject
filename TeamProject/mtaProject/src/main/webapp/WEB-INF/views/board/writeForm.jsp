@@ -176,11 +176,11 @@
 						<th><label for ="m_genre">Genre : </label></th>
 						<td><select name ="m_genre" id = "m_genre" >
 							<option value = "genre">Genre</option>
-							<option value = "ballad">Ballad</option>
-							<option value ="Rock">Rock</option>
-							<option value ="r&b">R&B</option>
-							<option value ="new age">New Age</option>
-							<option value ="rap">Rap/Hip-hop</option>
+							<option value = "Ballad">Ballad</option>
+							<option value ="Electronic">Electronic</option>
+							<option value ="Rnb">R&B</option>
+							<option value ="Agenew">New Age</option>
+							<option value ="Rap">Rap/Hip-hop</option>
 							
 						</select>
 

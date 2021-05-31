@@ -59,13 +59,30 @@
 		    	  });
 				$("#mypage_shopping").click(function(){
 					location.href ="/board/cartList"
-				}) 
-				
-				$("#music_board").click(function(){
-					location.href ="/board/boardList"
-				}) 
+				}); 
 				
 				
+				
+				$(".music_cat").click(function() {
+					$("#m_genre").val($(this).html());
+						
+					
+					
+					$("#cat_form").attr({
+						"method" : "GET",
+						"action" : "/board/boardList"
+
+					});
+					$("#cat_form").submit();
+				});
+				
+				
+
+				
+				
+				
+				
+		
 				/* 안어 클래스 엑스div */
 				 $("#intro_page").click(function(){
 					  $(".inner").removeClass("open");
@@ -106,19 +123,19 @@
    	</label>
    	<div class="sidebar">
    	 <div class="categori">
-   	 
+   	 <form id ="cat_form" ><input type ="hidden" name ="m_genre" id ="m_genre" /></form>
    	  	<h3  id="mypage_shopping" >장바구니</h3>
    	  	<h3 id = "music_board">music</h3>
    	 
-   	 	<h3 id="music_font">Ballad</h3>
+   	 	<h3 class = "music_cat">Ballad</h3>
    	 	<br>
-   	 	<h3 id="music_font" >Rock</h3>
+   	 	<h3 class="music_cat" >Electronic</h3>
    	 	<br>
-   	 	<h3 id="music_font">R&B</h3>
+   	 	<h3 class = "music_cat">RnB</h3>
    	 	<br>
-   	 	<h3 id="music_font">New Age</h3>
+   	 	<h3 class = "music_cat">NewAge</h3>
    	 	<br>
-   	 	<h3 id="music_font">Rap/Hiphop</h3>
+   	 	<h3 class = "music_cat" >Rap/Hiphop</h3>
    	 	<br><br><hr>
    	 	<br><br>
    	 	<h3 id="music_font">News Board</h3>

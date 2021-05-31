@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.spring.mta.reply.dao.ReplyDao">
 	
-	
+	<!-- 댓글목록   -->
 	<select id="replyList" resultType="reply" parameterType="reply">
 	SELECT
 		r_num, m_no, r_name, r_content, r_pwd, to_char(r_date, 'YYYY-MM-DD
@@ -15,6 +15,8 @@
 	
 	</select>
 
+<!-- 댓글 입력 
+ -->
 <insert id="replyInsert" parameterType="reply">
 		<selectKey keyProperty="r_num" resultType="int" order ="BEFORE">
 			select music_reply_seq.nextval from dual
@@ -32,7 +34,37 @@
 		Where
 			m_no =#{m_no}
 	</select>
+	
 
+		
+<!-- pwdConfirm-->
+<select id="pwdConfirm" parameterType="reply" resultType="int">
+
+    		select 
+	NVL((select 1 from music_reply where r_num = #{r_num} AND r_pwd =#{r_pwd}),0) as state
+	From dual
+</select>
+
+<!-- replyUpdate -->
+
+<update id="replyUpdate" parameterType="reply">
+	update music_reply
+	set r_content = #{r_content}
+	,r_date = sysdate
+	<if test = "r_pwd != '' ">
+	,r_pwd = #{r_pwd}
+	</if>
+	where r_num = #{r_num}
+</update>
+
+<!-- replyDelete -->
+<!-- 댓글삭제  -->
+		<delete id="replyDelete" parameterType="reply">
+		
+		delete from music_reply where r_num =#{r_num}
+		
+		
+		</delete>
 
 
 </mapper>

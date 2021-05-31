@@ -38,6 +38,23 @@
 <script src="/resources/include/dist/js/bootstrap.min.js"></script>
 <script type="text/javascript" src="/resources/include/js/common.js"></script>
 <script type="text/javascript">
+
+//장바구니 금액 계산 
+
+function itemSum(){
+    var str = "";
+    var sum = 0;
+    var count = $(".chkbox").length;
+    for(var i=0; i < count; i++ ){
+        if( $(".chkbox")[i].checked == true ){
+         sum += parseInt($(".chkbox")[i].value);
+        }
+    }
+    $("#total").val(sum);
+     
+ }
+
+	
 	$(function(){
 		$("#ListBtn").click(function(){
 			location.href ="/board/boardList";
@@ -76,29 +93,31 @@
 		$("#allCheck").click(function(){
 			 var chk = $("#allCheck").prop("checked");
 			 if(chk) {
-			  $(".check").prop("checked", true);
+			  $(".chkbox").prop("checked", true);
+			  itemSum();
 			 } else {
-			  $(".check").prop("checked", false);
+			  $(".chkbox").prop("checked", false);
+			  itemSum();
 			 }
 			});
 		 
 		 //개별 선택 시 전체 선택 해제
-		 $(".check").click(function(){
+		 $(".chkbox").click(function(){
 			  $("#allCheck").prop("checked", false);
+			  itemSum();
 			 });
 		 
 		 
-		 
+		 var total =0 ;
+
 		 //장바구니 가격 구하기. 
 		 $(".check").click(function(){
-			 
-			 $("input[class='check']:checked").each(function(){
-				 var total =0 
-				 
-				total += ${sum}+$(this).attr("data-mPrice");
-					$("#total").val(total) ;
-				   });
-			
+			 if($("input[class='chkbox']").is(":checked")){
+		            itemSum();
+
+		        }else {
+		        	itemSum();
+		        }
 		 });
 		 
 		 
@@ -186,7 +205,7 @@
 						<c:set var="sum" value="0" />
 							<c:forEach var ="cart" items="${cartList}" varStatus="status"> <!-- items 의 항목을 모두 반복 -->
 								<tr class ="text-center" > 
-									<td class ="text-left"><input type="checkbox" class ="check" name ="check" data-cartNum ="${cart.cart_id}" data-mPrice= "${cart.m_price}" value ="${cart.cart_id}"/></td>
+									<td class ="text-left"><input type="checkbox" class ="chkbox" name ="check" data-cartNum ="${cart.cart_id}" data-mPrice= "${cart.m_price}" value ="${cart.m_price}"/></td>
 									<td class = "text-left"><img src="/uploadStorage/coverImg/${cart.m_coverimage}"/></td>
 									<td class = "goDetail text-left">${cart.m_title}</td>
 									<td class ="text-left">${cart.m_price}</td>
@@ -197,7 +216,7 @@
 							</c:forEach>
 							<div class="text-right">
 								 <div class="sum">
-									  총 합계 : <input type = "number" id ="total" disabled="disabled"/>원
+									  총 합계 : <input type = "number" id ="total" readonly="readonly" value ="0"/>원
 									 </div>
 								</div>
 						</c:when>
