@@ -158,15 +158,18 @@ function goPage() {
 		
 		
 		
-		//좋아요 버튼 클릭 이벤트 
-		$(".btn-group").click(
+				//좋아요 버튼 클릭 이벤트 
+		$(".btn.btn-default.btn-xs").click(
 				function() {
 
 						if (confirm("추천하시겠습니까?")) {
-							var m_no = $(this).parents("tr").attr("data-num");
-							var m_recommend = $(this).html();
+							var m_no = $(this).attr("data-num");
+							var m_recommend = $(this).attr("data-recom");
 							var recommend_no = parseInt(m_recommend) + 1;
 							var currM_no = $(this).attr("data-num");
+							var heart = $("<span>");
+							heart.addClass("glyphicon glyphicon-heart");
+							heart.attr("aria-hidde",true);
 							/* console.log("currM_no :"+currM_no);
 							console.log("m_no: "+currM_no); */
 
@@ -180,9 +183,7 @@ function goPage() {
 												alert("게시물을 추천하셨습니다.");
 												console.log(recommend_no);
 												$(
-														".btn-group[data-num='"
-																+ m_no + "']")
-														.html(recommend_no);
+														".btn[data-num='"+ m_no + "']").html(recommend_no).append(heart);
 
 											} else {
 												alert("이미 추천하신 게시물입니다.");
@@ -214,8 +215,8 @@ function goPage() {
 			});
 			$("#detailForm").submit();
 		});
-
-		$("#paymentBtn").click(function() {
+		//buy button event
+		$(".btn.btn-default.payment").click(function() {
 			//console.log("filedownlaod btn clicked ");
 			var m_no = $(this).parents("tr").attr("data-num");
 			console.log(m_no);
@@ -228,6 +229,34 @@ function goPage() {
 
 		});
 
+		//장바구니 버튼 이벤트 
+		$(".btn.btn-success.cart").click(function() {
+			if (confirm("장바구니에 담으시겠습니까?")) {
+				var m_no = $(this).parents("tr").attr("data-num");
+
+				$.ajax({
+							url : "/board/addCart",
+							type : "get",
+							data : {m_no : m_no},
+							success : function(result) {
+								if (result == 1) {
+								if(confirm("장바구니에 상품을 담았습니다. 장바구니로 이동하시겠습니까?")){
+									location.href = "/board/cartList";
+								}
+										
+								} else {
+									alert("장바구니에 이미 추가되어있는 상품입니다.");
+								}
+							}
+						}).fail(function() {
+							alert("시스템오류");
+						});
+
+			}
+
+	});
+		
+		
 		/*rank 영역 클릭 시 상세 페이지 이동 */
 		$(".goDetailRank").click(function() {
 			var m_no = $(this).parents("figure").attr("data-num");
@@ -371,7 +400,7 @@ function goPage() {
 					<col width="50%" />
 					<col width="21%" />
 					<col width="13%" />
-					<col width="19%" />
+					<col width="24%" />
 					<col width="50%" />
 				</colgroup>
 				<thead>
@@ -406,8 +435,11 @@ function goPage() {
 										</c:otherwise>
 									</c:choose>								
 									<td class="name">${board.m_name}</td>
-									<td class=""><button type="button"
-											class="btn-group btn-group-xs" data-num="${board.m_no}">${board.m_recommentcnt}</button></td>
+									<td class="">
+										<button type="button" class="btn btn-default btn-xs"  data-num="${board.m_no}" data-recom ="${board.m_recommentcnt }">				
+											${board.m_recommentcnt}
+											<span class="glyphicon glyphicon-heart" aria-hidden="true"></span>
+											</button>
 											
 									<td class="player-container" oncontextmenu='return false'>
 									
@@ -415,10 +447,15 @@ function goPage() {
 											src="/uploadStorage/audioFile/${board.m_file}"></audio></td>
 									<c:choose>
 										<c:when test ="${board.m_price !=0}">
-									<td><button type="button" class="btn btn-default"
-											id="paymentBtn" aria-label="Left Align">
+									<td><button type="button" class="btn btn-default payment"
+											 aria-label="Left Align">
 											<span aria-hidden="true">BUY</span>
 										</button></td>
+										<td>
+											<button type="button" class="btn btn-success cart" >
+												 <span class="glyphicon glyphicon-shopping-cart" aria-hidden="true"></span>	
+											</button>
+											</td>
 										</c:when>
 										<c:otherwise>
 											<td><a href="/uploadStorage/audioFile/${board.m_file}" target="_blank"><button type="button" class="btn btn-default"

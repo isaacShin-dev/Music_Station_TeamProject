@@ -36,6 +36,7 @@
 <link href='https://fonts.googleapis.com/css?family=Roboto:100'
 	rel='stylesheet' type='text/css'>
 <link rel="stylesheet" href="/resources/include/css/musicPlayer.css">
+<link rel="stylesheet" href="/resources/include/css/musicDetail.css">
 
 
 
@@ -51,38 +52,7 @@
 		<![endif]-->
 <title></title>
 <style type="text/css">
-#backImg {
-	background-size: cover;
-	position: absolute;
-	z-index: 1;
-	opacity: 0.3;
-	height: 337px;
-	width: 347px;
-	
-}
 
-#thumbImg {
-	position: absolute;
-	z-index: 1;
-	border-radius: 30px;
-	height: 140px;
-	width: 140px;
-	margin : 100px ; 
-}
-
-.fa {
-	position: absolute;
-	bottom: 10px;
-	right: 10px;
-	font-size: 18px;
-	cursor: pointer;
-	color: #555;
-}
-
-#volumeSlider {
-	width: 150px;
-	align-content: center;
-}
 
 input[type="range"] {
 	cursor :default;
@@ -98,19 +68,7 @@ input[type="range"] {
  
 }
 
-.range-style {
-	width: 400px;
-	height: 60px;
-	padding: 20px;
-	border-radius: 10px;
-	box-shadow: -2px -2px 8px white, 2px 2px 8px rgba(black, 0.5);
-	border: thin;
-	border-color: #a7bbc7; display : flex;
-	align-items: center;
-	height: 20px;
-	border-radius: 10px;
-	box-shadow: t -2px -2px 8px white, inset 2px 2px 8px rgba(black, 0.5);
-	display: flex;
+
 }
 </style>
 <script type="text/javascript">
@@ -118,8 +76,50 @@ input[type="range"] {
 
 	$(function(){
 		
+		//좋아요 버튼 클릭 이벤트 
+		$("#likeBtn").click(
+				function() {
 
+						if (confirm("추천하시겠습니까?")) {
+							var m_no = $(this).attr("data-num");
+							var m_recommend = $(this).attr("data-recom");
+							var recommend_no = parseInt(m_recommend) + 1;
+							var currM_no = $(this).attr("data-num");
+							var heart = $("<span>");
+							heart.addClass("glyphicon glyphicon-heart");
+							heart.attr("aria-hidde",true);
+							/* console.log("currM_no :"+currM_no);
+							console.log("m_no: "+currM_no); */
+
+							$.ajax({
+										url : "/board/recommend",
+										type : "get",
+										data : {m_no : m_no},
+										success : function(result) {
+
+											if (result == 1) {
+												alert("게시물을 추천하셨습니다.");
+												console.log(recommend_no);
+												$(
+														".btn[data-num='"+ m_no + "']").html(recommend_no).append(heart);
+
+											} else {
+												alert("이미 추천하신 게시물입니다.");
+											}
+										}
+									}).fail(function() {
+								alert("시스템오류");
+							});
+
+						}
+
+					
+
+				});
 		
+		
+
+		//음악파일 가져오기 및 볼륨 제어  
 		let path = $("#m_file").val();
 		console.log(path);
 
@@ -309,7 +309,7 @@ input[type="range"] {
 					<h2 class='title'>${detail.m_title}</h2>
 					<div class='artist'>${detail.m_name}</div>
 					<div>
-						<input id="volumeSlider" class ="range-style" type="range" min="0" max="1" step="0.01" value="0.4" onchange="changevolume(this.value)" />
+						<input id="volumeSlider" class ="range-style" type="range" min="0" max="1" step="0.01" value="0.4" />
 					</div>
 				</div>
 
@@ -348,6 +348,9 @@ input[type="range"] {
 								id="paymentBtn" aria-label="Left Align">
 								<span aria-hidden="true">BUY</span>
 							</button></td>
+							<td>
+							<button type="button" class="btn btn-success" id="addCartBtn">
+							 <span class="glyphicon glyphicon-shopping-cart" aria-hidden="true"></span></button></td>
 					</c:when>
 					<c:otherwise>
 						<td><a href="/uploadStorage/audioFile/${detail.m_file}"
@@ -358,8 +361,13 @@ input[type="range"] {
 								</button></a></td>
 					</c:otherwise>
 				</c:choose>
-				<button type="button" class="btn btn-success" id="addCartBtn">장바구니
-					담기</button>
+			</div>
+			<div class = "like">
+				
+				<div><button type="button" class="btn btn-default btn-lg" id ="likeBtn" data-num="${detail.m_no}" data-recom ="${detail.m_recommentcnt }">
+				
+				${detail.m_recommentcnt}<span class="glyphicon glyphicon-heart" aria-hidden="true"></span></button>
+				
 			</div>
 		</div>
 		<div>
