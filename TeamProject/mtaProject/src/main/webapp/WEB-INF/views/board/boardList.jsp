@@ -448,17 +448,27 @@ function goPage() {
 									<audio id="player" controls controlsList="nodownload"
 											src="/uploadStorage/audioFile/${board.m_file}"></audio></td>
 									<c:choose>
+									
 										<c:when test ="${board.m_price !=0}">
-									<td><button type="button" class="btn btn-default payment"
-											 aria-label="Left Align">
-											<span aria-hidden="true">BUY</span>
-										</button></td>
-										<td>
-											<button type="button" class="btn btn-success cart" >
-												 <span class="glyphicon glyphicon-shopping-cart" aria-hidden="true"></span>	
-											</button>
-											</td>
+											<c:if test ="${board.m_stock !=0}">
+												<td><button type="button" class="btn btn-default payment"
+														 aria-label="Left Align">
+														<span aria-hidden="true">BUY</span>
+													</button></td>
+													<td>
+														<button type="button" class="btn btn-success cart" >
+															 <span class="glyphicon glyphicon-shopping-cart" aria-hidden="true"></span>	
+														</button>
+														</td>
+											</c:if>
+											<c:if test = "${board.m_stock !=1}">
+												<td><button type="button" class="btn btn-default payment" disabled="disabled"
+														 aria-label="Left Align">
+														<span aria-hidden="true">SOLD</span>
+													</button></td>
+											</c:if>
 										</c:when>
+										
 										<c:otherwise>
 											<td><a href="/uploadStorage/audioFile/${board.m_file}" target="_blank"><button type="button" class="btn btn-default"
 											id="fileDownBtn" aria-label="Left Align">

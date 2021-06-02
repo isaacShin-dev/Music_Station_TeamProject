@@ -328,13 +328,24 @@ input[type="range"] {
 			<div>
 				<c:choose>
 					<c:when test="${detail.m_price !=0}">
-						<td><button type="button" class="btn btn-default"
-								id="paymentBtn" aria-label="Left Align">
-								<span aria-hidden="true">BUY</span>
-							</button></td>
+						<c:if test="${detail.m_stock !=0 }">
+							<td><button type="button" class="btn btn-default"
+									id="paymentBtn" aria-label="Left Align">
+									<span aria-hidden="true">BUY</span>
+								</button></td>
 							<td>
-							<button type="button" class="btn btn-success" id="addCartBtn">
-							 <span class="glyphicon glyphicon-shopping-cart" aria-hidden="true"></span></button></td>
+								<button type="button" class="btn btn-success" id="addCartBtn">
+									<span class="glyphicon glyphicon-shopping-cart"
+										aria-hidden="true"></span>
+								</button>
+							</td>
+						</c:if>
+						<c:if test ="${detail.m_stock !=1 }">
+						<td><button type="button" class="btn btn-default" disabled="disabled"
+									id="paymentBtn" aria-label="Left Align">
+									<span aria-hidden="true">SOLD</span>
+								</button></td>
+						</c:if>
 					</c:when>
 					<c:otherwise>
 						<td><a href="/uploadStorage/audioFile/${detail.m_file}"
