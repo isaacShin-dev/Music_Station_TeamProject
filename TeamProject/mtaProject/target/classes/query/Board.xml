@@ -101,7 +101,7 @@ WHERE ROWNUM <= 5
 		<![CDATA[ m_genre = 'Rnb']]>
 	</if>
 	<if test ="m_genre =='NewAge'">
-		<![CDATA[ m_genre = 'Agenew']]>
+		<![CDATA[ m_genre = 'new age']]>
 	</if>
 		<if test ="m_genre =='Rap/Hiphop'">
 		<![CDATA[ m_genre = 'Rap']]>
@@ -170,18 +170,14 @@ where m_no = #{m_no}
     , m_regdate = sysdate
     Where m_no = #{m_no}
    
-   
 
-  
-   
-   
-   
-   
-   
-   
-   
-   
 </update>
+
+<delete id="mBoardDelete" parameterType="board">
+	Delete from music_board
+	Where m_no = #{m_no}
+	
+</delete>
 
  
 </mapper>

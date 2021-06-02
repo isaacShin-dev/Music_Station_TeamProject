@@ -409,6 +409,7 @@ function goPage() {
 						<th>제목</th>
 						<th>가격</th>
 						<th>작성자</th>
+						<th>장르</th>
 						<th>추천수</th>
 						<th></th>
 
@@ -435,6 +436,7 @@ function goPage() {
 										</c:otherwise>
 									</c:choose>								
 									<td class="name">${board.m_name}</td>
+									<td class ="genre">${board.m_genre}</td>
 									<td class="">
 										<button type="button" class="btn btn-default btn-xs"  data-num="${board.m_no}" data-recom ="${board.m_recommentcnt }">				
 											${board.m_recommentcnt}

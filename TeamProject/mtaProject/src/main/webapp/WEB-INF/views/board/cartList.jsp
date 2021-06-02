@@ -189,8 +189,8 @@ function itemSum(){
 					<tr>
 						<th>선택</th>
 						<th>앨범커버</th>						
+						<th>제목</th>
 						<th>가격</th>
-						<th>작성자</th>
 					
 					</tr>
 				</thead>

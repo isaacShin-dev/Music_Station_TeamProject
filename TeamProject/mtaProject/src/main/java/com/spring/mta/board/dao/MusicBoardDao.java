@@ -18,5 +18,7 @@ public interface MusicBoardDao {
 	public int boardListCnt(MusicBoardVO mvo);
 
 	public int mBoardUpdate(MusicBoardVO mvo);
+
+	public int mBoardDelete(int m_no);
 	
 }

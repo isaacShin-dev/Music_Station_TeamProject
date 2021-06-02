@@ -169,8 +169,9 @@ img {
 				<tr>
 					<th>선택</th>
 					<th>앨범커버</th>
-					<th>가격</th>
+					<th>글제목</th>
 					<th>작성자</th>
+					<th>가격</th>
 
 				</tr>
 			</thead>
@@ -190,8 +191,9 @@ img {
 					<td class="text-left"><img
 						src="/uploadStorage/coverImg/${paymentInfo.m_coverimage}" /></td>
 					<td class="goDetail text-left">${paymentInfo.m_title}</td>
+					<td class="name text-left">${paymentInfo.m_name}</td>
 					<td class="text-left"><fmt:formatNumber value="${paymentInfo.m_price}" type="currency"  currencyCode ="KRW" pattern="₩ ###,###,###" /></td>
-					<td class="name">${paymentInfo.m_name}</td>
+					
 				</tr>
 
 			</tbody>

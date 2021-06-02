@@ -63,6 +63,7 @@
 					<tr>
 						<th>선택</th>
 						<th>앨범커버</th>						
+						<th>글제목</th>
 						<th>가격</th>
 						<th>작성자</th>
 					
@@ -74,8 +75,7 @@
 									
 									<td class = "text-left"><img src="/uploadStorage/coverImg/${cartList.m_coverimage}"/></td>
 									<td class = "goDetail text-left">${cartList.m_title}</td>
-									<td class ="text-left">${cartList.m_price}</td>
-									<td class ="name">${cartList.m_name}</td>													
+									<td class ="text-left">${cartList.m_price}</td>												
 								</tr>
 
 				</tbody>

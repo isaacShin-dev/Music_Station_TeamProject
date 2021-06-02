@@ -154,16 +154,18 @@ input[type="range"] {
 		$("#updateFormBtn").click(function(){
 			/* $("#pwdChk").css("visibility", "visible");
 			$("#msg").text("계정 비밀번호를 입력해 주세요.").css("color", "000099");
-			buttonCheck = 1; */
+			buttonCheck = 1;  */
 			$("#f_data").attr("action", "/board/updateForm");
 			$("#f_data").submit();
 			
 		});
 		//삭제버튼 클릭 시 처리 이벤트
 		$("#boardDeleteBtn").click(function(){
-			$("#pwdChk").css("visibility", "visible");
-			$("#msg").text("계정 입력한 비밀번호를 입력해 주세요.").css("color", "000099");
-			buttonCheck = 2;
+			$("#pwdChk").css("visibility", "visible");/* 
+			$("#msg").text("계정 입력한 비밀번호를 입력해 주세요.").css("color", "000099"); */
+			$("#f_data").attr("action", "/board/mBoardDelete");
+			$("#f_data").submit();
+			/* buttonCheck = 2; */
 		});
 
 		//비밀번호 확인 버튼 클릭 시 처리 이벤트
@@ -186,29 +188,7 @@ input[type="range"] {
 			location.href = "/board/boardList";
 		});
 
-		/* 제목 클릭 시 상세 페이지 이동을 위한 이벤트  
-		$(".goDetail").click(function() {
-			var m_no = $(this).parents("tr").attr("data-num");
-			console.log(m_no);
-			$("#m_no").val(m_no);
-			$("#detailForm").attr({
-				"method" : "get",
-				"action" : "/board/boardDetail"
-			});
-			$("#detailForm").submit();
-		});*/
-
-		/* 제목 클릭 시 상세 페이지 이동을 위한 이벤트  
-		$(".goDetail").click(function() {
-			var m_no = $(this).parents("tr").attr("data-num");
-			console.log(m_no);
-			$("#m_no").val(m_no);
-			$("#detailForm").attr({
-				"method" : "get",
-				"action" : "/board/boardDetail"
-			});
-			$("#detailForm").submit();
-		});*/
+		
 
 		//결제 버튼 
 		$("#paymentBtn").click(function() {
@@ -332,6 +312,10 @@ input[type="range"] {
 					<tr>
 						<td><label class="col-md-1">BPM</label></td>
 						<td>${detail.m_bpm}</td>
+					</tr>
+					<tr>
+						<td><label class="col-md-1">Genre</label></td>
+						<td>${detail.m_genre}</td>
 					</tr>
 					<tr>
 						<td><label class="col-md-1">Content</label></td>

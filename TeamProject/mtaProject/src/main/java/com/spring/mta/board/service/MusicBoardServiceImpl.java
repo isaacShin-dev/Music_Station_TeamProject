@@ -129,6 +129,15 @@ public class MusicBoardServiceImpl implements MusicBoardService {
 	
 		return detail;
 	}
+
+
+	@Override
+	public int boardDelete(int m_no) {
+		int result = 0; 
+		result = musicBoardDao.mBoardDelete(m_no);
+		
+		return result;
+	}
 	 
 
 	

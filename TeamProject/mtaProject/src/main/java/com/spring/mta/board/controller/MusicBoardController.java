@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+
 import com.spring.mta.board.service.MusicBoardService;
 import com.spring.mta.board.vo.MusicBoardVO;
 import com.spring.mta.common.vo.UserInfoVO;
@@ -188,6 +189,24 @@ public class MusicBoardController {
 		return "redirect:"+url ;
 	}
 	
+	@RequestMapping("/mBoardDelete")
+	public String boardDelete(@ModelAttribute MusicBoardVO mvo, RedirectAttributes ras) {
+		log.info("boardDelete ȣ�� ����");
+		
+		//�Ʒ� �������� �Է� ������ ���� ���°��� ����ϴ� ( 1 or 0)
+		int result  = 0;
+		String url  = "";
+		
+		result = musicBoardService.boardDelete(mvo.getM_no());
+		ras.addFlashAttribute("MusicBoardVO",mvo);
+		
+		if(result ==1) {
+			url = "/board/boardList";
+		}else {
+			url ="/board/boardDetail"; // Ȥ�ø� ���� �߻� ��, 
+		}
+	return "redirect:"+url;
+	}
 	
 	
 	

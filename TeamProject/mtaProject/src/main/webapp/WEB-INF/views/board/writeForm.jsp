@@ -176,7 +176,7 @@
 						<th><label for ="m_genre">Genre : </label></th>
 						<td><select name ="m_genre" id = "m_genre" >
 							<option value = "genre">Genre</option>
-							<option value = "Ballad">Ballad</option>
+							<option value = "ballad">ballad</option>
 							<option value ="Electronic">Electronic</option>
 							<option value ="Rnb">R&B</option>
 							<option value ="Agenew">New Age</option>
