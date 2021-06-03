@@ -348,7 +348,7 @@ input[type="range"] {
 						</c:if>
 					</c:when>
 					<c:otherwise>
-						<td><a href="/uploadStorage/audioFile/${detail.m_file}"
+						<td><a href="/uploadStorage/audioFile/${detail.m_file}" download
 							target="_blank"><button type="button" class="btn btn-default"
 									id="fileDownBtn" aria-label="Left Align">
 									<span class="glyphicon glyphicon-save" aria-hidden="true"></span>

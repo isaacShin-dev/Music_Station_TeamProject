@@ -76,6 +76,10 @@
 					$("#cat_form").submit();
 				});
 				
+				$("#Admin_music_board").click(function(){
+					location.href= "/board/AdminPage";
+				});
+				
 				
 
 				
@@ -125,7 +129,7 @@
    	 <div class="categori">
    	 <form id ="cat_form" ><input type ="hidden" name ="m_genre" id ="m_genre" /></form>
    	  	<h3  id="mypage_shopping" >장바구니</h3>
-   	  	<h3 id = "music_board">music</h3>
+   	  	<h3 id = "Admin_music_board">Admin</h3>
    	 
    	 	<h3 class = "music_cat">Ballad</h3>
    	 	<br>

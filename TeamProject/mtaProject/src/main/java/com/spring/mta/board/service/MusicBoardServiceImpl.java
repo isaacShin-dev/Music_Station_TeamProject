@@ -138,6 +138,16 @@ public class MusicBoardServiceImpl implements MusicBoardService {
 		
 		return result;
 	}
+
+
+	@Override
+	public int adminDelete(int m_no) {
+		int result =0;
+		
+		result  = musicBoardDao.adminDelete(m_no);
+		
+		return 0;
+	}
 	 
 
 	

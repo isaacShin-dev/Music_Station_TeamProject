@@ -32,6 +32,20 @@
 	    	<script type="text/javascript">
       var clicks = 0;
 		$(function() {
+			
+			
+			$(".music_cat").click(function() {
+				$("#m_genre").val($(this).html());
+					
+				
+				
+				$("#cat_form").attr({
+					"method" : "GET",
+					"action" : "/board/boardList"
+
+				});
+				$("#cat_form").submit();
+			});
 				/* 사인업 버튼 */
 				 $("#mypagelogin").click(function(){
 		    		  if (clicks == 0) {
@@ -76,6 +90,7 @@
 		    	     	$("#mypageform").submit();
 		    	       
 		    	    });
+				  
 				  $("#mtaintro").click(function(){
 					  location.href = 'eventintro';
 				  });

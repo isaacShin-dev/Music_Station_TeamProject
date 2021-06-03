@@ -32,7 +32,7 @@
 <!-- 모바일 웹 페이지 설정 끝 -->
 <script type="text/javascript"
 	src="/resources/include/js/jquery-1.12.4.min.js"></script>
-<link rel="stylesheet" href="/resources/include/css/MusisBoard.css">
+
 
 <link rel="stylesheet"
 	href="/resources/include/dist/css/bootstrap.min.css">
@@ -51,31 +51,7 @@
 		<script src="../js/html5shiv.js"></script>
 		<![endif]-->
 <style type="text/css">
-.required {
-	color: red;
-}
 
-.goDetail, .img {
-	height: 140px;
-	width: 140px;
-	border-radius: 30px;
-	cursor: pointer;
-}
-.goDetail{
-	font-size: 12px; 
-}
-
-.goDetailRank {
-	height: 220px;
-	width: 220px;
-	border-radius: 10px 100px/120px;
-	cursor: pointer;
-}
-
-.table>tbody>tr>td, .table>tbody>tr>th, .table>tfoot>tr>td, .table>tfoot>tr>th,
-	.table>thead>tr>td, .table>thead>tr>th {
-	vertical-align: middle;
-}
 
 /* -webkit-box-shadow: 15px 15px 20px rgba(0,0, 0, 0.4);
 -moz-box-shadow: 15px 15px 20px rgba(0,0, 0, 0.4);
@@ -157,52 +133,24 @@ function goPage() {
 		
 		
 		
-		
-				//좋아요 버튼 클릭 이벤트 
-		$(".btn.btn-default.btn-xs").click(
-				function() {
-
-						if (confirm("추천하시겠습니까?")) {
-							var m_no = $(this).attr("data-num");
-							var m_recommend = $(this).attr("data-recom");
-							var recommend_no = parseInt(m_recommend) + 1;
-							var currM_no = $(this).attr("data-num");
-							var heart = $("<span>");
-							heart.addClass("glyphicon glyphicon-heart");
-							heart.attr("aria-hidde",true);
-							/* console.log("currM_no :"+currM_no);
-							console.log("m_no: "+currM_no); */
-
-							$.ajax({
-										url : "/board/recommend",
-										type : "get",
-										data : {m_no : m_no},
-										success : function(result) {
-
-											if (result == 1) {
-												alert("게시물을 추천하셨습니다.");
-												console.log(recommend_no);
-												$(
-														".btn[data-num='"+ m_no + "']").html(recommend_no).append(heart);
-
-											} else {
-												alert("이미 추천하신 게시물입니다.");
-											}
-										}
-									}).fail(function() {
-								alert("시스템오류");
-							});
-
-						}
-
-					
-
-				});
-
-		// 글 작성 버튼 이벤트 
-		$("#insertFormBtn").click(function() {
-			location.href = "/board/writeForm";
-		});
+ //리스트 전체 선택  
+		$("#allCheck").click(function(){
+			 var chk = $("#allCheck").prop("checked");
+			 if(chk) {
+			  $(".chkbox").prop("checked", true);
+			  
+			 } else {
+			  $(".chkbox").prop("checked", false);
+			  
+			 }
+			});
+		 
+		 //개별 선택 시 전체 선택 해제
+		 $(".chkbox").click(function(){
+			  $("#allCheck").prop("checked", false);
+			  
+			 });
+	
 
 		/* 제목 클릭 시 상세 페이지 이동을 위한 이벤트  */
 		$(".goDetail,.img").click(function() {
@@ -215,59 +163,39 @@ function goPage() {
 			});
 			$("#detailForm").submit();
 		});
-		//buy button event
-		$(".btn.btn-default.payment").click(function() {
-			//console.log("filedownlaod btn clicked ");
-			var m_no = $(this).parents("tr").attr("data-num");
-			console.log(m_no);
-			$("#m_no").val(m_no);
-			$("#detailForm").attr({
-				"method" : "get",
-				"action" : "/board/payment"
-			});
-			$("#detailForm").submit();
 
-		});
 
-		//장바구니 버튼 이벤트 
-		$(".btn.btn-success.cart").click(function() {
-			if (confirm("장바구니에 담으시겠습니까?")) {
-				var m_no = $(this).parents("tr").attr("data-num");
 
-				$.ajax({
-							url : "/board/addCart",
-							type : "get",
-							data : {m_no : m_no},
-							success : function(result) {
-								if (result == 1) {
-								if(confirm("장바구니에 상품을 담았습니다. 장바구니로 이동하시겠습니까?")){
-									location.href = "/board/cartList";
-								}
-										
-								} else {
-									alert("장바구니에 이미 추가되어있는 상품입니다.");
-								}
-							}
-						}).fail(function() {
-							alert("시스템오류");
-						});
-
-			}
-
-	});
+		//선택된 항목  삭제 
+		 $("#selectDelete_btn").click(function(){
+			  var confirm_val = confirm("정말 삭제하시겠습니까?");
+			  
+			  if(confirm_val) {
+			   var checkArr = new Array();
+			   
+			   $("input[class='chkbox']:checked").each(function(){
+			    checkArr.push($(this).attr("data-m_no")); //선택된 체크박스가 가지고 있는 m_no를 배열에 담는다 . 
+			   });
+			    
+			   $.ajax({
+			    url : "/board/adminDelete",
+			    type : "post",
+			    data : { check : checkArr },
+			    success : function(result){
+			    	if(result ==1){
+			    		location.href = "/board/adminPaage";		
+			    		
+			    	}else{
+			    		alert("System Error");
+			    	}
+			     
+			    }
+			   });
+			  } 
+			 });
 		
 		
-		/*rank 영역 클릭 시 상세 페이지 이동 */
-		$(".goDetailRank").click(function() {
-			var m_no = $(this).parents("figure").attr("data-num");
-			//console.log(m_no);
-			$("#m_no").val(m_no);
-			$("#detailForm").attr({
-				"method" : "get",
-				"action" : "/board/boardDetail"
-			});
-			$("#detailForm").submit();
-		});
+		
 
 		/* 검색 후 검색 대상과 검색 단어 출력 */
 		let word = "<c:out value ='${data.keyword}'/>";
@@ -330,46 +258,21 @@ function goPage() {
 </head>
 
 <body>
+<div class ="text-left">
+				<input type="button" id="selectDelete_btn" class="btn btn-default"
+				value="Delete">
+				<input type="button" id="hideBtn" class="btn btn-default"
+				value="Hide"/>
+ </div>
 	<div class="container">
-		<div id="music_rank">
-			<c:choose>
-				<c:when test="${not empty recentList }">
-					<!-- if 문으로 not empty가 true 일때, list가 있을 때 실행되는 구문. -->
-
-
-					<c:forEach var="board" items="${recentList}" varStatus="status">
-						<figure class="rank_track" data-num="${board.m_no}">
-
-							<!-- click function() -->
-							<img src="/uploadStorage/coverImg/${board.m_coverimage}"
-								class="goDetailRank" />
-							<figcaption>
-								<p class="track_nm">${board.m_title}</p>
-								<p class="artist_nm">${board.m_name}</p>
-							</figcaption>
-						</figure>
-					</c:forEach>
-
-				</c:when>
-
-
-				<c:otherwise>
-					<!-- if문의 else -->
-					<p class="tac text-center">등록된 게시물이 존재하지 않습니다.</p>
-				</c:otherwise>
-			</c:choose>
-
-		</div>
-
-
-
+		<h3 class ="text-center">Administration Page</h3>		
 
 		<form id="detailForm">
 			<input type="hidden" id="m_no" name="m_no" />
 			
 		</form>
 		<%-- =====================검색기능 시작 =========================== --%>
-		<div id="boardSearch" class="text-right">
+		<div id="boardSearch" class="text-center">
 			<form id="f_search" name="f_search" class="form-inline">
 				<input type="hidden" name="pageNum" value="${pageMaker.cvo.pageNum}"> 
 				<input type="hidden" name="amount" value="${pageMaker.cvo.amount}">
@@ -381,7 +284,7 @@ function goPage() {
 						<option value="m_explain">내용</option>
 						<option value="m_name">작성자</option>
 					</select> <input type="text" id="keyword" name="keyword"
-						placeholder="검색어를 입력하세요" class="form-control">
+						placeholder="검색어를 입력하세요" class="form-control" style="width: 300px;">
 					<button type="button" id="searchData"
 						class="btn btn-primary btn-sm">검색</button>
 				</div>
@@ -405,7 +308,8 @@ function goPage() {
 				</colgroup>
 				<thead>
 					<tr>
-						<th>앨범커버</th>
+					
+						<th>선택</th>
 						<th>제목</th>
 						<th>가격</th>
 						<th>작성자</th>
@@ -417,6 +321,11 @@ function goPage() {
 				</thead>
 				<tbody id="list" class="table">
 					<!-- 데이터 출력 -->
+					<tr>
+						
+						<td><input type="checkbox" name="allCheck" id="allCheck" class="" /></td>
+						<td class="text-left"><label for="allCheck" class="">전체선택</label></td>
+					</tr>
 					<c:choose>
 						<c:when test="${not empty boardList }">
 							<!-- if 문으로 not empty가 true 일때, list가 있을 때 실행되는 구문. -->
@@ -424,24 +333,22 @@ function goPage() {
 								<!-- items 의 항목을 모두 반복 -->
 								<tr class="text-center" data-num="${board.m_no}">
 									<!-- data-num 이 해당 글번호를 가지고있다. -->
-									<td><img class = "img"
-										src="/uploadStorage/coverImg/${board.m_coverimage}" /></td>
+									<td class ="text-left"><input type="checkbox" class ="chkbox" name ="check"  data-m_no ="${board.m_no}"/></td>
 									<td class="goDetail text-left">${board.m_title}</td>
 									<c:choose>
 										<c:when test ="${board.m_price != 0}">
-											<td class="text-center"> <fmt:formatNumber value="${board.m_price}" type="currency"  currencyCode ="KRW" pattern="₩ ###,###,###" /></td>
+											<td class="text-left"> <fmt:formatNumber value="${board.m_price}" type="currency"  currencyCode ="KRW" pattern="₩ ###,###,###" /></td>
 										</c:when>
 										<c:otherwise>
-											<td class="text-center">무료 배포</td>
+											<td class="text-left">무료 배포</td>
 										</c:otherwise>
 									</c:choose>								
-									<td class="name">${board.m_name}</td>
-									<td class ="genre">${board.m_genre}</td>
+									<td class="name text-left">${board.m_name}</td>
+									<td class ="genre text-left">${board.m_genre}</td>
 									<td class="">
-										<button type="button" class="btn btn-default btn-xs"  data-num="${board.m_no}" data-recom ="${board.m_recommentcnt }">				
 											${board.m_recommentcnt}
 											<span class="glyphicon glyphicon-heart" aria-hidden="true"></span>
-											</button>
+											</td>
 											
 									<td class="player-container" oncontextmenu='return false'>
 									
@@ -451,31 +358,19 @@ function goPage() {
 									
 										<c:when test ="${board.m_price !=0}">
 											<c:if test ="${board.m_stock !=0}">
-												<td><button type="button" class="btn btn-default payment"
-														 aria-label="Left Align">
-														<span aria-hidden="true">BUY</span>
-													</button></td>
-													<td>
-														<button type="button" class="btn btn-success cart" >
-															 <span class="glyphicon glyphicon-shopping-cart" aria-hidden="true"></span>	
-														</button>
-														</td>
+												<td>In Stock</td>
+
 											</c:if>
 											<c:if test = "${board.m_stock !=1}">
 												<td><button type="button" class="btn btn-default payment" disabled="disabled"
 														 aria-label="Left Align">
-														<span aria-hidden="true">SOLD</span>
+														<span aria-hidden="true">Out of Stock</span>
 													</button></td>
 											</c:if>
 										</c:when>
 										
 										<c:otherwise>
-											<td><a href="/uploadStorage/audioFile/${board.m_file}"download>
-												<button type="button" class="btn btn-default"id="fileDownBtn" aria-label="Left Align">
-													<span class="glyphicon glyphicon-save" aria-hidden="true"></span>
-												</button>
-												</a>
-											</td>
+											<td>Free Track</td>
 										</c:otherwise>
 									</c:choose>	
 											
@@ -505,8 +400,7 @@ function goPage() {
 
 		<!-- ==========================글쓰기 버튼 출력 시작====================== -->
 		<div class="contentBtn text-right">
-			<input type="button" id="insertFormBtn" class="btn btn-success"
-				value="글쓰기">
+
 		</div>
 		<!-- ==========================글쓰기 버튼 출력 종료======================= -->
 	</div>

@@ -9,7 +9,8 @@
 	padding-right: 25px;
 	margin-bottom: 10px;
 	white-space:nowrap;
-	overflow-x:scroll;
+	overflow-x: hidden ; 
+	align-content: center ;  
 
 	/* background: #b4a5a5; */
 }

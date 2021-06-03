@@ -24,6 +24,7 @@ public interface MusicBoardService {
 	public int mBoardUpdate(MusicBoardVO mvo) throws Exception;
 	public MusicBoardVO updateForm(MusicBoardVO mvo);
 	public int boardDelete(int m_no);
+	public int adminDelete(int m_no);
 	
 	
 	

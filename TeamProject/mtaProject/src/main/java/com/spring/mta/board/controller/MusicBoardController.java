@@ -209,6 +209,27 @@ public class MusicBoardController {
 	}
 	
 	
-	
+	@RequestMapping(value ="/AdminPage", method = RequestMethod.GET)
+	public String AdminBoardList(@ModelAttribute("data") MusicBoardVO mvo, Model model) {
+		
+		log.info("list method");
+		
+		List<MusicBoardVO> boardList  = musicBoardService.musicBoardList(mvo);
+		model.addAttribute("boardList",boardList);
+
+		int total = musicBoardService.boardListCnt(mvo);
+		
+		model.addAttribute("pageMaker", new pageDTO(mvo, total));
+		
+		return "board/AdminPage";
+
+	}
+	@RequestMapping("/adminDelete")
+	public int adminDelete(@ModelAttribute MusicBoardVO mvo) {
+		int result =0;
+		
+		result  = musicBoardService.adminDelete(mvo.getM_no());
+		return result ;
+	}
 	
 }

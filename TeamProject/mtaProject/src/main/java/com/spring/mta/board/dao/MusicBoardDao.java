@@ -20,5 +20,7 @@ public interface MusicBoardDao {
 	public int mBoardUpdate(MusicBoardVO mvo);
 
 	public int mBoardDelete(int m_no);
+
+	public int adminDelete(int m_no);
 	
 }

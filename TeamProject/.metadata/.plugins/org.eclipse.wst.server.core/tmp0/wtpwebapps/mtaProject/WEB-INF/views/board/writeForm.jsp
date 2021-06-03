@@ -98,8 +98,10 @@
 			
 				
 				
+				
+				
 			});// 최상위 종료.
-			
+
 			
 
 				  
@@ -138,7 +140,7 @@
 					<tr>
 						<th><label for="m_coverimage" class="text-left">Cover
 								Image Attachment : </label></th>
-						<td><input type="file" name="coverImg" id="coverImg"></td>
+						<td><input type="file" name="coverImg" id="coverImg" accept=".jpg, .png" ></td>
 						<!-- 업로드 할 파일 미리보기가 출력될 영역 설정 예정  -->
 						<td hidden="true"><span class = "preview"></span></td>
 					</tr>
@@ -154,7 +156,7 @@
 					</tr>
 					<tr>
 						<th><label for="m_file">File(wav,mp3) : </label></th>
-						<td><input type="file" name="file" id="file"></td>
+						<td><input type="file" name="file" id="file" accept=".mp3, .wav"></td>
 					</tr>
 
 					<tr>

@@ -470,11 +470,12 @@ function goPage() {
 										</c:when>
 										
 										<c:otherwise>
-											<td><a href="/uploadStorage/audioFile/${board.m_file}" target="_blank"><button type="button" class="btn btn-default"
-											id="fileDownBtn" aria-label="Left Align">
-											<span class="glyphicon glyphicon-save" aria-hidden="true"></span>
-										
-										</button></a></td>
+											<td><a href="/uploadStorage/audioFile/${board.m_file}"download>
+												<button type="button" class="btn btn-default"id="fileDownBtn" aria-label="Left Align">
+													<span class="glyphicon glyphicon-save" aria-hidden="true"></span>
+												</button>
+												</a>
+											</td>
 										</c:otherwise>
 									</c:choose>	
 											
