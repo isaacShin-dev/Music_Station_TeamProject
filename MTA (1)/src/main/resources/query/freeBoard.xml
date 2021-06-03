@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.spring.mta.dao.freeDao">
+
+
+		<!-- 게시판 리스트 기본 조회  -->
+	<!-- 	<select id="boardList" parameterType="board" resultType="board">
+			SELECT b_num, b_name, b_title, to_char(b_date, 'YYYY-MM-DD') as b_date
+			FROM spring_board
+			ORDER BY b_num desc
+		</select>
+		 -->
+		<!-- 게시판 리스트 검색 부분 추가  -->
+		 <!-- <select id="boardList" parameterType="board" resultType="board">
+		 	SELECT b_num, b_name, b_title, to_char(b_date, 'YYYY-MM-DD') as b_date
+		 	FROM spring_board
+		 	<where>
+		 		<if test="search=='b_title'">
+		 			<![CDATA[ b_title LIKE '%' || #{keyword} ||'%']]>
+		 		</if>
+		 		<if test="search=='b_content'">
+		 			<![CDATA[ b_content LIKE '%' || #{keyword} ||'%']]>
+		 		</if>
+		 		<if test="search=='b_name'">
+		 			<![CDATA[ b_name LIKE '%' || #{keyword} ||'%']]>
+		 		</if>
+		 	</where>
+		 	ORDER BY b_num desc
+		 </select> -->
+		 
+		 
+		 <sql id="boardSearch">
+		 		<if test="search=='f_title'">
+		 			<![CDATA[ f_title LIKE '%' || #{keyword} || '%']]>
+		 		</if>
+		 		
+		 		<if test="search=='f_text'">
+		 			<![CDATA[ f_text LIKE '%' || #{keyword} || '%']]>
+		 		</if>
+		 		
+		 		<if test="search=='f_name'">
+		 			<![CDATA[ f_name LIKE '%' || #{keyword} || '%']]>
+		 		</if>
+		 </sql>
+		 
+		 
+		 	<!-- 게시판 리스트 조회(페이징 처리와 검색 처리)  -->
+		 <select id="freeboardList" parameterType="board" resultType="board">
+		 <![CDATA[
+		 	SELECT 
+		 	f_no, f_title, user_id, f_text, to_char(f_regdate, 'YYYY-MM-DD') as f_regdate, f_file , f_viewsCnt , f_recommentCnt
+		 	FROM ( 
+		 		SELECT /*+ INDEX_DESC(free_board free_board_pk)*/
+		 				rownum as rnum, f_no, f_title, user_id, f_text , f_regdate, f_file, f_viewsCnt ,f_recommentCnt
+		 				from free_board
+		 	WHERE ]]>
+		 	<trim prefix="(" suffix=") AND " prefixOverrides="AND">
+		 	
+		 		<include refid="boardSearch"></include>
+		 	</trim>
+		 	<![CDATA[  rownum <= #{pageNum} * #{amount}
+		 	) boardlist
+		 	WHERE rnum > (#{pageNum} - 1) * #{amount}
+		 	]]>
+		 </select> 
+		 
+		 <!-- 전체 레코드 수 조회  -->
+		 <select id="boardListCnt" parameterType="board" resultType="int">
+		 		SELECT count(*) FROM free_board
+		 		<trim prefix=" where (" suffix=")" >
+		 			<include refid="boardSearch"></include>
+		 		</trim>
+		 </select>
+		
+		<!-- 게시판 리스트 칼럼 추가  -->
+		<insert id="freeboardInsert" parameterType="board">
+			Insert into free_board (f_no, f_title, user_id, f_text, f_file)  
+			values (free_board_seq.nextval, #{f_title} , #{user_id} , #{f_text} , #{f_file})
+		</insert> 
+		
+		<!-- 게시판 리스트 칼럼 추가 -->
+		<!-- <insert id="boardInsert" parameterType="board">
+			/* Board - boardInsert */
+			<selectKey keyProperty="b_num" resultType="int" order="BEFORE">
+				select spring_board_seq.nextval from dual
+			</selectKey>
+			Insert into spring_board (b_num, b_name, b_title, b_content, b_pwd)  
+			values (#{b_num}, #{b_name} , #{b_title}, #{b_content}, #{b_pwd})
+		</insert>  -->
+		
+		<!-- 게시물 등록 -2 -->
+	<!-- 	<insert id="boardInsert" parameterType="board">
+			/* Board - boardInsert*/
+			<selectKey keyProperty="b_num" resultType="int" order="BEFORE">
+				select spring_board_seq.nextval from dual
+			</selectKey>
+			
+			INSERT INTO spring_board(b_num, b_name, b_title, b_content, b_pwd) VALUES(#{b_num}, #{b_name}, #{b_title}, #{b_content}, #{b_pwd})
+		</insert> -->
+		
+		<!--  상세 피이지를 위한 게시물 조회 -->
+		<select id="freeboardDetail" parameterType="board" resultType="board">
+			/* Board - freeboardDetail */
+			SELECT
+					f_no, f_title, user_id, f_text, to_char(f_regdate, 'YYYY-MM-DD HH:MM:SS') as f_regdate, f_file , f_viewsCnt, f_recommentCnt
+			FROM free_board
+			WHERE f_no = #{f_no}
+		</select> 
+ 		
+ 		<!-- 글삭제  -->
+		<delete id="freeboardDelete" parameterType="int">
+			delete from free_board where f_no = #{f_no}
+		</delete>
+ 		
+ 		
+		<!-- 해당 번호의 비밀번호 확인  -->
+		<!-- <select id="pwdConfirm" parameterType="board" resultType="int">
+			/* Board - pwdConfirm */
+			SELECT NVL((
+							SELECT 1 FROM spring_board
+							WHERE b_num = #{b_num} AND b_pwd = #{b_pwd}
+						), 0) as state
+			FROM dual
+		</select>
+		 -->
+		
+		<update id="freeboardUpdate" parameterType="board">
+			update free_board 
+			set f_title = #{f_title} ,
+			 f_text = #{f_text},
+			 f_regdate = sysdate,
+			f_file	= #{f_file}
+			  where f_no = #{f_no}
+		</update> 
+		<!-- 	 
+		<if test="b_pwd != ''">
+			  b_pwd = #{b_pwd} 
+		</if>
+		 -->
+		 
+		 <update id="freeboardUpdateViews" parameterType="int">
+			update free_board set f_viewsCnt = f_viewsCnt + 1
+			where f_no = #{f_no}
+		</update> 
+		
+		 <update id="freeRecomment" parameterType="int" >
+			update free_board set f_recommentCnt = f_recommentCnt + 1
+			where f_no = #{f_no}
+		</update> 
+		
+		
+
+</mapper>

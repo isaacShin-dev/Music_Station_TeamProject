@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.spring.mta.dao.MusicBoardDao">
+
+		<!-- 뮤직 차트 추출(추천수 내림차순)-->
+		<select id="musicChart" parameterType="mboard" resultType="mboard" >
+			select m_title, user_id, m_recommentCnt, m_genre from music_board 
+			order by m_recommentCnt desc
+		</select>
+		
+		<!-- <select id="musicBoardList" parameterType="mboard" resultType="mboard">
+
+
+			SELECT
+			
+			m_no, m_title, m_name, m_coverimage,m_file, m_regdate, m_recommentCnt, m_views, user_id, m_price, m_isfree, m_genre
+		      	 FROM  music_board		
+		      	
+			
+		</select> -->
+		<sql id ="boardCategory">
+		<if test ="m_genre =='Ballad'">
+			<![CDATA[ m_genre = 'ballad']]>
+		</if>
+			<if test ="m_genre =='Electronic'">
+			<![CDATA[ m_genre = 'Electronic']]>
+		</if>
+		<if test ="m_genre == 'RnB'">
+			<![CDATA[ m_genre = 'Rnb']]>
+		</if>
+		<if test ="m_genre =='NewAge'">
+			<![CDATA[ m_genre = 'new age']]>
+		</if>
+			<if test ="m_genre =='Rap/Hiphop'">
+			<![CDATA[ m_genre = 'Rap']]>
+		</if>	
+	</sql>
+		
+		
+		<!-- 반복적으로 사용하는 sql문  -->
+		<sql id="boardSearch">
+			<if test="search == 'm_title'">
+		<![CDATA[ m_title LIKE '%' || #{keyword}||'%']]>
+			</if>
+			<if test="search =='m_explan'">
+		<![CDATA[ m_expaln LIKE '%' || #{keyword} ||'%']]>
+			</if>
+			<if test="search == 'm_name'">
+		<![CDATA[m_name LIKE '%' ||#{keyword} ||'%']]>
+			</if>
+		</sql>
+		
+		<!-- 게시판 리스트 조회(페이징 처리와 검색 처리) to_char(m_price,'L9,999,999') as -->
+       <select id= "musicBoardList" parameterType="mboard" resultType="mboard">
+     <![CDATA[
+          SELECT 
+          m_no, m_title, m_name,m_coverimage,m_file, to_char(m_regdate, 'YYYY-MM-DD') as m_regdate,
+           m_recommentCnt, m_views, user_id, m_price, m_isfree,m_genre,m_stock
+          FROM ( 
+             SELECT /*+ INDEX_DESC(music_board music_board_pk)*/
+                   rownum as rnum,  m_no, m_title, m_name,m_coverimage,m_file, m_regdate,  
+                   m_recommentCnt, m_views, user_id, m_price, m_isfree,m_genre,m_stock
+                   from music_board
+          WHERE ]]>
+          <trim prefix="(" suffix=") AND " prefixOverrides="AND">
+          
+             <include refid="boardSearch"></include>
+             <include refid="boardCategory"></include>
+          </trim>
+          <![CDATA[  rownum <= #{pageNum} * #{amount}
+          ) boardlist
+          WHERE rnum > (#{pageNum} - 1) * #{amount}
+          ]]>
+       </select>
+		
+		
+	
+		
+		<!-- 글삭제  -->
+		<delete id="musicboardDelete" parameterType="int">
+			delete from music_board where m_no = #{m_no}
+		</delete>
+		
+		<insert id="musicBoardInsert" parameterType="mboard">
+			INSERT INTO music_board (
+		    m_no,
+		    m_title,
+		    m_name,
+		    m_coverimage,
+		    m_bpm,
+		    m_explan,
+		    m_file,
+		    user_id,
+		    m_price,
+		    m_isfree,
+		    m_genre
+		) VALUES (
+		music_board_seq.nextval, #{m_title}, #{m_name}, #{m_coverimage}, #{m_bpm}, #{m_explan}, #{m_file}, #{user_id}, #{m_price}, #{m_isfree}, #{m_genre}
+		)
+		</insert>
+		
+		<select id="boardDetail" parameterType="mboard" resultType="mboard">
+		
+			SELECT
+		
+			m_no, m_title, m_name, m_coverimage, m_bpm, m_explan, m_file,
+			m_regdate, m_recommentcnt, m_views, user_id, m_price, m_isfree, m_genre
+			
+			FROM music_board
+			
+			where m_no = #{m_no}
+		
+		
+		</select>
+		
+		
+		<update id="recommend" parameterType="mboard" >
+		update music_board
+		set m_recommentCnt = m_recommentCnt+1 
+		where m_no = #{m_no}
+		
+		</update>
+		
+		
+		<!-- 해당 번호의 비밀번호 확인  -->
+		<select id="pwdConfirm" parameterType="user" resultType="int">
+			/* mBoard - pwdConfirm */
+			SELECT NVL((
+							SELECT 1 FROM user_info
+							WHERE user_id = #{user_id} AND user_passwd = #{user_passwd}
+						), 0) as state
+			FROM dual
+		</select>
+		
+		<select id="musicRecentList" parameterType="mboard" resultType="mboard">
+	
+			<![CDATA[ 
+			SELECT m_no, m_title, m_name, m_coverimage,m_file,m_regdate, M_RECOMMENTCNT, m_views, user_id, m_price, m_isfree, m_genre
+		FROM 
+		 (SELECT  m_no, m_title, m_name, m_coverimage,m_file, m_regdate, M_RECOMMENTCNT, m_views, user_id, m_price, m_isfree, m_genre
+		  FROM music_board
+		  ORDER BY M_RECOMMENTCNT DESC)
+		WHERE ROWNUM <= 5
+		    	]]>
+	
+		</select>
+		
+	
+	<!-- 전체 레코드 수 조회  -->
+		 <select id="boardListCnt" parameterType="mboard" resultType="int">
+		 		SELECT count(*) FROM music_board
+		 		<trim prefix=" where (" suffix=")" >
+		 			<include refid="boardSearch"></include>
+		 		</trim>
+		 </select>
+		
+</mapper>

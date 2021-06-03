@@ -1,0 +1,116 @@
+@charset "UTF-8";
+#music_chart{
+	width:50%;
+	height:500px;
+	margin:auto;
+
+	
+
+}
+
+#rank_chart {
+	width:45%;
+	height:300px;
+	top:0;
+	left:0;
+	text-align:center;
+	float:left;
+	border-style: solid;
+    border-width:3px;
+    
+    
+}
+
+#news_chart{
+	width:50%;
+	height:400px;
+	margin:auto;
+	text-align:center;
+	border-style: solid;
+    border-width:3px;
+  
+} 
+#like_chart{
+	width:45%;
+	height:300px;
+	top:0;
+	left:0;
+	text-align:center;
+	float:right;
+	border-style: solid;
+    border-width:3px;
+
+	font-family:Geogia;
+	
+}
+ 
+#mainhomepagecategori{
+	width:100%;
+	height:200px;
+	margin:auto;
+	top:0;
+
+}
+#topcategori{
+	width:100%;
+	height:35px;
+	background-color:#787878;
+	font-size:20px;
+	font-family:Geogia;
+	color: white;
+}
+#leftcategori{
+	width:40%;
+	height:100px;
+	text-align:center;
+	top:0;
+	left:0;
+	float:left;
+}
+#rightcategori{
+	width:45%;
+	height:100px;
+	background-color:100px;
+	text-align:center;
+	top:0;
+	right:0;
+	float:right;
+}
+#buttoncategori{
+	text-align:center;
+	width:100%;
+	
+}
+#mainpagepitcure{
+	width:200px;
+	height:300px;
+	object-fit:cover;
+}
+.topmainpagebutton{
+	 cursor:pointer; 
+}
+#homepage_name{
+	font-size:34px;
+	font-family: Verdana, Geneva, Arial, sans-serif;
+	font-weight: bold;
+	text-decoration: underline;
+	font-style: italic;	
+}
+#homepage_servename{
+	font-size:24px;
+	font-family: sans-serif;
+	font-style:normal;
+}
+.block{
+opacity:0.5;	
+}
+.sign_upbutton{
+font-size:18px;	
+text-decoration: underline;
+cursor:pointer;
+}
+.mainpagebutton{
+	cursor:pointer;
+}
+
+ a { text-decoration: none;}

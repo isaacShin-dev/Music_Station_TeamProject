@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.spring.mta.dao.mcommentDao">
+		
+		<!-- 댓글 기본 조회  -->
+		<select id="mcommentList" parameterType="mcomment" resultType="mcomment">
+			SELECT mc_no, mc_text, user_id, to_char(mc_regdate, 'YYYY-MM-DD') as mc_regdate, m_no
+			FROM music_comment
+			where m_no = #{m_no}
+		</select>
+		
+		<!-- 댓글 칼럼 추가  -->
+		<insert id="mcommentInsert" parameterType="mcomment">
+			Insert into music_comment (m_no, mc_no, user_id, mc_text)  
+			values (#{m_no}, mcomment_seq.nextval, #{user_id}, #{mc_text})
+		</insert> 
+		
+		<!-- 댓글글삭제  -->
+		<delete id="mcommentDelete" parameterType="int">
+			delete from music_comment where mc_no = #{mc_no}
+		</delete>
+</mapper>

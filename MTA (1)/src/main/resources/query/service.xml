@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.spring.mta.dao.serviceDao">
+	
+		 
+		 <sql id="boardSearch">
+		 		<if test="search=='scb_title'">
+		 			<![CDATA[ scb_title LIKE '%' || #{keyword} || '%']]>
+		 		</if>
+		 		
+		 		<if test="search=='scb_text'">
+		 			<![CDATA[ scb_text LIKE '%' || #{keyword} || '%']]>
+		 		</if>
+		 		
+		 		<if test="search=='user_id'">
+		 			<![CDATA[ user_id LIKE '%' || #{keyword} || '%']]>
+		 		</if>
+		 </sql>
+		 
+		 
+		 	<!-- 게시판 리스트 조회(페이징 처리와 검색 처리)  -->
+		 <select id="serviceboardList" parameterType="service" resultType="service">
+		 <![CDATA[
+		 	SELECT 
+		 	scb_no, scb_title, scb_text, user_id, to_char(scb_regdate, 'YYYY-MM-DD') as scb_regdate, scb_replycnt
+		 	FROM ( 
+		 		SELECT /*+ INDEX_DESC(service_center_board service_center_board_pk)*/
+		 				rownum as rnum, scb_no, scb_title, user_id, scb_text , scb_regdate, scb_replycnt
+		 				from service_center_board
+		 	WHERE ]]>
+		 	<trim prefix="(" suffix=") AND " prefixOverrides="AND">
+		 	
+		 		<include refid="boardSearch"></include>
+		 	</trim>
+		 	<![CDATA[  rownum <= #{pageNum} * #{amount}
+		 	) boardlist
+		 	WHERE rnum > (#{pageNum} - 1) * #{amount}
+		 	]]>
+		 </select> 
+		 
+		 <!-- 전체 레코드 수 조회  -->
+		 <select id="serviceboardListCnt" parameterType="service" resultType="int">
+		 		SELECT count(*) FROM service_center_board
+		 		<trim prefix=" where (" suffix=")" >
+		 			<include refid="boardSearch"></include>
+		 		</trim>
+		 </select>
+		
+		<!-- 게시판 리스트 칼럼 추가  -->
+		<insert id="serviceboardInsert" parameterType="service">
+			Insert into service_center_board (scb_no, scb_title, user_id, scb_text)  
+			values (service_seq.nextval, #{scb_title} ,#{user_id}, #{scb_text} )
+		</insert> 
+		
+		
+		<!--  상세 피이지를 위한 게시물 조회 -->
+		<select id="serviceboardDetail" parameterType="service" resultType="service">
+			/* Board - freeboardDetail */
+			SELECT
+					scb_no, scb_title, scb_text,usr_id, to_char(scb_regdate, 'YYYY-MM-DD HH:MM:SS') as scb_regdate, scb_replycnt 
+			FROM service_center_board
+			WHERE scb_no = #{scb_no}
+		</select> 
+ 		
+ 		<!-- 글삭제  -->
+		<delete id="serviceboardDelete" parameterType="int">
+			delete from service_center_board where scb_no = #{scb_no}
+		</delete>
+ 		
+ 		
+		<!-- 해당 번호의 비밀번호 확인  -->
+		<!-- <select id="pwdConfirm" parameterType="board" resultType="int">
+			/* Board - pwdConfirm */
+			SELECT NVL((
+							SELECT 1 FROM spring_board
+							WHERE b_num = #{b_num} AND b_pwd = #{b_pwd}
+						), 0) as state
+			FROM dual
+		</select>
+		 -->
+		
+		<update id="serviceboardUpdate" parameterType="service">
+			update service_center_board 
+			set scb_title = #{scb_title} ,
+			 scb_text = #{scb_text},
+			 scb_regdate = sysdate 
+			 
+			  where scb_no = #{scb_no}
+		</update> 
+		<!-- 	 
+		<if test="b_pwd != ''">
+			  b_pwd = #{b_pwd} 
+		</if>
+		 -->
+		
+		
+		
+		
+</mapper>

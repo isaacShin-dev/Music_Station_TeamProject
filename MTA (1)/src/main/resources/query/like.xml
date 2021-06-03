@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.spring.mta.dao.LikeDao">
+
+<select id = "likeCheck" resultType="int" parameterType="like">
+
+
+select 
+	count(likecnt)
+from 
+	m_likecnt
+where 
+	user_id = #{user_id}  and m_no = #{m_no}
+		
+</select>
+
+<insert id="likeAdd" parameterType="like" >
+	Insert into 
+		m_likecnt(L_NO,USER_ID,M_NO, LIKECNT)
+		values(music_like_seq.nextval,#{user_id}, #{m_no}, 1)
+
+</insert>
+
+
+
+
+
+
+</mapper>

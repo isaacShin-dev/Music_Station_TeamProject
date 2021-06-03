@@ -63,7 +63,8 @@ function itemSum(){
 		
 		//checkOut buttion controll 
 		$("#checkOutBtn").click(function(){
-			   var checkArr = new Array();
+			location.href = "/board/payment";
+			  /*  var checkArr = new Array();
 			   
 			   $("input[class='check']:checked").each(function(){
 			    checkArr.push($(this).attr("data-cartNum"));
@@ -71,7 +72,7 @@ function itemSum(){
 			   checkArr.push($(this).val());
 			   
 			   $.ajax({
-				    url : "/board/checkOut",
+				    url : "/board/payment",
 				    type : "post",
 				    data : { 'check' : checkArr },
 				    success : function(result){
@@ -82,7 +83,7 @@ function itemSum(){
 						}
 				    }
 				   });
-				   
+				    */
 			   });
 			   
 			 

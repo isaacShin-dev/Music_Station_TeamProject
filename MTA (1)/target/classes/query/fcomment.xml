@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.spring.mta.dao.fcommentDao">
+		
+		<!-- 댓글 기본 조회  -->
+		<select id="fcommentList" parameterType="comment" resultType="comment">
+			SELECT fc_no, fc_text, user_id, to_char(fc_regdate, 'YYYY-MM-DD') as fc_regdate, f_no
+			FROM free_board_comment
+			where f_no = #{f_no}
+		</select>
+		
+		<!-- 댓글 칼럼 추가  -->
+		<insert id="fcommentInsert" parameterType="comment">
+			Insert into free_board_comment (f_no, fc_no, user_id, fc_text)  
+			values (#{f_no}, fcomment_seq.nextval, #{user_id}, #{fc_text})
+		</insert> 
+		
+		<!-- 댓글글삭제  -->
+		<delete id="fcommentDelete" parameterType="int">
+			delete from free_board_comment where fc_no = #{fc_no}
+		</delete>
+</mapper>

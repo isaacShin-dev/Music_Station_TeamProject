@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.spring.mta.dao.ReplyDao">
+	
+	
+	<!-- 댓글 전제 조회 (해당 게시물번호에 대해) -->
+	<select id="replyList" parameterType="reply" resultType="reply">
+		select nc_no, n_no, user_id, nc_text,
+			to_char(nc_regdate, 'YYYY-MM-DD HH24:MI:SS') as nc_regdate
+		from news_comment
+		where n_no =#{n_no}
+		order by nc_no desc
+	</select>
+	
+	<!-- 댓글 등록 -->
+	
+	<insert id="replyInsert" parameterType="reply">
+	/*Reply - replyinsert*/
+	<selectKey keyProperty="nc_no" resultType="int" order="BEFORE">
+		select news_comment_seq.nextval from dual
+	</selectKey>
+		insert into news_comment(
+			nc_no, n_no, user_id, nc_text 
+		)values(
+			news_comment_seq.nextval, #{n_no}, #{user_id}, #{nc_text}
+		)
+		
+	</insert>
+	
+	<!-- 해당번호 댓글 정보 수정 -->
+    <select id = "replySelect" parameterType="int" resultType="reply">
+      select nc_no, n_no, user_id, nc_text, nc_regdate
+      from news_comment
+      where nc_no = #{nc_no}
+   </select> 
+   
+   <!-- 댓글 정보 수정 -->
+    <update id = "ReplyUpdate" parameterType="reply" >
+    	/* reply - update*/
+      update news_comment
+      	set nc_text = #{nc_text}
+      		,nc_regdate = sysdate
+      	where n_no = #{n_no}
+   </update>
+   
+   <!-- 댓글 삭제 -->
+    <delete id = "replyDelete" parameterType="reply">
+      /* Reply - Delete */
+      DELETE FROM news_comment WHERE nc_no = #{nc_no}
+   </delete>   
+	
+	<!-- 댓글 갯수 구하기 -->
+	<select id="replyCnt" parameterType="int" resultType="int">
+		/*reply - replyCnt*/
+		select count(nc_no) from news_comment where n_no = ${n_no}
+	</select>
+	
+	<!-- 댓글 삭제(게시판 번호로 댓글 전체 삭제) -->
+	<delete id = "replyChoiceDelete" parameterType="reply">
+		/*reply - replyChoiceDelete*/
+		delete from news_comment where n_no = #{n_no}
+	</delete>
+</mapper>

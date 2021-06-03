@@ -44,7 +44,7 @@
     <id>tag:spring.io,2021-05-28:4457</id>
     <updated>2021-05-28T19:42:00Z</updated>
     <content type="html">&lt;p&gt;On behalf of the community, I am pleased to announce that Service Release 3 of the &lt;a href="https://cloud.spring.io"&gt;Spring Cloud 2020.0&lt;/a&gt; Release Train (2020.0.3) is available today. The release can be found in &lt;a href="https://repo1.maven.org/maven2/org/springframework/cloud/spring-cloud-dependencies/2020.0.3/"&gt;Maven Central&lt;/a&gt;. You can check out the 2020.0 &lt;a href="https://github.com/spring-cloud/spring-cloud-release/wiki/Spring-Cloud-2020.0-Release-Notes#202003"&gt;release notes for more information&lt;/a&gt;.&lt;/p&gt;&lt;h2&gt;&lt;a href="#notable-changes-in-the-2020-0-3-release-train" class="anchor" name="notable-changes-in-the-2020-0-3-release-train"&gt;&lt;/a&gt;Notable Changes in the 2020.0.3 Release Train&lt;/h2&gt;
-&lt;p&gt;This release was primarliy for bug fixes and dependency upgrades.&lt;/p&gt;
+&lt;p&gt;The biggest change in this release was support for Spring Boot 2.5. Besides that, this release is primarily for bug fixes and dependency upgrades.&lt;/p&gt;
 &lt;p&gt;See all of the included issues and pull requests at the &lt;a href="https://github.com/orgs/spring-cloud/projects/61"&gt;Github project&lt;/a&gt;.&lt;/p&gt;&lt;h3&gt;&lt;a href="#spring-cloud-commons" class="anchor" name="spring-cloud-commons"&gt;&lt;/a&gt;Spring Cloud Commons&lt;/h3&gt;
 &lt;ul&gt;
   &lt;li&gt;Added the possibility to disable load-balancing by property (&lt;a href="https://github.com/spring-cloud/spring-cloud-commons/pull/940"&gt;#940&lt;/a&gt;)&lt;/li&gt;
