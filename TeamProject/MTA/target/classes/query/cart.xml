@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.spring.mta.dao.CartDao">
+	
+	<insert id = "addCart" parameterType="cart">
+	
+		insert into m_cart (cart_id, user_id, m_no )
+		values( seq_cart.nextval, #{user_id}, #{m_no} )
+		
+	</insert>
+	
+	<select id="cartList" parameterType="cart" resultType="cart">
+		Select 
+			c.cart_id,
+			c.user_id,
+			m.m_title,
+			m.user_id,
+			m.m_price,
+			m.m_coverimage
+			
+		From
+			user_info u, music_board m, m_cart c
+		Where 
+			u.user_id = c.user_id
+			And m.m_no = c.m_no 
+			And c.user_id = #{user_id}
+			
+	
+	
+	</select>
+	
+	<select id="checkList" parameterType="cart" resultType="cart">
+	Select 
+			user_id,
+			m_title,
+			m_price,
+			m_coverimage
+			
+		From
+			music_board
+		Where 
+			And m.m_no = c.m_no 
+			And user_id = #{user_id}
+	</select>
+
+
+<!-- 카트 삭제 -->
+	<delete id="deleteCart" parameterType="cart">
+		 delete 
+		 From 
+		 	m_cart
+		 where 
+		 	cart_id = #{cart_id}
+		    And user_id = #{user_id}
+	</delete>
+
+	<insert id="paymentCreation" parameterType="cart" >
+		Insert into payment (
+			P_NO,
+			USER_ID,
+			P_DATE
+			)
+		Values(
+			seq_payment.nextval, #{user_id}, to_char(sysdate,'YYYY.MM.DD')
+		)
+		
+	
+	</insert>
+
+	
+		<select id="cartListCheck" parameterType="cart" resultType="int">
+		Select
+			count(cart_id)
+		from
+			m_cart
+		where
+			user_id = #{user_id} and m_no = #{m_no}
+		</select>
+			
+
+</mapper>

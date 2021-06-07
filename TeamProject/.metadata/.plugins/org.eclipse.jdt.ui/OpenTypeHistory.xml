@@ -1,4 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <typeInfoHistroy>
-    <typeInfo handle="=mtaProject/src\/main\/java=/optional=/true=/=/maven.pomderived=/true=/&lt;com.spring.mta.reply.service{ReplyService.java[ReplyService" modifiers="513" timestamp="1622082866000"/>
+    <typeInfo handle="=mtaProject/src\/main\/java=/optional=/true=/=/maven.pomderived=/true=/&lt;com.spring.mta.reply.service{ReplyService.java[ReplyService" modifiers="513" timestamp="1622391425000"/>
+    <typeInfo handle="=mtaProject/src\/main\/java=/optional=/true=/=/maven.pomderived=/true=/&lt;com.spring.mta.like.dao{LikeDao.java[LikeDao" modifiers="513" timestamp="1622311952000"/>
+    <typeInfo handle="=mtaProject/src\/main\/java=/optional=/true=/=/maven.pomderived=/true=/&lt;com.spring.mta.like.service{LikeService.java[LikeService" modifiers="513" timestamp="1622312122000"/>
 </typeInfoHistroy>

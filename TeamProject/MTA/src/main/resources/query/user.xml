@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.spring.mta.dao.UserDao">
+
+		<!-- 로그인  -->
+		<select id="login" parameterType="user" resultType="user">
+			select user_id, user_passwd, user_phone, user_email, user_favorite, user_name, to_char(user_regdate,'YYYY-MM-DD') as user_regdate, profile_image
+			 from user_info
+			 where user_id = #{user_id} and user_passwd = #{user_passwd} 
+		</select>
+		
+		<update id="userUpdate" parameterType="user">
+			update user_info
+			set user_passwd = #{user_passwd}, profile_image = #{profile_image},
+			 user_phone = #{user_phone},
+			 user_email = #{user_email},
+			user_regdate = sysdate 
+			  where user_id = #{user_id}
+		</update>
+		
+		
+	<!-- 게시판 리스트 기본 조회  -->
+	 <select id="userList" parameterType="user" resultType="user">
+			SELECT user_id, user_name, user_phone, to_char(user_regdate, 'YYYY-MM-DD') as user_regdate
+			FROM USER_INFO
+	</select>
+	
+
+	<insert id = "userInsert" parameterType="user" >
+		Insert into USER_INFO (user_id, user_name, user_passwd, user_phone, user_email, user_favorite)  
+			values (#{user_id}, #{user_name} , #{user_passwd}, #{user_phone}, #{user_email}, #{user_favorite})
+	</insert>
+	<!-- 아이디중복 -->
+	      <select id="checkOverId" parameterType="user" resultType="int">
+         /* user - checkOverId */
+         SELECT NVL((
+                     SELECT 1 FROM user_info
+                     WHERE user_id = #{user_id}
+                  ), 0) as state
+         FROM dual
+      </select>
+      <select id="userFindId" parameterType="user" resultType="String">
+      	select user_id 
+      	FROM user_info
+      		where user_name = #{user_name} and user_email = #{user_email}
+      </select>
+      <select id="userFindPwd" parameterType="user" resultType="String">
+      	select user_passwd
+      	FROM user_info
+      		where user_name = #{user_name} and user_email = #{user_email} and user_id = #{user_id}
+      </select>
+		
+</mapper>

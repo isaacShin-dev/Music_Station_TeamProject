@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.spring.mta.dao.fnoticeDao">
+	
+	<!-- 공지사항 리스트 기본 조회  -->
+	<select id="noticeList" parameterType="fnotice" resultType="fnotice">
+			SELECT fn_no, fn_title, to_char(fn_regdate, 'YYYY-MM-DD') as fn_regdate
+			FROM FNOTICE
+			ORDER BY fn_no desc
+	</select>
+	
+	<!--  공지사항 상세 페이지를 위한 게시물 조회 -->
+		<select id="noticeDetail" parameterType="fnotice" resultType="fnotice">
+			/* Board - noticeDetail */
+			SELECT
+					fn_no, fn_title, fn_text, to_char(fn_regdate, 'YYYY-MM-DD HH:MM:SS') as fn_regdate 
+			FROM FNOTICE 
+			WHERE fn_no = #{fn_no}
+		</select> 
+	
+	<!-- 공지사항 리스트 칼럼 추가  -->
+		<insert id="fnoticeInsert" parameterType="fnotice">
+			Insert into FNOTICE (fn_no, fn_title, fn_text)  
+			values (notice_seq.nextval, #{fn_title} , #{fn_text} )
+		</insert> 
+</mapper>

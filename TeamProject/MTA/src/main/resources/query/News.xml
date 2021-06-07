@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.spring.mta.dao.NewsDao">
+
+    
+    <!-- sql보드 검색 -->
+   	 <sql id="newsSearch">
+    	<if test="search=='n_title'">
+    		<![CDATA[n_title like '%' || #{keyword} || '%']]>
+    	</if>
+    	<if test="search=='n_text'">
+    		<![CDATA[n_text like '%' || #{keyword} || '%']]>
+    	</if>
+    	<if test="search=='n_note'">
+    		<![CDATA[n_note like '%' || #{keyword} || '%']]>
+    	</if>
+    
+    </sql> 
+
+      <!-- 게시판 리스트 조회(페이지 처리와 검색 처리) -->
+   <select id="listnews" parameterType="news" resultType="news">
+    <![CDATA[
+     	 SELECT 
+     	 n_no, n_image, n_title, n_note, n_text, to_char(n_regdate, 'YYYY-MM-DD') as n_regdate, n_image 
+      	 FROM (
+     		 select /*+index_desc(news news_pk)*/
+      			rownum as rnum, n_no, n_image, n_title, n_note, n_text, n_regdate
+      		from news		
+      		where]]>
+      		<trim prefix="(" suffix=")and" prefixOverrides="and">
+      			<include refid = "newsSearch"></include>
+      		</trim>
+    	<![CDATA[ rownum <= #{pageNum} *#{amount}
+    	) listnews
+    	where rnum > (#{pageNum} - 1) * #{amount}
+    ]]>
+    </select>
+    
+         <!-- 전체 레코드 수 조회 --> 
+      <select id="newsListCnt" parameterType="news" resultType="int">
+    	select count(*) from news
+    	<trim prefix="where (" suffix=")">
+    		<include refid="newsSearch"></include>
+    	</trim>
+    </select>
+    
+   <!-- 게시물 등록 -->
+    <insert id = "insertnews" parameterType = "news">
+      INSERT INTO news (n_no, n_title, n_note, n_text, n_image, user_id )
+       VALUES (news_seq.nextval, #{n_title}, #{n_note}, #{n_text}, #{n_image}, #{user_id})
+   </insert>
+     
+     
+    <!-- 상세 페이지를 위한 게시물 조회 -->
+   <select id = "detailnews" parameterType="news" resultType = "news">
+      <!--Board - detailnews -->
+    SELECT n_no, n_title, n_note, n_text
+    , to_char(n_regdate, 'YYYY-MM-DD HH:MM:SS') as n_regdate, n_image
+         FROM news
+         WHERE n_no = #{n_no}
+   </select>
+
+   <!-- 게시물 수정 -->
+    <update id = "newsUpdate" parameterType="news" >
+      /* Board - newsUpdate */
+      UPDATE news
+            SET 
+            	n_title = #{n_title}
+            	, n_image = #{n_image}
+            	, n_note = #{n_note}
+                , n_text = #{n_text}
+                , n_regdate = sysdate
+               
+         
+      WHERE n_no = #{n_no}
+   </update> 
+   
+   <!-- 게시물 삭제 -->
+    <delete id = "deletenews" parameterType="news">
+      /* Board - boardDelete */
+      DELETE FROM news WHERE n_no = #{n_no}
+   </delete>   
+</mapper>
